@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+PUBLIC "-//mybatis.org/DTD Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<typeAliases>
+		<!-- typeAlias type="sp365.vo.BoardVO" alias="board" /-->
+		<typeAlias type="sp365.vo.ProductVO" alias="product" />
+		<typeAlias type="sp365.vo.UserVO" alias="user" />
+		<typeAlias type="sp365.vo.CartVO" alias="cart" />
+	</typeAliases>
+
+	<mappers>
+		<!-- mapper resource="sp365/mybatis/boardmapper.xml" /-->
+		<mapper resource="sp365/mybatis/usermapper.xml"/>
+		<mapper resource="sp365/mybatis/productmapper.xml" />
+		<mapper resource="sp365/mybatis/cartmapper.xml" />
+		<!-- <mapper resource="com/mybatis/searchmapper.xml"/> -->
+	</mappers>
+</configuration>
+
+
+
+
+
+

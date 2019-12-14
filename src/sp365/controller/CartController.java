@@ -1,7 +1,5 @@
 package sp365.controller;
 
-import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 
 import javax.annotation.Resource;
@@ -12,7 +10,6 @@ import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import sp365.frame.Biz;
@@ -84,16 +81,12 @@ public class CartController {
 	// cart.sp 설정시 cart.sp?u_id=loginid 설정 해 줘야 함!
 	@RequestMapping("/cart.sp")
 	public ModelAndView cart(ModelAndView mv, HttpServletRequest request, HttpServletResponse response) {
-
+		System.out.println("this is /cart.sp");
 //		String u_id = request.getParameter("u_id");
 		// Session에 있는 loginid 가져오는 방식으로 수정함.
 		HttpSession session = request.getSession();
 		String u_id = (String) session.getAttribute("loginid");
 
-		/** 임의로 만든 id session 삭제 **/
-		if (request.getSession() != null) {
-			request.getSession().invalidate();
-		}
 
 		// 내 u_id에 일치하고 o_id가 'null'인 애들을 카트 리스트에 받아옴
 		ArrayList<CartVO> cartlist = null;
@@ -122,7 +115,8 @@ public class CartController {
 		mv.addObject("subtotal", subtotal);
 		mv.addObject("pdlist", pdlist);
 		mv.addObject("cartlist", cartlist);
-		mv.setViewName("cart/cart");
+		mv.addObject("center", "cart/cart");
+		mv.setViewName("main");
 		System.out.println("cart.sp success");
 
 		return mv;
@@ -131,7 +125,9 @@ public class CartController {
 	@RequestMapping("/deletecitem.sp")
 	public String deleteCartItem(ModelAndView mv, HttpServletRequest request, HttpServletResponse response) {
 		String c_id = request.getParameter("c_id");
-		String u_id = request.getParameter("u_id");
+		HttpSession session = request.getSession();
+		String u_id = (String) session.getAttribute("loginid");
+
 
 		try {
 			cbiz.remove(c_id);
@@ -145,7 +141,9 @@ public class CartController {
 	@RequestMapping("/updatecitem.sp")
 	public String updateCartItem(ModelAndView mv, HttpServletRequest request, @RequestParam int id[],
 			@RequestParam int qty[], @RequestParam int price[]) {
-		String u_id = request.getParameter("u_id");
+		HttpSession session = request.getSession();
+		String u_id = (String) session.getAttribute("loginid");
+
 
 		for (int i = 0; i < id.length; i++) {
 			CartVO vo = new CartVO();

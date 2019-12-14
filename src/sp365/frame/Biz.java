@@ -33,10 +33,9 @@ public interface Biz<K, V> {
 		return null;
 	};
 
-	
+	//// Product
 	// All
-	default public ArrayList<ProductVO> get_all(@Param("startRow") int startRow, @Param("endRow") int endRow)
-			throws Exception {
+	default public ArrayList<V> get_all(@Param("startRow") int startRow, @Param("endRow") int endRow) throws Exception {
 		return null;
 	};
 
@@ -45,7 +44,7 @@ public interface Biz<K, V> {
 	};
 
 	// All > Category
-	default public ArrayList<ProductVO> get_by_cat(@Param("startRow") int startRow, @Param("endRow") int endRow,
+	default public ArrayList<V> get_by_cat(@Param("startRow") int startRow, @Param("endRow") int endRow,
 			@Param("p_category") String p_category) throws Exception {
 		return null;
 	};
@@ -55,8 +54,7 @@ public interface Biz<K, V> {
 	};
 
 	// New
-	default public ArrayList<ProductVO> get_new(@Param("startRow") int startRow, @Param("endRow") int endRow)
-			throws Exception {
+	default public ArrayList<V> get_new(@Param("startRow") int startRow, @Param("endRow") int endRow) throws Exception {
 		return null;
 	};
 
@@ -65,7 +63,7 @@ public interface Biz<K, V> {
 	};
 
 	// New > Category
-	default public ArrayList<ProductVO> get_new_by_cat(@Param("startRow") int startRow, @Param("endRow") int endRow,
+	default public ArrayList<V> get_new_by_cat(@Param("startRow") int startRow, @Param("endRow") int endRow,
 			@Param("p_category") String p_category) throws Exception {
 		return null;
 	};
@@ -75,7 +73,7 @@ public interface Biz<K, V> {
 	};
 
 	// Best
-	default public ArrayList<ProductVO> get_best(@Param("startRow") int startRow, @Param("endRow") int endRow)
+	default public ArrayList<V> get_best(@Param("startRow") int startRow, @Param("endRow") int endRow)
 			throws Exception {
 		return null;
 	};
@@ -85,7 +83,7 @@ public interface Biz<K, V> {
 	};
 
 	// Best > Category
-	default public ArrayList<ProductVO> get_best_by_cat(@Param("startRow") int startRow, @Param("endRow") int endRow,
+	default public ArrayList<V> get_best_by_cat(@Param("startRow") int startRow, @Param("endRow") int endRow,
 			@Param("p_category") String p_category) throws Exception {
 		return null;
 	};
@@ -93,4 +91,20 @@ public interface Biz<K, V> {
 	default public int count_best_by_cat(@Param("p_category") String p_category) throws Exception {
 		return 0;
 	};
+
+////Random 6 products for Main Page
+	// New
+	default public ArrayList<V> get_main_new() throws Exception {
+		return null;
+	};
+
+	// Best
+	default public ArrayList<V> get_main_best() throws Exception {
+		return null;
+	};
+
+//// Cart
+	public default ArrayList<V> getmycart(K k) throws Exception {
+		return null;
+	}
 }

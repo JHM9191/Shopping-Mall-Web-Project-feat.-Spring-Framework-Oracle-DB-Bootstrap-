@@ -19,10 +19,10 @@ import sp365.vo.UserVO;
 public class ProductController {
 
 	@Resource(name = "pbiz")
-	Biz<String, ProductVO> biz;
+	Biz<String, ProductVO> pbiz;
 
 	@Resource(name = "ubiz")
-	Biz<String, UserVO> biz_u;
+	Biz<String, UserVO> ubiz;
 
 	@RequestMapping("/main.sp")
 	public ModelAndView main(HttpServletRequest request) {
@@ -30,8 +30,8 @@ public class ProductController {
 
 		try {
 
-			ArrayList<ProductVO> bestlist = biz.getbest();
-			ArrayList<ProductVO> newlist = biz.getnew();
+			ArrayList<ProductVO> bestlist = pbiz.get_main_new();
+			ArrayList<ProductVO> newlist = pbiz.get_main_best();
 
 //			UserVO u = biz_u.get(id);
 
@@ -41,129 +41,60 @@ public class ProductController {
 
 		} catch (Exception e) {
 			e.printStackTrace();
-
 		}
-
 		mv.setViewName("main");
 		return mv;
 	}
 
-//	@RequestMapping("/plist.sp")
-//	public ModelAndView plist(ModelAndView mv) {
-//		System.out.println("plist");
-//		ArrayList<ProductVO> plist = null;
-//		try {
-//			plist = biz.get();
-//			mv.addObject("plist", plist);
-//			mv.setViewName("product/list");
-//			System.out.println("setViewName");
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//		return mv;
-//	}
 
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	@RequestMapping("/plist.sp")
 	public ModelAndView plist(ModelAndView mv, HttpServletRequest request, PageMaker pagemaker) {
 		int pagenum = Integer.parseInt(request.getParameter("pagenum"));
-		System.out.println("plist()" + pagenum);
 		int contentnum = Integer.parseInt(request.getParameter("contentnum"));
-		System.out.println("plist()" + contentnum);
+		String menu = request.getParameter("menu");
+		String cat = request.getParameter("cat");
+		System.out.println(menu + " " + cat);
+		ArrayList<ProductVO> plist = null;
 		try {
-			pagemaker.setTotalcount(biz.productcount()); // 전체 상품 개수를 지정한다.
-			System.out.println("plist()" + biz.productcount());
-			pagemaker.setPagenum(pagenum); // 현재 페이지를 페이지 객체에 지정한다.
-			pagemaker.setContentnum(contentnum); // 한 페이지에 몇개씩 게시글을 보여줄지 지정한다.
-			pagemaker.setCurrentblock(pagenum); // 현재 페이지 블록이 몇번인지 현재 페이지 번호를 통해서 지정한다.
-			pagemaker.setLastblock(pagemaker.getTotalcount()); // 마지막 블록 번호를 전체 게시글 수를 통해서 정한다.
-
-			pagemaker.prevnext(pagenum); // 현제 페이지 번호로 화살표를 나타낼지 정한다.
-			pagemaker.setStartPage(pagemaker.getCurrentblock()); // 시작 페이지를 페이지 블록 번호로 정한다.
-			pagemaker.setEndPage(pagemaker.getLastblock(), pagemaker.getCurrentblock()); // 마지막 페이지를 마지막 페이지 블록과 현재 페이지
-																							// 블록 번호로 정한다.
-			pagemaker.setStartRow(pagenum);
-			pagemaker.setEndRow(pagenum);
-			List<ProductVO> plist = new ArrayList<ProductVO>();
-			plist = biz.productList(pagemaker.getStartRow(), pagemaker.getEndRow());
-			for (ProductVO p : plist) {
-				System.out.println("plist()" + p.toString());
+			if (cat.equals("none")) {
+				if (menu.equals("All")) {
+					System.out.println("All");
+					pagemaker.pagination(pagenum, contentnum, pbiz.count_all());
+					plist = pbiz.get_all(pagemaker.getStartRow(), pagemaker.getEndRow());
+				} else if (menu.equals("New")) {
+					System.out.println("New");
+					pagemaker.pagination(pagenum, contentnum, pbiz.count_new());
+					plist = pbiz.get_new(pagemaker.getStartRow(), pagemaker.getEndRow());
+				} else if (menu.equals("Best")) {
+					System.out.println("Best");
+					pagemaker.pagination(pagenum, contentnum, pbiz.count_best());
+					plist = pbiz.get_best(pagemaker.getStartRow(), pagemaker.getEndRow());
+				}
+			} else {
+				if (menu.equals("All")) {
+					System.out.println("All>Category");
+					pagemaker.pagination(pagenum, contentnum, pbiz.count_all());
+					plist = pbiz.get_by_cat(pagemaker.getStartRow(), pagemaker.getEndRow(), cat);
+				} else if (menu.equals("New")) {
+					System.out.println("All>Category");
+					pagemaker.pagination(pagenum, contentnum, pbiz.count_new());
+					plist = pbiz.get_new_by_cat(pagemaker.getStartRow(), pagemaker.getEndRow(), cat);
+				} else if (menu.equals("Best")) {
+					System.out.println("All>Category");
+					pagemaker.pagination(pagenum, contentnum, pbiz.count_best());
+					plist = pbiz.get_best_by_cat(pagemaker.getStartRow(), pagemaker.getEndRow(), cat);
+				}
 			}
-			mv.addObject("plist", plist);
-			mv.addObject("page", pagemaker);
-			mv.addObject("center", "product/list");
-			mv.setViewName("main");
-			System.out.println("setViewName");
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return mv;
-	}
-	@RequestMapping("/plistcat.sp")
-	public ModelAndView plistcat(ModelAndView mv, HttpServletRequest request, PageMaker pagemaker) {
-		int pagenum = Integer.parseInt(request.getParameter("pagenum"));
-		System.out.println("plist()" + pagenum);
-		int contentnum = Integer.parseInt(request.getParameter("contentnum"));
-		System.out.println("plist()" + contentnum);
-		String p_category = request.getParameter("cat");
-		System.out.println(p_category);
-		try {
-			pagemaker.setTotalcount(biz.productcatcount(p_category)); // 전체 상품 개수를 지정한다.
-			System.out.println("plist()" + biz.productcount());
-			pagemaker.setPagenum(pagenum); // 현재 페이지를 페이지 객체에 지정한다.
-			pagemaker.setContentnum(contentnum); // 한 페이지에 몇개씩 게시글을 보여줄지 지정한다.
-			pagemaker.setCurrentblock(pagenum); // 현재 페이지 블록이 몇번인지 현재 페이지 번호를 통해서 지정한다.
-			pagemaker.setLastblock(pagemaker.getTotalcount()); // 마지막 블록 번호를 전체 게시글 수를 통해서 정한다.
-
-			pagemaker.prevnext(pagenum); // 현제 페이지 번호로 화살표를 나타낼지 정한다.
-			pagemaker.setStartPage(pagemaker.getCurrentblock()); // 시작 페이지를 페이지 블록 번호로 정한다.
-			pagemaker.setEndPage(pagemaker.getLastblock(), pagemaker.getCurrentblock()); // 마지막 페이지를 마지막 페이지 블록과 현재 페이지
-																							// 블록 번호로 정한다.
-			pagemaker.setStartRow(pagenum);
-			pagemaker.setEndRow(pagenum);
-			List<ProductVO> plist = new ArrayList<ProductVO>();
-			plist = biz.productcatList(pagemaker.getStartRow(), pagemaker.getEndRow(), p_category);
 			for (ProductVO p : plist) {
-				System.out.println("plist()" + p.toString());
+				System.out.println("plist: " + p.toString());
 			}
-			mv.addObject("plist", plist);
+			mv.addObject("menu", menu);
+			mv.addObject("cat", cat);
+			mv.addObject("pagenum", pagenum);
+			mv.addObject("contentnum", contentnum);
 			mv.addObject("page", pagemaker);
-			mv.addObject("pcate", p_category);
-			mv.addObject("center", "product/list");
-			mv.setViewName("main");
-			System.out.println("setViewName");
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return mv;
-	}
-	
-	@RequestMapping("/plistnew.sp")
-	public ModelAndView plistnew(ModelAndView mv, HttpServletRequest request, PageMaker pagemaker) {
-		int pagenum = Integer.parseInt(request.getParameter("pagenum"));
-		System.out.println("plistnew()" + pagenum);
-		int contentnum = Integer.parseInt(request.getParameter("contentnum"));
-		System.out.println("plistnew()" + contentnum);
-		try {
-			pagemaker.setTotalcount(biz.productnewcount()); // 전체 상품 개수를 지정한다.
-			System.out.println("plist()" + biz.productnewcount());
-			pagemaker.setPagenum(pagenum); // 현재 페이지를 페이지 객체에 지정한다.
-			pagemaker.setContentnum(contentnum); // 한 페이지에 몇개씩 게시글을 보여줄지 지정한다.
-			pagemaker.setCurrentblock(pagenum); // 현재 페이지 블록이 몇번인지 현재 페이지 번호를 통해서 지정한다.
-			pagemaker.setLastblock(pagemaker.getTotalcount()); // 마지막 블록 번호를 전체 게시글 수를 통해서 정한다.
-
-			pagemaker.prevnext(pagenum); // 현제 페이지 번호로 화살표를 나타낼지 정한다.
-			pagemaker.setStartPage(pagemaker.getCurrentblock()); // 시작 페이지를 페이지 블록 번호로 정한다.
-			pagemaker.setEndPage(pagemaker.getLastblock(), pagemaker.getCurrentblock()); // 마지막 페이지를 마지막 페이지 블록과 현재 페이지
-																							// 블록 번호로 정한다.
-			pagemaker.setStartRow(pagenum);
-			pagemaker.setEndRow(pagenum);
-			List<ProductVO> plist = new ArrayList<ProductVO>();
-			plist = biz.productnewList(pagemaker.getStartRow(), pagemaker.getEndRow());
-			for (ProductVO p : plist) {
-				System.out.println("plist()" + p.toString());
-			}
 			mv.addObject("plist", plist);
-			mv.addObject("page", pagemaker);
 			mv.addObject("center", "product/list");
 			System.out.println("setViewName");
 		} catch (Exception e) {
@@ -173,6 +104,7 @@ public class ProductController {
 		return mv;
 	}
 
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	@RequestMapping("/pdetail.sp")
 	public ModelAndView pdetail(ModelAndView mv, HttpServletRequest request) {
 		System.out.println("pdetail");
@@ -184,7 +116,7 @@ public class ProductController {
 		String id = request.getParameter("p_id");
 		ProductVO product = null;
 		try {
-			product = biz.get(id);
+			product = pbiz.get(id);
 			System.out.println("pdetail: " + product.toString());
 
 			if (product.getP_stock() != 0) { // 재고 상황에 따라 다르게 표시! ++ 어떻게 결제 막을 것인가?
@@ -199,10 +131,10 @@ public class ProductController {
 			// 할인 가격으로 띄우는 기능 추가해야함
 //			mv.addObject("pd_price", product.getP_price());
 //			mv.addObject("pd_dday", product.getP_delivery_day());
-			
+
 			mv.addObject("pd", product);
-			
-			// main에 있는 ${center}에 product/single-product.jsp 담아주기. 
+
+			// main에 있는 ${center}에 product/single-product.jsp 담아주기.
 			mv.addObject("center", "product/single-product");
 			// new랑 best 아이콘을 띄워볼까~~
 			mv.setViewName("main");
@@ -212,10 +144,9 @@ public class ProductController {
 		}
 		return mv;
 	}
-	
+
 	@RequestMapping("login")
 	public void login() {
-		
-		
+
 	}
 }

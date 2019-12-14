@@ -147,5 +147,24 @@ public class PageMaker {
 		}
 		System.out.println("setLastblock" + this.lastblock);
 	}
+	
+	/////////////////
+	public void pagination(int pagenum, int contentnum, int totalCount) throws Exception {
+		setTotalcount(totalCount);
+		setPagenum(pagenum); // 현재 페이지를 페이지 객체에 지정한다.
+		setContentnum(contentnum); // 한 페이지에 몇개씩 게시글을 보여줄지 지정한다.
+		setCurrentblock(pagenum); // 현재 페이지 블록이 몇번인지 현재 페이지 번호를 통해서 지정한다.
+		setLastblock(getTotalcount()); // 마지막 블록 번호를 전체 게시글 수를 통해서 정한다.
+		prevnext(pagenum); // 현제 페이지 번호로 화살표를 나타낼지 정한다.
+		setStartPage(getCurrentblock()); // 시작 페이지를 페이지 블록 번호로 정한다.
+		setEndPage(getLastblock(), getCurrentblock()); // 마지막 페이지를 마지막 페이지 블록과 현재 페이지
+		setStartRow(pagenum);
+		setEndRow(pagenum);
+	}
+	
+	
+	
+	
+	/////////////////
 
 }

@@ -1,10 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
 	pageEncoding="EUC-KR"%>
-
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
-
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -48,7 +44,18 @@
 <link rel="stylesheet" href="css/slick.css">
 <!-- style CSS -->
 <link rel="stylesheet" href="css/style.css">
-
+<script>
+	function menuClicked(menu) {
+		alert(menu);
+		if (menu == 'All') {
+			location.href = "plist.sp?menu=All&cat=none&pagenum=1&contentnum=10";
+		} else if (menu == 'New') {
+			location.href = "plist.sp?menu=New&cat=none&pagenum=1&contentnum=10";
+		} else if (menu == 'Best') {
+			location.href = "plist.sp?menu=Best&cat=none&pagenum=1&contentnum=10";
+		}
+	};
+</script>
 </head>
 
 <body>
@@ -75,13 +82,12 @@
 						<div class="collapse navbar-collapse main-menu-item"
 							id="navbarSupportedContent">
 							<ul class="navbar-nav">
-								<li class="nav-item"><a class="nav-link"
-									href="plist.sp?pagenum=1&contentnum=10">All</a></li>
-
-								<li class="nav-item"><a class="nav-link"
-									href="plistnew.sp?pagenum=1&contentnum=10">New</a></li>
-								<li class="nav-item"><a class="nav-link"
-									href="plistbest.sp?pagenum=1&contentnum=10">Best</a></li>
+								<li class="nav-item"><a class="nav-link" href="#"
+									onclick="menuClicked('All');">All</a></li>
+								<li class="nav-item"><a class="nav-link" href="#"
+									onclick="menuClicked('New');">New</a></li>
+								<li class="nav-item"><a class="nav-link" href="#"
+									onclick="menuClicked('Best');">Best</a></li>
 							</ul>
 						</div>
 
@@ -120,9 +126,9 @@
 
 
 						<!--�λ�援щ�� 洹몃━怨� ��蹂닿린 ���댁� �������� -->
-						<div class="hearer_icon d-flex">
-							<div class="dropdown cart">
-								<a class="dropdown-toggle" id="navbarDropdown3" href="cart.sp"
+						<div class="hearer_icon">
+							<div>
+								<a  href="cart.sp"
 									role="button" data-toggle="dropdown" aria-haspopup="true"
 									aria-expanded="false"> <i class="ti-bag"></i>
 								</a>

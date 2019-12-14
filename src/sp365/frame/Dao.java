@@ -28,8 +28,9 @@ public interface Dao<K, V> {
 		return null;
 	};
 
+//// Product
 	// All
-	default public ArrayList<ProductVO> select_all(@Param("startRow") int startRow, @Param("endRow") int endRow)
+	default public ArrayList<V> select_all(@Param("startRow") int startRow, @Param("endRow") int endRow)
 			throws Exception {
 		return null;
 	};
@@ -39,7 +40,7 @@ public interface Dao<K, V> {
 	};
 
 	// All > Category
-	default public ArrayList<ProductVO> select_by_cat(@Param("startRow") int startRow, @Param("endRow") int endRow,
+	default public ArrayList<V> select_by_cat(@Param("startRow") int startRow, @Param("endRow") int endRow,
 			@Param("p_category") String p_category) throws Exception {
 		return null;
 	};
@@ -49,7 +50,7 @@ public interface Dao<K, V> {
 	};
 
 	// New
-	default public ArrayList<ProductVO> select_new(@Param("startRow") int startRow, @Param("endRow") int endRow)
+	default public ArrayList<V> select_new(@Param("startRow") int startRow, @Param("endRow") int endRow)
 			throws Exception {
 		return null;
 	};
@@ -59,7 +60,7 @@ public interface Dao<K, V> {
 	};
 
 	// New > Category
-	default public ArrayList<ProductVO> select_new_by_cat(@Param("startRow") int startRow, @Param("endRow") int endRow,
+	default public ArrayList<V> select_new_by_cat(@Param("startRow") int startRow, @Param("endRow") int endRow,
 			@Param("p_category") String p_category) throws Exception {
 		return null;
 	};
@@ -69,7 +70,7 @@ public interface Dao<K, V> {
 	};
 
 	// Best
-	default public ArrayList<ProductVO> select_best(@Param("startRow") int startRow, @Param("endRow") int endRow)
+	default public ArrayList<V> select_best(@Param("startRow") int startRow, @Param("endRow") int endRow)
 			throws Exception {
 		return null;
 	};
@@ -79,7 +80,7 @@ public interface Dao<K, V> {
 	};
 
 	// Best > Category
-	default public ArrayList<ProductVO> select_best_by_cat(@Param("startRow") int startRow, @Param("endRow") int endRow,
+	default public ArrayList<V> select_best_by_cat(@Param("startRow") int startRow, @Param("endRow") int endRow,
 			@Param("p_category") String p_category) throws Exception {
 		return null;
 	};
@@ -87,4 +88,20 @@ public interface Dao<K, V> {
 	default public int count_best_by_cat(@Param("p_category") String p_category) throws Exception {
 		return 0;
 	};
+
+////Random 6 products for Main Page
+	// New
+	default public ArrayList<V> select_main_new() throws Exception {
+		return null;
+	};
+
+	// Best
+	default public ArrayList<V> select_main_best() throws Exception {
+		return null;
+	};
+
+//// Cart
+	default public ArrayList<V> selectmycart(K k) throws Exception {
+		return null;
+	}
 }

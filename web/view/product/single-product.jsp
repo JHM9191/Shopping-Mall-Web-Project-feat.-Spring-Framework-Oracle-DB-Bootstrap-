@@ -41,14 +41,13 @@
 			} else {
 				alert('메인 페이지로 이동합니다.');
 				// location.href = "main.sp";
-				detailform.action = "mainsp";
+				detailform.action = "main.sp";
 			}
 		} 
 		else {
 			confirmLogin = confirm('장바구니에 성공적으로 추가되었습니다.\n 장바구니 페이지로 이동하시겠습니까?');
 			if(confirmLogin) {
 				alert('장바구니 페이지로 이동합니다.');
-				detailform.action = "cart.sp";
 				detailform.action = "cart.sp";
 			} else {
 				detailform.action = "cart.sp";

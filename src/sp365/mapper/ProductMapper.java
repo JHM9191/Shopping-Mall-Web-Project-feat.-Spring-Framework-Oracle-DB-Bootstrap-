@@ -18,7 +18,15 @@ public interface ProductMapper {
 
 	public ArrayList<ProductVO> selectall() throws Exception;
 
-
+	//// Random 6 products for Main Page
+	// New
+	public ArrayList<ProductVO> select_main_new() throws Exception;
+	
+	// Best
+	public ArrayList<ProductVO> select_main_best() throws Exception;
+	
+	
+	//// Product(Pagination Applied)
 	// All
 	public ArrayList<ProductVO> select_all(@Param("startRow") int startRow, @Param("endRow") int endRow) throws Exception;
 	public int count_all() throws Exception;

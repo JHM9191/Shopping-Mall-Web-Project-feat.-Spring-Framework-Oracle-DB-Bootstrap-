@@ -56,41 +56,48 @@
 <script src="js/custom.js"></script>
 
 <script>
-	var selected = 10;
-	$(document).ready(function() {
-		var showcontentnum = $('select.contentnum').change(function() {
-			selected = $(this).children("option:selected").val();
-			alert(selected);
-			$('#showContent').html(selected);
-			location.href = "plist.sp?pagenum=" + $
-			{
-				pagenum
-			}
-			+"&contentnum=" + selected;
-		});
-
-	});
-	var cate = '${pcate}';
-	var menu = 'All';
-	
+	/*
 	function menuClicked(menu) {
-		this.menu = menu;
-	}
-	
-	function catClicked(cat) {
-		cate = cat;
-	}
-
-	function page(idx) {
-		var pagenum = idx;
-
-		if (cate != '') {
-			location.href = "plistcat.sp?cat=" + cate + "&pagenum=" + pagenum
-					+ "&contentnum=" + selected;
-		} else {
-			location.href = "plist.sp?pagenum=" + pagenum + "&contentnum="
-					+ selected;
+		alert(menu);
+		if (menu == 'All') {
+			location.href = "plist.sp?menu=All&cat=none&pagenum=${pagenum}&contentnum=10";
+		} else if (menu == 'New') {
+			location.href = "plist.sp?menu=New&cat=none&pagenum=${pagenum}&contentnum=10";
+		} else if (menu == 'Best') {
+			location.href = "plist.sp?menu=Best&cat=none&pagenum=${pagenum}&contentnum=10";
 		}
+	};
+	 */
+	function catClicked(cat) {
+		alert('category: ' + cat);
+		if (cat == 'top') {
+			alert('if category = ' + cat);
+			location.href = "plist.sp?menu=${menu}&cat=top&pagenum=${pagenum}&contentnum=${contentnum}";
+		} else if (cat == 'bottom') {
+			location.href = "plist.sp?menu=${menu}&cat=bottom&pagenum=${pagenum}&contentnum=${contentnum}";
+		} else if (cat == 'outer') {
+			location.href = "plist.sp?menu=${menu}&cat=outer&pagenum=${pagenum}&contentnum=${contentnum}";
+		} else if (cat == 'acc') {
+			location.href = "plist.sp?menu=${menu}&cat=acc&pagenum=${pagenum}&contentnum=${contentnum}";
+		}
+	};
+	
+	var selected = ${contentnum};
+		var selected2 = $('#contentnumber option:selected').val(); 
+		alert(selected);
+		alert("hello");
+		$(function() {
+			$('#contentnumber').on('change', function() {
+				selected = $(this).val();
+				alert("select onchange: " + $(this).val());
+				location.href = "plist.sp?menu=${menu}&cat=acc&pagenum=1&contentnum=" + selected;	
+			});
+		});
+	
+	
+	function page(pagenum) {
+		location.href = "plist.sp?menu=${menu}&cat=acc&pagenum=" + pagenum
+				+ "&contentnum=${contentnum}";
 	}
 </script>
 
@@ -109,13 +116,13 @@
 							<div class="widgets_inner">
 								<ul class="list">
 									<li><a class="category" onclick="catClicked('top');"
-										href="plistcat.sp?cat=top&pagenum=1&contentnum=10">Top</a></li>
+										href="#">Top</a></li>
 									<li><a class="category" onclick="catClicked('bottom');"
-										href="plistcat.sp?cat=bottom&pagenum=1&contentnum=10">Bottom</a></li>
+										href="#">Bottom</a></li>
 									<li><a class="category" onclick="catClicked('outer');"
-										href="plistcat.sp?cat=outer&pagenum=1&contentnum=10">Outer</a></li>
+										href="#">Outer</a></li>
 									<li><a class="category" onclick="catClicked('acc');"
-										href="plistcat.sp?cat=acc&pagenum=1&contentnum=10">Accessories</a></li>
+										href="#">Accessories</a></li>
 								</ul>
 							</div>
 						</aside>
@@ -211,7 +218,7 @@
 										</select>
 									</div>
 									<div class="product_bar_single">
-										<select class="contentnum">
+										<select id="contentnumber">
 											<option value="10" selected>Show 10</option>
 											<option value="20">Show 20</option>
 											<option value="30">Show 30</option>

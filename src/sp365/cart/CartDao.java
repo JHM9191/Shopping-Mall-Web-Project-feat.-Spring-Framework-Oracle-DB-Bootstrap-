@@ -36,7 +36,7 @@ public class CartDao implements Dao<String, CartVO> {
 	}
 
 	@Override
-	public ArrayList<CartVO> select() throws Exception {
+	public ArrayList<CartVO> selectall() throws Exception {
 		return cm.selectall();
 	}
 }

@@ -36,7 +36,7 @@ public class UserDao implements Dao<String, UserVO> {
 	}
 
 	@Override
-	public ArrayList<UserVO> select() throws Exception {
+	public ArrayList<UserVO> selectall() throws Exception {
 		return um.selectall();
 	}
 

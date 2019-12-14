@@ -42,7 +42,7 @@ public class CartBiz implements Biz<String, CartVO> {
 
 	@Override
 	public ArrayList<CartVO> get() throws Exception {
-		return dao.select();
+		return dao.selectall();
 	}
 
 }

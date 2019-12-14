@@ -42,7 +42,7 @@ public class UserBiz implements Biz<String, UserVO> {
 
 	@Override
 	public ArrayList<UserVO> get() throws Exception {
-		return dao.select();
+		return dao.selectall();
 	}
 
 }

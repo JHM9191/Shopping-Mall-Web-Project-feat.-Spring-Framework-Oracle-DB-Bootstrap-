@@ -20,7 +20,6 @@ public class ProductDao implements Dao<String, ProductVO> {
 	@Override
 	public void insert(ProductVO product) throws Exception {
 		pm.insert(product);
-		;
 	}
 
 	@Override
@@ -108,5 +107,18 @@ public class ProductDao implements Dao<String, ProductVO> {
 	public int count_best_by_cat(String p_category) throws Exception {
 		return pm.count_best_by_cat(p_category);
 	}
+	
+	// Random 6 NEW products for Main Page
+	@Override
+	public ArrayList<ProductVO> select_main_new() throws Exception {
+		return pm.select_main_new();
+	}
+	
+	// Random 6 BEST products for Main Page
+	@Override
+	public ArrayList<ProductVO> select_main_best() throws Exception {
+		return pm.select_main_best();
+	}
 
+	
 }

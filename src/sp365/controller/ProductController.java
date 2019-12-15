@@ -24,27 +24,7 @@ public class ProductController {
 	@Resource(name = "ubiz")
 	Biz<String, UserVO> ubiz;
 
-	@RequestMapping("/main.sp")
-	public ModelAndView main(HttpServletRequest request) {
-		ModelAndView mv = new ModelAndView();
 
-		try {
-
-			ArrayList<ProductVO> bestlist = pbiz.get_main_new();
-			ArrayList<ProductVO> newlist = pbiz.get_main_best();
-
-//			UserVO u = biz_u.get(id);
-
-			mv.addObject("jsp_bestlist", bestlist);
-			mv.addObject("jsp_newlist", newlist);
-//			mv.addObject("center", "");
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		mv.setViewName("main");
-		return mv;
-	}
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -74,15 +54,15 @@ public class ProductController {
 			} else {
 				if (menu.equals("All")) {
 					System.out.println("All>Category");
-					pagemaker.pagination(pagenum, contentnum, pbiz.count_all());
+					pagemaker.pagination(pagenum, contentnum, pbiz.count_by_cat(cat));
 					plist = pbiz.get_by_cat(pagemaker.getStartRow(), pagemaker.getEndRow(), cat);
 				} else if (menu.equals("New")) {
 					System.out.println("All>Category");
-					pagemaker.pagination(pagenum, contentnum, pbiz.count_new());
+					pagemaker.pagination(pagenum, contentnum, pbiz.count_new_by_cat(cat));
 					plist = pbiz.get_new_by_cat(pagemaker.getStartRow(), pagemaker.getEndRow(), cat);
 				} else if (menu.equals("Best")) {
 					System.out.println("All>Category");
-					pagemaker.pagination(pagenum, contentnum, pbiz.count_best());
+					pagemaker.pagination(pagenum, contentnum, pbiz.count_best_by_cat(cat));
 					plist = pbiz.get_best_by_cat(pagemaker.getStartRow(), pagemaker.getEndRow(), cat);
 				}
 			}

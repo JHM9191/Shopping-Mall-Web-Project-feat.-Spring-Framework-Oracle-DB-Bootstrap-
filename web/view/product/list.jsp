@@ -69,34 +69,40 @@
 	};
 	 */
 	function catClicked(cat) {
-		alert('category: ' + cat);
+		//alert('category: ' + cat);
+		var previouscat = '${cat}';
+		var pagenum = '${pagenum}';
+		if(previouscat != cat) {
+			pagenum = 1;
+		}
+		
 		if (cat == 'top') {
-			alert('if category = ' + cat);
-			location.href = "plist.sp?menu=${menu}&cat=top&pagenum=${pagenum}&contentnum=${contentnum}";
+			//alert('if category = ' + cat);
+			location.href = "plist.sp?menu=${menu}&cat=top&pagenum=" + pagenum + "&contentnum=${contentnum}";
 		} else if (cat == 'bottom') {
-			location.href = "plist.sp?menu=${menu}&cat=bottom&pagenum=${pagenum}&contentnum=${contentnum}";
+			location.href = "plist.sp?menu=${menu}&cat=bottom&pagenum=" + pagenum + "&contentnum=${contentnum}";
 		} else if (cat == 'outer') {
-			location.href = "plist.sp?menu=${menu}&cat=outer&pagenum=${pagenum}&contentnum=${contentnum}";
+			location.href = "plist.sp?menu=${menu}&cat=outer&pagenum=" + pagenum + "&contentnum=${contentnum}";
 		} else if (cat == 'acc') {
-			location.href = "plist.sp?menu=${menu}&cat=acc&pagenum=${pagenum}&contentnum=${contentnum}";
+			location.href = "plist.sp?menu=${menu}&cat=acc&pagenum=" + pagenum + "&contentnum=${contentnum}";
 		}
 	};
 	
 	var selected = ${contentnum};
 		var selected2 = $('#contentnumber option:selected').val(); 
-		alert(selected);
-		alert("hello");
+		//alert(selected);
+		//alert("hello");
 		$(function() {
 			$('#contentnumber').on('change', function() {
 				selected = $(this).val();
-				alert("select onchange: " + $(this).val());
-				location.href = "plist.sp?menu=${menu}&cat=acc&pagenum=1&contentnum=" + selected;	
+				//alert("select onchange: " + $(this).val());
+				location.href = "plist.sp?menu=${menu}&cat={cat}&pagenum=1&contentnum=" + selected;	
 			});
 		});
 	
 	
 	function page(pagenum) {
-		location.href = "plist.sp?menu=${menu}&cat=acc&pagenum=" + pagenum
+		location.href = "plist.sp?menu=${menu}&cat=${cat}&pagenum=" + pagenum
 				+ "&contentnum=${contentnum}";
 	}
 </script>

@@ -46,7 +46,7 @@
 <link rel="stylesheet" href="css/style.css">
 <script>
 	function menuClicked(menu) {
-		alert(menu);
+		//alert(menu);
 		if (menu == 'All') {
 			location.href = "plist.sp?menu=All&cat=none&pagenum=1&contentnum=10";
 		} else if (menu == 'New') {
@@ -120,7 +120,8 @@
 									</c:otherwise>
 								</c:choose>
 
-								<li class="nav-item"><a class="nav-link" href="#"> Q&A</a></li>
+								<li class="nav-item"><a class="nav-link" href="qna_user.sp">
+										Q&A</a></li>
 							</ul>
 						</div>
 
@@ -128,9 +129,9 @@
 						<!--�λ�援щ�� 洹몃━怨� ��蹂닿린 ���댁� �������� -->
 						<div class="hearer_icon">
 							<div>
-								<a  href="cart.sp"
-									role="button" data-toggle="dropdown" aria-haspopup="true"
-									aria-expanded="false"> <i class="ti-bag"></i>
+								<a href="cart.sp" role="button" data-toggle="dropdown"
+									aria-haspopup="true" aria-expanded="false"> <i
+									class="ti-bag"></i>
 								</a>
 								<!-- <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                     <div class="single_product">
@@ -148,10 +149,9 @@
 						<!--search ��蹂닿린 ���댁� �대┃��  ��諛� �ㅽ�щ┰�� �������� search媛� ������ -->
 						<a id="search_1" href="javascript:void(0)"><i
 							class="ti-search"></i></a>
+					</nav>
 				</div>
-				</nav>
 			</div>
-		</div>
 		</div>
 
 		<!-- search ����-->

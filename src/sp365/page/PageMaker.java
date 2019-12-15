@@ -35,6 +35,7 @@ public class PageMaker {
 		if (totalcount % contentnum > 0) {
 			totalpage++;
 		}
+		System.out.println("totalcount:" + totalcount);
 		System.out.println("calcpage()" + totalpage);
 		return totalpage;
 	}
@@ -150,6 +151,7 @@ public class PageMaker {
 	
 	/////////////////
 	public void pagination(int pagenum, int contentnum, int totalCount) throws Exception {
+		System.out.println("pagination()");
 		setTotalcount(totalCount);
 		setPagenum(pagenum); // 현재 페이지를 페이지 객체에 지정한다.
 		setContentnum(contentnum); // 한 페이지에 몇개씩 게시글을 보여줄지 지정한다.

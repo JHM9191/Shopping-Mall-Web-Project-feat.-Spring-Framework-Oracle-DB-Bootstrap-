@@ -17,20 +17,32 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import sp365.frame.Biz;
+import sp365.vo.ProductVO;
 import sp365.vo.UserVO;
 
 @Controller
 public class MainController {
 
 	@Resource(name = "ubiz")
-	Biz<String, UserVO> biz;
-
-//	@RequestMapping("/main.sp")
-//	public ModelAndView main() {
-//		ModelAndView mv = new ModelAndView();
-//		mv.setViewName("main");
-//		return mv;
-//	}
+	Biz<String, UserVO> ubiz;
+	
+	@Resource(name = "pbiz")
+	Biz<String, ProductVO> pbiz;
+	
+	@RequestMapping("/main.sp")
+	public ModelAndView main(HttpServletRequest request) {
+		ModelAndView mv = new ModelAndView();
+		try {
+			ArrayList<ProductVO> bestlist = pbiz.get_main_new();
+			ArrayList<ProductVO> newlist = pbiz.get_main_best();
+			mv.addObject("jsp_bestlist", bestlist);
+			mv.addObject("jsp_newlist", newlist);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		mv.setViewName("main");
+		return mv;
+	}
 
 	@RequestMapping("/uu.sp")
 	@ResponseBody
@@ -39,7 +51,7 @@ public class MainController {
 		PrintWriter out = response.getWriter();
 		ArrayList<UserVO> list = null;
 		try {
-			list = biz.get();
+			list = ubiz.get();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -64,8 +76,7 @@ public class MainController {
 	}
 
 	@RequestMapping("/logout.sp")
-	public ModelAndView logout(HttpServletRequest request) {
-		ModelAndView mv = new ModelAndView();
+	public ModelAndView logout(HttpServletRequest request, ModelAndView mv) {
 		HttpSession session = request.getSession();
 		if (session != null) {
 			session.invalidate();
@@ -87,7 +98,7 @@ public class MainController {
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("main");
 		try {
-			biz.register(user);
+			ubiz.register(user);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -95,26 +106,36 @@ public class MainController {
 	}
 
 	@RequestMapping("/loginimpl.sp")
-	public ModelAndView loginimpl(ModelAndView mv, HttpServletRequest request) {
+	public ModelAndView loginimpl(HttpServletRequest request, ModelAndView mv) {
 		String u_id = request.getParameter("u_id");
 		String u_pwd = request.getParameter("u_pwd");
-		System.out.println(u_id + " " + u_pwd);
+
 		UserVO dbuser = null;
 		try {
-			dbuser = biz.get(u_id);
-			System.out.println(dbuser.toString());
-			if (dbuser.getU_pwd().equals(u_pwd)) {
-				HttpSession session = request.getSession();
-				session.setAttribute("is_manager", dbuser.getU_is_mgr());
-				session.setAttribute("loginid", u_id);
+			dbuser = ubiz.get(u_id);
+			if (dbuser.getU_id() != null) {
+				if (dbuser.getU_pwd().equals(u_pwd)) {
+					HttpSession session = request.getSession();
+					session.setAttribute("loginid", u_id);
+					if (dbuser.getU_is_mgr() == 'y') { // 운영자이면 main_mgr로 이동
+//						mv.setViewName("/manager/main_mgr");
+						mv.setViewName("redirect:main_mgr.sp");
+						return mv;
+					}
+				} else {
+					mv.addObject("loginResult", "Invalid Password");
+					mv.addObject("center", "user/login");
+				}
 			} else {
-				mv.addObject("center", "user/signup");
+				mv.addObject("loginResult", "No id");
+				mv.addObject("center", "user/login");
 			}
+
 		} catch (Exception e) {
 			mv.addObject("center", "user/signup");
 			e.printStackTrace();
 		}
-		mv.setViewName("index");
+		mv.setViewName("main");
 		return mv;
 	}
 

@@ -8,7 +8,6 @@
 <meta charset="utf-8">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>winter</title>
 <link rel="icon" href="img/favicon.png">
 <!-- Bootstrap CSS -->
 <link rel="stylesheet" href="css/bootstrap.min.css">
@@ -41,7 +40,7 @@
 						<h2>New to our Shop?</h2>
 						<p>There are advances being made in science and technology
 							everyday, and a good example of this is the</p>
-						<a href="#" class="btn_3">Create an Account</a>
+						<a href="signup.sp" class="btn_3">Create an Account</a>
 					</div>
 				</div>
 			</div>

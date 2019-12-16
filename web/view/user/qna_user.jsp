@@ -363,12 +363,10 @@
 				<div class="typography">
 					<h2 id="h2_qna">질문을 등록하세요</h2>
 				</div>
-				<div id="shake_title">
-					<input type="text" placeholder="제목" name="b_title"
-						onfocus="this.placeholder = ''" required="required"
-						class="single-input-secondary">
-				</div>
-				<br> <span id="textCount"></span>
+				<input type="text" placeholder="제목" name="b_title"
+					onfocus="this.placeholder = ''" required="required"
+					class="single-input-secondary"> <br> <span
+					id="textCount"></span>
 				<textarea class="form-control w-100" rows="15" cols="35"
 					placeholder="내용을 입력하세요" name="b_content" required="required"></textarea>
 				<br> <a href="#" id="sendbtn" onclick="send();"

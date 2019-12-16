@@ -31,8 +31,8 @@
 	function isLogin(loginid) {
 		var detailform = $('form[name="detailform"]');
 		var confirmLogin;
-		alert("isLogin() 실행");
-		if ( loginid == null) {
+		alert("isLogin() 실행" + loginid + "입니다.");
+		if ( loginid == '') {
 			confirmLogin = confirm('로그인이 필요합니다. 로그인 페이지로 이동하시겠습니까?');
 			if (confirmLogin) {
 				alert('로그인 페이지로 이동합니다.');
@@ -49,6 +49,8 @@
 			if(confirmLogin) {
 				alert('장바구니 페이지로 이동합니다.');
 				detailform.action = "cart.sp";
+				detailform.submit();
+				alert('submit();')
 			} else {
 				detailform.action = "cart.sp";
 			}
@@ -119,7 +121,7 @@
 							<!-- add cart 버튼 -->
 							<div class="add_to_cart">
 								<input class="btn_3" type="submit" value="add to cart"
-									id="cartaddbutton" onclick="isLogin(${loginid});"> 
+									id="cartaddbutton" onclick="isLogin('${loginid}');"> 
 								<a href="#" class="like_us"> <i class="ti-heart"></i></a>
 							</div>
 							<div class="social_icon">

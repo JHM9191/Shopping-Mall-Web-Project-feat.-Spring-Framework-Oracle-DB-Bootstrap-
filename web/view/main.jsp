@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-	pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
@@ -127,17 +127,14 @@
 
 
 						<!--�λ�援щ�� 洹몃━怨� ��蹂닿린 ���댁� �������� -->
-						<div class="hearer_icon">
+						<div class="hearer_icon d-flex">
 							<div>
-								<a href="cart.sp" role="button" data-toggle="dropdown"
-									aria-haspopup="true" aria-expanded="false"> <i
+								<a href="cart.sp" role="button"> <i
 									class="ti-bag"></i>
 								</a>
-								<!-- <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <div class="single_product">
-    
-                                    </div>
-                                </div> -->
+								<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+									<div class="single_product"></div>
+								</div>
 							</div>
 						</div>
 

@@ -58,14 +58,14 @@
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName"
 			value="oracle.jdbc.driver.OracleDriver" />
-		<!-- <property name="url"
-			value="jdbc:oracle:thin:@70.12.113.219:1521:xe" />
-		<property name="username" value="hhmall" />
-		<property name="password" value="1750" /> -->
 		<property name="url"
-			value="jdbc:oracle:thin:@192.168.0.6:1521:xe" />
+			value="jdbc:oracle:thin:@70.12.113.219:1521:xe" />
 		<property name="username" value="sp365" />
 		<property name="password" value="0365" />
+		<!-- <property name="url"
+			value="jdbc:oracle:thin:@192.168.0.6:1521:xe" />
+		<property name="username" value="sp365" />
+		<property name="password" value="0365" /> -->
 	</bean>
 
 	<!-- 2. Transaction Setting -->

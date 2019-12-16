@@ -29,6 +29,10 @@
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 
+<link rel="stylesheet"
+	href="//code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
+<script src="//code.jquery.com/jquery-1.12.4.js"></script>
+<script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <style>
 #b_table {
 	/*float: left;*/
@@ -165,18 +169,30 @@
 </style>
 <script>
 	// 게시글 토글
-	function tr_toggle(b_id) {
+	var previd = '';
+	var same = -1;
+	function row_toggle(b_id) {
 		$('.b_content').slideUp("fast");
-		$('div[id="b_content' + b_id + '"]').slideDown("fast");
+		console.log(previd);
+		if (previd == b_id) {
+			if (same == -1) {
+				$('div[id="b_content' + b_id + '"]').slideDown("fast");
+			} else {
+				$('div[id="b_content' + b_id + '"]').slideUp("fast");
+			}
+			same = same * (-1);
+		} else {
+			$('div[id="b_content' + b_id + '"]').slideDown("fast");
+		}
+		previd = b_id;
+		console.log(same);
 	};
 
 	// 추가 & 수정 창 토글
 	var addopen = false;
-	var updateopen = false;
 	function qna_toggle(loginid) {
-		var confirmLogin;
 		if (loginid == '') {
-			confirmLogin = confirm('로그인이 필요합니다. 로그인 페이지로 이동하시겠습니까?');
+			var confirmLogin = confirm('로그인이 필요합니다. 로그인 페이지로 이동하시겠습니까?');
 			if (confirmLogin) {
 				alert('로그인 페이지로 이동합니다.');
 				location.action = "login.sp";
@@ -184,19 +200,41 @@
 				alert('메인 페이지로 이동합니다.');
 				location.action = "main.sp";
 			}
-		}
-		var text = $('#cancelbtn').text();
-		if (text == '취소') {
-			$('#h2_qna').html("질문을 등록하세요");
-			$('#sendbtn').html('보내기');
-			$('input[name="b_title"]').val('');
-			$('textarea[name="b_content"]').val('');
-		}
-		if(addopen == true || updateopen == true) {
-			$('div[id="b_write"]').slideDown("fast");
+		} else {
+			if (addopen == false) {
+				$('#h2_qna').html("질문을 등록하세요");
+				$('#sendbtn').html('보내기');
+				$('input[name="b_title"]').val('');
+				$('textarea[name="b_content"]').val('');
+				$('#b_write').slideDown("fast");
+				addopen = true;
+				updateopen = false;
+			} else if (addopen == true) {
+				$('#b_write').slideUp("fast");
+				addopen = false;
+				updateopen = false;
+			}
+			/*
+			var cancelbtn = $('#cancelbtn').text();
+			var addbtn = $('#addbtn').text();
+			if (cancelbtn == '취소') {
+				$('#h2_qna').html("질문을 등록하세요");
+				$('#sendbtn').html('보내기');
+				$('input[name="b_title"]').val('');
+				$('textarea[name="b_content"]').val('');
+			} else if ()
+			
+			if (addopeon == false) {
+				$('div[id="b_write"]').slideUp("fast");
+				addopen = true;
+			} else if (updateopen == false) {
+				if (addopen == true || updateopen == true) {
+					$('div[id="b_write"]').slideDown("fast");
+				}
+			}
+			 */
 		}
 	};
-
 	// 보내기 버튼 (추가 & 수정)
 	function send() {
 		var sendForm = $('form[name="b_send"]');
@@ -211,23 +249,64 @@
 		}
 	}
 
+	var updateopen = false;
 	function b_update(b_id, b_title, b_content) {
-		$('div[id="b_write"]').show("fast");
-		var title = document.querySelector('input[name="b_title"]');
-		var content = document.querySelector('textarea[name="b_content"]');
-		title.value = b_title;
-		content.value = b_content;
-		$('#h2_qna').html("내 질문 수정하기");
-		$('#sendbtn').html('수정하기');
-		$('input[name="b_id"]').attr('value', b_id);
-		$('#sendbtn').attr('action', 'qna_updateimpl_user.sp');
+		if (updateopen == false) {
+			var title = document.querySelector('input[name="b_title"]');
+			var content = document.querySelector('textarea[name="b_content"]');
+			title.value = b_title;
+			content.value = b_content;
+			$('#h2_qna').html("내 질문 수정하기");
+			$('#sendbtn').html('수정하기');
+			$('input[name="b_id"]').attr('value', b_id);
+			$('#sendbtn').attr('action', 'qna_updateimpl_user.sp');
+			$('#b_write').show("fast");
+			addopen = false;
+			updateopen = true;
+		} else if (updateopen == true) {
+			$('#h2_qna').html("질문을 등록하세요");
+			$('#sendbtn').html('보내기');
+
+			$('input[name="b_title"]').val('');
+			$('textarea[name="b_content"]').val('');
+
+			$('input[name="b_id"]').attr('value', b_id);
+			$('#sendbtn').attr('action', 'qna_addimpl_user.sp');
+			$('#b_write').hide("fast");
+			updateopen = false;
+			addopen = false;
+		}
 	};
+
+	var title = $('input[name="b_title"]').text();
+	//title.
+	$(document).ready(
+			function() {
+				$('input[name="b_title"]').blur(
+						function() {
+							if ($('input[name="b_title"]').val().length > 30) {
+								//alert("hello?");
+								$('input[name="b_title"]').val('');
+								$('input[name="b_title"]').attr('placeholder',
+										'30글자 이하 글자만 써주세요.');
+							}
+						});
+
+				var textlimit = 500;
+				$('textarea').keyup(function(event) {
+					var textnum = $('textarea').val().length;
+					$('#textCount').text(textnum + "/500");
+					if (textnum > 500) {
+						//event.preventDefault();
+						$(this).val($(this).val().substring(0, 10));
+					}
+				});
+			});
 </script>
 
 <div id="section-top-border text-right mb-30"></div>
 <section class="row align-items-center justify-content-center">
 	<!-- <div class="row align-items-center container">-->
-
 
 
 	<div id="b_table">
@@ -241,26 +320,25 @@
 		</div>
 		<div id="b_list">
 			<c:forEach var="b" items="${blist }">
-				<div class="b_collapsible" onclick="tr_toggle('${b.b_id }');">
+				<div class="b_collapsible" onclick="row_toggle('${b.b_id }');">
 					<span class="c1 txt_center txt_height">${b.b_id }</span> <span
 						class="c2 txt_center txt_height">${b.b_title }</span> <span
 						class="c3 txt_center txt_height">${b.b_writer }</span> <span
 						class="c4 txt_center txt_height">${b.b_regdate }</span>
+					<div class="b_button_right txt_center txt_height">
+						<c:choose>
+							<c:when test="${b.b_writer == loginid }">
+								<a class="b_btn"
+									onclick="b_update('${b.b_id }','${b.b_title }','${b.b_content }');">수정</a>
+								<a href="qna_deleteimpl_user.sp?b_id=${b.b_id }">삭제</a>
+							</c:when>
+							<c:otherwise>
+							</c:otherwise>
+						</c:choose>
+					</div>
 				</div>
-				<div class="b_button_right txt_center txt_height">
-					<c:choose>
-						<c:when test="${b.b_writer == loginid }">
-							<a class="b_btn"
-								onclick="b_update('${b.b_id }','${b.b_title }','${b.b_content }');">수정</a>
-							<a href="qna_deleteimpl_user.sp?b_id=${b.b_id }">삭제</a>
-						</c:when>
-						<c:otherwise>
-						</c:otherwise>
-					</c:choose>
-				</div>
-
 				<div class="b_content" id="b_content${b.b_id }">
-					<p class="txt_left txt_green">${b.b_content }</p>
+					<p class="txt_left">${b.b_content }</p>
 					<c:choose>
 						<c:when test="${b.b_reply == null }">
 						</c:when>
@@ -275,7 +353,7 @@
 	</div>
 
 	<div class="button-group-area askbtn">
-		<a href="#" onclick="qna_toggle('${loginid}');"
+		<a href="#" onclick="qna_toggle('${loginid}');" id="addbtn"
 			class="genric-btn primary-border e-large">문의하기</a>
 	</div>
 	<form class="b_send" action="qna_addimpl_user.sp" method="post"
@@ -285,9 +363,12 @@
 				<div class="typography">
 					<h2 id="h2_qna">질문을 등록하세요</h2>
 				</div>
-				<input type="text" placeholder="제목" name="b_title"
-					onfocus="this.placeholder = ''" required="required"
-					class="single-input-secondary"><br>
+				<div id="shake_title">
+					<input type="text" placeholder="제목" name="b_title"
+						onfocus="this.placeholder = ''" required="required"
+						class="single-input-secondary">
+				</div>
+				<br> <span id="textCount"></span>
 				<textarea class="form-control w-100" rows="15" cols="35"
 					placeholder="내용을 입력하세요" name="b_content" required="required"></textarea>
 				<br> <a href="#" id="sendbtn" onclick="send();"
@@ -300,7 +381,6 @@
 		</div>
 	</form>
 </section>
-
 <!-- jquery plugins here-->
 <!-- jquery -->
 <script src="js/jquery-1.12.1.min.js"></script>

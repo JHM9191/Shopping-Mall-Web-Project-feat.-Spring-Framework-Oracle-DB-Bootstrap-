@@ -94,6 +94,20 @@ public class ManagerController {
 		return result;
 	}
 
+	@RequestMapping("/qna_updatereplyimpl_mgr.sp")
+	public String qna_updatereplyimpl_mgr(BoardVO board) {
+		String result = null;
+		System.out.println(board.toString());
+		try {
+//			bbiz.remove(b_id);
+			result = "redirect:qna_mgr.sp";
+		} catch (Exception e) {
+			result = "redirect:error.sp";
+			e.printStackTrace();
+		}
+		return result;
+	}
+
 	// User Q&A
 	@RequestMapping("/qna_user.sp")
 	public ModelAndView qna_user(ModelAndView mv, HttpServletRequest request) {
@@ -126,10 +140,9 @@ public class ManagerController {
 	@RequestMapping("/qna_updateimpl_user.sp")
 	public String qna_updateimpl_user(BoardVO board) {
 		System.out.println("board info received: " + board);
-		
-		
-		BoardVO uboard = new BoardVO(board.getB_id(), board.getB_title(), 
-				board.getB_writer(), board.getB_content(), board.getB_reply());
+
+		BoardVO uboard = new BoardVO(board.getB_id(), board.getB_title(), board.getB_writer(), board.getB_content(),
+				board.getB_reply());
 		System.out.println("board info to be sent to db: " + uboard);
 		String result = null;
 		try {

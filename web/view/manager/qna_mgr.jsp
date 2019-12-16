@@ -5,34 +5,6 @@
 <meta charset="utf-8">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link rel="icon" href="img/favicon.png">
-<!-- Bootstrap CSS -->
-<link rel="stylesheet" href="css/bootstrap.min.css">
-<!-- animate CSS -->
-<link rel="stylesheet" href="css/animate.css">
-<!-- owl carousel CSS -->
-<link rel="stylesheet" href="css/owl.carousel.min.css">
-<!-- font awesome CSS -->
-<link rel="stylesheet" href="css/all.css">
-<link rel="stylesheet" href="css/nice-select.css">
-<!-- flaticon CSS -->
-<link rel="stylesheet" href="css/flaticon.css">
-<link rel="stylesheet" href="css/themify-icons.css">
-<!-- font awesome CSS -->
-<link rel="stylesheet" href="css/magnific-popup.css">
-<!-- swiper CSS -->
-<link rel="stylesheet" href="css/slick.css">
-<!-- swiper CSS -->
-<link rel="stylesheet" href="css/price_rangs.css">
-<!-- style CSS -->
-<link rel="stylesheet" href="css/style.css">
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-
-<link rel="stylesheet"
-	href="//code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
-<script src="//code.jquery.com/jquery-1.12.4.js"></script>
-<script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <style>
 #b_table {
 	/*float: left;*/
@@ -127,12 +99,22 @@
 	float: right;
 	display: none;
 	position: fixed;
+	width: 100%;
+}
+
+#b_write input[name="b_writer"] {
+	width: 25%;
+	height: 50px;
+	text-size: 1.5em;
+	display: inline;
 }
 
 #b_write input[name="b_title"] {
-	width: 100%;
+	width: 65%;
 	height: 50px;
 	text-size: 1.5em;
+	display: inline;
+	float: right;
 }
 
 .askbtn {
@@ -166,33 +148,36 @@
 .txt_height {
 	height: 25px;
 }
+
+#h4_userid, #h4_qnatitle {
+	display: inline;
+}
 </style>
 <script>
-/*
-	function tr_toggle(b_id) {
-		var content = document.querySelector('div[id="'+ b_id + '"]');
-		if (content.style.display == "block") {
-			content.style.display = "none";
-		} else {
-			//var content_others = document.querySelector('not(div[id="'+ b_id + '"])');
-			//content_others.style.display="none";
-			content.style.display = "block";
-		}
-	};
+	/*
+	 function tr_toggle(b_id) {
+	 var content = document.querySelector('div[id="'+ b_id + '"]');
+	 if (content.style.display == "block") {
+	 content.style.display = "none";
+	 } else {
+	 //var content_others = document.querySelector('not(div[id="'+ b_id + '"])');
+	 //content_others.style.display="none";
+	 content.style.display = "block";
+	 }
+	 };
 	
-	function b_reply(b_id,b_title,b_writer,b_content) {
-		var writer = document.querySelector('input[name="b_writer"]');
-		var title = document.querySelector('input[name="b_title"]');
-		var content = document.querySelector('textarea[name="b_content"]');
-		
-		writer.value = b_writer;
-		title.value = b_title;
-		content.value = b_content;
-		$('input[name="b_id"]').attr('value',b_id);
-	}
-*/
+	 function b_reply(b_id,b_title,b_writer,b_content) {
+	 var writer = document.querySelector('input[name="b_writer"]');
+	 var title = document.querySelector('input[name="b_title"]');
+	 var content = document.querySelector('textarea[name="b_content"]');
 	
-	
+	 writer.value = b_writer;
+	 title.value = b_title;
+	 content.value = b_content;
+	 $('input[name="b_id"]').attr('value',b_id);
+	 }
+	 */
+
 	// 게시글 토글
 	var previd = '';
 	var same = -1;
@@ -205,106 +190,116 @@
 			} else {
 				$('div[id="b_content' + b_id + '"]').slideUp("fast");
 			}
-			same = same*(-1);
+			same = same * (-1);
 		} else {
 			$('div[id="b_content' + b_id + '"]').slideDown("fast");
 		}
 		previd = b_id;
 		console.log(same);
 	};
-
-	// 추가 & 수정 창 토글
 	var replyopen = false;
-	function qna_toggle(loginid) {
-		if (loginid == '') {
-			var confirmLogin = confirm('로그인이 필요합니다. 로그인 페이지로 이동하시겠습니까?');
-			if (confirmLogin) {
-				alert('로그인 페이지로 이동합니다.');
-				location.action = "login.sp";
-			} else {
-				alert('메인 페이지로 이동합니다.');
-				location.action = "main.sp";
-			}
-		} else {
-			if (addopen == false) {
-				$('#h2_qna').html("질문을 등록하세요");
-				$('#sendbtn').html('보내기');
-				$('input[name="b_title"]').val('');
-				$('textarea[name="b_content"]').val('');
-				$('#b_write').slideDown("fast");
-				addopen = true;
-				updateopen = false;
-			} else if (addopen == true) {
-				$('#b_write').slideUp("fast");
-				addopen = false;
-				updateopen = false;
-			}
-			/*
-			var cancelbtn = $('#cancelbtn').text();
-			var addbtn = $('#addbtn').text();
-			if (cancelbtn == '취소') {
-				$('#h2_qna').html("질문을 등록하세요");
-				$('#sendbtn').html('보내기');
-				$('input[name="b_title"]').val('');
-				$('textarea[name="b_content"]').val('');
-			} else if ()
-			
-			if (addopeon == false) {
-				$('div[id="b_write"]').slideUp("fast");
-				addopen = true;
-			} else if (updateopen == false) {
-				if (addopen == true || updateopen == true) {
-					$('div[id="b_write"]').slideDown("fast");
-				}
-			}
-			 */
-		}
-	};
-	// 보내기 버튼 (추가 & 수정)
+
+	// 취소 버튼 클릭.
+	function cancel() {
+		$('#h2_qna').html("Q&A 답장하기");
+		$('#sendbtn').html('답장하기');
+		$('input[name="b_title"]').val('');
+		$('textarea[name="b_content"]').val('');
+		$('div[id="b_write"]').slideUp("fast");
+	}
+	/*
+	 // 답장창 안열려있을 경우, 열기.
+	 if (replyopen == false) {
+	 $('#h2_qna').html("Q&A 답장하기");
+	 $('#sendbtn').html('답장하기');
+	 $('input[name="b_title"]').val('');
+	 $('textarea[name="b_content"]').val('');
+	 $('#b_write').slideDown("fast");
+	 replyopen = true;
+	 updateopen = false;
+	 } else if (replyopen == true) {
+	 $('#b_write').slideUp("fast");
+	 replyopen = false;
+	 updateopen = false;
+	 }
+
+	 var cancelbtn = $('#cancelbtn').text();
+	 var replybtn = $('#replybtn').text();
+
+	 if (replyopen == false) {
+	 $('div[id="b_write"]').slideUp("fast");
+	 replyopen = true;
+	 } else if (updateopen == false) {
+	 if (replyopen == true || updateopen == true) {
+	 $('div[id="b_write"]').slideDown("fast");
+	 }
+	 }
+	
+	 */
+	// 답장하기 버튼 (답장 & 답글수정)
 	function send() {
 		var sendForm = $('form[name="b_send"]');
 		var text = $('#sendbtn').text();
-		if (text == '보내기') {
+		if (text == '답장하기') {
 			alert("inside: " + text);
-			sendForm.action = "qna_addimpl_user.sp";
+			sendForm.action = "qna_replyimpl_mgr.sp";
 			sendForm.submit();
-		} else if (text == '수정하기') {
-			sendForm.action = "qna_updateimpl_user.sp";
+		} else if (text == '답글수정') {
+			sendForm.action = "qna_updatereplyimpl_mgr.sp";
 			sendForm.submit();
 		}
 	}
 
 	var updateopen = false;
-	function b_reply(b_id, b_title, b_content) {
-		if (replyopen == false) {
-			var title = document.querySelector('input[name="b_title"]');
-			var content = document.querySelector('textarea[name="b_content"]');
-			title.value = b_title;
-			content.value = b_content;
-			$('#h2_qna').html("Q&A 답장하기");
-			$('#sendbtn').html('답장하기');
-			$('input[name="b_id"]').attr('value', b_id);
-			$('#sendbtn').attr('action', 'qna_replyimpl_mgr.sp');
-			$('#b_write').show("fast");
-			replyopen = false;
-			updateopen = true;
-		} else if (replyopen == true) {
-			$('#h2_qna').html("질문을 등록하세요");
-			$('#sendbtn').html('보내기');
-
-			$('input[name="b_title"]').val('');
-			$('textarea[name="b_content"]').val('');
-
-			$('input[name="b_id"]').attr('value', b_id);
-			$('#sendbtn').attr('action', 'qna_addimpl_user.sp');
-			$('#b_write').hide("fast");
-			updateopen = false;
-			addopen = false;
+	function b_reply(text, b_id, b_title, b_writer, b_content, b_reply) {
+		if (text == '답장하기') {
+			if(replyopen == false) {
+				var title = document.querySelector('input[name="b_title"]');
+				var writer = document.querySelector('input[name="b_writer"]');
+				var content = document.querySelector('textarea[name="b_content"]');
+				writer.value = b_writer;
+				title.value = b_title;
+				content.value = b_content;
+				$('#h2_qna').html("Q&A 답장하기");
+				$('#sendbtn').html('답장하기');
+				$('input[name="b_id"]').attr('value', b_id);
+				$('#sendbtn').attr('action', 'qna_replyimpl_mgr.sp');
+				$('#b_write').show("fast");
+				replyopen = true;
+				updateopen = false;
+			} else if (replyopen == true) {
+				$('#b_write').hide("fast");
+				replyopen = false;
+			}
+		} else if (text == '답글수정') {
+			if (updateopen == false) {
+				var title = document.querySelector('input[name="b_title"]');
+				var writer = document.querySelector('input[name="b_writer"]');
+				var content = document.querySelector('textarea[name="b_content"]');
+				var reply = document.querySelector('textarea[name="b_reply"]');
+				writer.value = b_writer;
+				title.value = b_title;
+				content.value = b_content;
+				reply.value = b_reply;
+				$('#h2_qna').html("Q&A 답글 수정하기");
+				$('#sendbtn').html('수정하기');
+				$('input[name="b_id"]').attr('value', b_id);
+				$('#sendbtn').attr('action', 'qna_updatereplyimpl_mgr.sp');
+				$('#b_write').show("fast");
+				updateopen = true;
+				replyopen = false;
+			} else if (updateopen == true) {
+				$('#b_write').hide("fast");
+				updateopen = false;
+			}
 		}
+
+		
 	};
 
 	var title = $('input[name="b_title"]').text();
 	//title.
+	/*
 	$(document).ready(
 			function() {
 				$('input[name="b_title"]').blur(
@@ -328,7 +323,7 @@
 				});
 			});
 	
-
+	 */
 </script>
 <div id="section-top-border text-right mb-30"></div>
 <section class="row align-items-center justify-content-center">
@@ -349,16 +344,17 @@
 						<c:choose>
 							<c:when test="${b.b_reply == null }">
 								<a class="b_btn" href="#"
-									onclick="b_reply('${b.b_id}','${b.b_title }','${b.b_writer }','${b.b_content }');">답장하기</a>
+									onclick="b_reply('답장하기','${b.b_id}','${b.b_title }','${b.b_writer }','${b.b_content }');">답장하기</a>
 							</c:when>
 							<c:otherwise>
-								<a>답장완료</a>
+								<a class="b_btn" href="#"
+									onclick="b_reply('답글수정','${b.b_id}','${b.b_title }','${b.b_writer }','${b.b_content }', '${b.b_reply }');">답글수정</a>
 							</c:otherwise>
 						</c:choose>
 					</div>
 				</div>
-				<div class="b_content" id="${b.b_id }">
-					<p class="txt_left txt_green">${b.b_content }</p>
+				<div class="b_content" id="b_content${b.b_id }">
+					<p class="txt_left" id="b_content">${b.b_content }</p>
 					<c:choose>
 						<c:when test="${b.b_reply == null }">
 						</c:when>
@@ -386,60 +382,37 @@
 			</div>
 		</div>
 	</form-->
+	<!-- 
 	<div class="button-group-area askbtn">
 		<a href="#" onclick="qna_toggle('${loginid}');" id="addbtn"
 			class="genric-btn primary-border e-large">문의하기</a>
 	</div>
-	<form class="b_send" action="qna_addimpl_user.sp" method="post"
+	 -->
+	<form class="b_send" action="qna_replyimpl_mgr.sp" method="post"
 		name="b_send">
 		<div id="b_write">
 			<div>
 				<div class="typography">
 					<h2 id="h2_qna">Q&A 답장하기</h2>
+
+					<h4 id="h4_userid">회원ID:&nbsp;</h4>
+					<input type="text" name="b_writer" class="single-input-secondary"
+						readonly="readonly">
+					<h4 id="h4_qnatitle">&nbsp;&nbsp;&nbsp;&nbsp;제목:</h4>
+					<input type="text" name="b_title" class="single-input-secondary"
+						readonly="readonly">
 				</div>
-				<input type="text" placeholder="제목" name="b_title"
-					onfocus="this.placeholder = ''" required="required"
-					class="single-input-secondary"> <br> <span
-					id="textCount"></span>
-				<textarea class="form-control w-100" rows="15" cols="35"
-					placeholder="내용을 입력하세요" name="b_content" required="required"></textarea>
+				<span id="textCount"></span>
+				<textarea class="form-control" rows="5" cols="35" name="b_content"
+					readonly="readonly"></textarea>
+				<textarea class="form-control" rows="5" cols="35"
+					placeholder="답글을 입력하세요" name="b_reply" required="required"></textarea>
 				<br> <a href="#" id="sendbtn" onclick="send();"
-					class="genric-btn primary-border e-large">보내기</a> <a
-					onclick="qna_toggle('${loginid }');" id="cancelbtn"
+					class="genric-btn primary-border e-large">답장하기</a> <a
+					onclick="cancel();" id="cancelbtn"
 					class="genric-btn danger-border e-large">취소</a> <input
-					type="hidden" name="b_id" value=""> <input type="hidden"
-					name="b_writer" value="${loginid }">
+					type="hidden" name="b_id" value="">
 			</div>
 		</div>
 	</form>
 </section>
-
-<!-- jquery plugins here-->
-<!-- jquery -->
-<script src="js/jquery-1.12.1.min.js"></script>
-<!-- popper js -->
-<script src="js/popper.min.js"></script>
-<!-- bootstrap js -->
-<script src="js/bootstrap.min.js"></script>
-<!-- easing js -->
-<script src="js/jquery.magnific-popup.js"></script>
-<!-- swiper js -->
-<script src="js/swiper.min.js"></script>
-<!-- swiper js -->
-
-<!-- particles js -->
-<script src="js/owl.carousel.min.js"></script>
-<script src="js/jquery.nice-select.min.js"></script>
-<!-- slick js -->
-<script src="js/slick.min.js"></script>
-<script src="js/jquery.counterup.min.js"></script>
-<script src="js/waypoints.min.js"></script>
-<script src="js/contact.js"></script>
-<script src="js/jquery.ajaxchimp.min.js"></script>
-<script src="js/jquery.form.js"></script>
-<script src="js/jquery.validate.min.js"></script>
-<script src="js/mail-script.js"></script>
-<script src="js/stellar.js"></script>
-<script src="js/price_rangs.js"></script>
-<!-- custom js -->
-<script src="js/custom.js"></script>

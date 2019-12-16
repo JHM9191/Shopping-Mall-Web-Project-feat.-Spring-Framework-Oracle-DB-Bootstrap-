@@ -8,18 +8,22 @@
 	/* float: right; */
 	
 }
+
 #submenu>a:nth-child(3) {
 	float: right;
 }
+
 #container {
 	display: block;
 }
+
 #selection {
 	border-top: 1px solid gray;
 	border-bottom: 1px solid gray;
 	padding-top: 15px;
 	padding-bottom: 15px;
 }
+
 #selection>div {
 	display: inline;
 }
@@ -30,7 +34,7 @@
 	function getData() {
 		Highcharts
 				.chart(
-						'container',
+						'container_stat',
 						{
 							chart : {
 								zoomType : 'xy'
@@ -120,33 +124,47 @@
 	window.onload = function() {
 		getData();
 	};
+	function selected(text) {
+		alert(text);
+	}
 </script>
-<div id="selection">
-	<div>
-		카테고리: <select>
-			<option value="New Arrival">New Arrival</option>
-			<option value="인기">인기</option>
-			<option value="여성">여성</option>
-			<option value="남성">남성</option>
-		</select>
-	</div>
-	<div>
-		기간: <select>
-			<option value="1년">1년</option>
-			<option value="2년">2년</option>
-			<option value="3년">3년</option>
-			<option value="4년">4년</option>
-			<option value="5년">5년</option>
-		</select>
-	</div>
-	<div>
-		주기: <select>
-			<option value="monthly">monthly</option>
-			<option value="yearly">yearly</option>
-			<option value="daily">daily</option>
-		</select>
-	</div>
+<section class="breadcrumb breadcrumb_bg">
+	<div class="container">
+		<div class="row justify-content-center">
+			<div class="col-lg-12">
+				<div class="breadcrumb_iner">
+					<div class="breadcrumb_iner_item">
+						<div id="selection">
+							<div>
+								카테고리: <select onselect="selected('select');">
+									<option value="All" onclick="selected('option');">전체</option>
+									<option value="New">New Arrival</option>
+									<option value="Best">Best</option>
+								</select>
+							</div>
+							<div>
+								기간: <select>
+									<option value="1년">1년</option>
+									<option value="2년">2년</option>
+									<option value="3년">3년</option>
+									<option value="4년">4년</option>
+									<option value="5년">5년</option>
+								</select>
+							</div>
+							<div>
+								주기: <select>
+									<option value="monthly">monthly</option>
+									<option value="yearly">yearly</option>
+									<option value="daily">daily</option>
+								</select>
+							</div>
 
-</div>
-<div id="container"></div>
-<div></div>
+						</div>
+						<br>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+<div id="container_stat"></div>

@@ -58,6 +58,8 @@
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName"
 			value="oracle.jdbc.driver.OracleDriver" />
+			<!-- 70.12.113.219 -->
+			<!-- 192.168.0.6 -->
 		<property name="url"
 			value="jdbc:oracle:thin:@70.12.113.219:1521:xe" />
 		<property name="username" value="sp365" />

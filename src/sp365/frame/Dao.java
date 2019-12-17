@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Param;
 
 import sp365.vo.CartVO;
 import sp365.vo.ProductVO;
+import sp365.vo.StatVO;
 
 public interface Dao<K, V> {
 	default public void insert(V v) throws Exception {
@@ -104,4 +105,22 @@ public interface Dao<K, V> {
 	default public ArrayList<V> selectmycart(K k) throws Exception {
 		return null;
 	}
+
+//// Stat
+	default public ArrayList<StatVO> selectbypayment() {
+		return null;
+	};
+
+	default public ArrayList<StatVO> selectyearly() {
+		return null;
+	};
+
+	default public ArrayList<StatVO> selectmonthly() {
+		return null;
+	};
+
+	default public ArrayList<StatVO> selectdaily() {
+		return null;
+	};
+
 }

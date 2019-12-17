@@ -30,8 +30,6 @@
 </style>
 <script>
 	function display(data) {
-	}
-	function getData() {
 		Highcharts
 				.chart(
 						'container_stat',
@@ -40,7 +38,7 @@
 								zoomType : 'xy'
 							},
 							title : {
-								text : '월별 총매출 및 수익률(Men)'
+								text : '월별 총매출 및 수익률'
 							},
 							subtitle : {
 								text : ''
@@ -95,76 +93,75 @@
 										|| // theme
 										'rgba(255,255,255,0.25)'
 							},
-							series : [
-									{
-										name : '총매출',
-										type : 'column',
-										yAxis : 1,
-										data : [ 49.9, 71.5, 106.4, 129.2,
-												144.0, 176.0, 135.6, 148.5,
-												216.4, 194.1, 95.6, 54.4 ],
-										tooltip : {
-											valueSuffix : ' 원'
-										},
-										color : Highcharts.getOptions().colors[6]
-									},
-									{
-										name : '수익률',
-										type : 'spline',
-										data : [ 7.0, 6.9, 9.5, 14.5, 18.2,
-												21.5, 25.2, 26.5, 23.3, 18.3,
-												13.9, 9.6 ],
-										tooltip : {
-											valueSuffix : '%'
-										},
-										color : Highcharts.getOptions().colors[1]
-									} ]
+							series : data
 						});
 	}
-	window.onload = function() {
-		getData();
+
+	function getData() {
+		var data = [
+				{
+					name : '총매출',
+					type : 'column',
+					yAxis : 1,
+					data : [ 49.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6,
+							148.5, 216.4, 194.1, 95.6, 54.4 ],
+					tooltip : {
+						valueSuffix : ' 원'
+					},
+					color : Highcharts.getOptions().colors[6]
+				},
+				{
+					name : '수익률',
+					type : 'spline',
+					data : [ 7.0, 6.9, 9.5, 14.5, 18.2, 21.5, 25.2, 26.5, 23.3,
+							18.3, 13.9, 9.6 ],
+					tooltip : {
+						valueSuffix : '%'
+					},
+					color : Highcharts.getOptions().colors[1]
+				} ];
+		display(data);
 	};
+
+	$(document).ready(function() {
+		getData();
+	});
 	function selected(text) {
 		alert(text);
 	}
 </script>
-<section class="breadcrumb breadcrumb_bg">
+<section class="row align-items-center justify-content-center">
 	<div class="container">
 		<div class="row justify-content-center">
-			<div class="col-lg-12">
-				<div class="breadcrumb_iner">
-					<div class="breadcrumb_iner_item">
-						<div id="selection">
-							<div>
-								카테고리: <select onselect="selected('select');">
-									<option value="All" onclick="selected('option');">전체</option>
-									<option value="New">New Arrival</option>
-									<option value="Best">Best</option>
-								</select>
-							</div>
-							<div>
-								기간: <select>
-									<option value="1년">1년</option>
-									<option value="2년">2년</option>
-									<option value="3년">3년</option>
-									<option value="4년">4년</option>
-									<option value="5년">5년</option>
-								</select>
-							</div>
-							<div>
-								주기: <select>
-									<option value="monthly">monthly</option>
-									<option value="yearly">yearly</option>
-									<option value="daily">daily</option>
-								</select>
-							</div>
 
-						</div>
-						<br>
-					</div>
-				</div>
+			<div class="nice-select" tabindex="0">
+				<span class="current">전체</span>
+				<ul class="list">
+					<li data-value="All" class="option selected">전체</li>
+					<li data-value="New" class="option">New Arrival</li>
+					<li data-value="Best" class="option">Best</li>
+				</ul>
+			</div>
+
+			<div class="nice-select" tabindex="0">
+				<span class="current">1년</span>
+				<ul class="list">
+					<li data-value="1" class="option selected">1년</li>
+					<li data-value="2" class="option">2년</li>
+					<li data-value="3" class="option">3년</li>
+				</ul>
+			</div>
+			<div class="nice-select" tabindex="0">
+				<span class="current">월별</span>
+				<ul class="list">
+					<li data-value="monthly" class="option selected"><a
+						href="statpayment.sp">월별</a></li>
+					<li data-value="yearly" class="option">년별</li>
+					<li data-value="daily" class="option">일별</li>
+				</ul>
 			</div>
 		</div>
+		<br>
 	</div>
 </section>
 <div id="container_stat"></div>

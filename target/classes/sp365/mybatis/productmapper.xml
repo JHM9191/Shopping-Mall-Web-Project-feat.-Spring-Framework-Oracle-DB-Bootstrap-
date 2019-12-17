@@ -4,7 +4,7 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="sp365.mapper.ProductMapper">
 	<insert id="insert" parameterType="product">
-		INSERT INTO PRODUCT VALUES (#{p_id},#{p_name},#{p_price},#{p_discount},#{p_price_sale},#{p_price_org},#{p_margin},#{p_stock},#{p_size},#{p_new},#{p_best},#{p_delivery_day},#{p_category},#{img_id},SYSDATE)
+		INSERT INTO PRODUCT VALUES (#{p_id},#{p_name},#{p_price},#{p_discount},#{p_price_sale},#{p_price_org},#{p_margin},#{p_stock},#{p_size},#{p_new},#{p_best},#{p_delivery_day},#{p_category},#{p_img_id},SYSDATE)
 	</insert>
 
 	<update id="update" parameterType="product">
@@ -20,7 +20,7 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 			p_best=#{p_best},
 			p_delivery_day=#{p_delivery_day},
 			p_category=#{p_category},
-			img_id=#{img_id}
+			p_img_id=#{p_img_id}
 		WHERE p_id=#{p_id}
 	</update>
 

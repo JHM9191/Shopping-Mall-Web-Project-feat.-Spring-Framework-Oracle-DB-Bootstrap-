@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import sp365.vo.CartVO;
 import sp365.vo.ProductVO;
+import sp365.vo.StatVO;
 
 public interface Biz<K, V> {
 
@@ -107,4 +108,21 @@ public interface Biz<K, V> {
 	public default ArrayList<V> getmycart(K k) throws Exception {
 		return null;
 	}
+	
+////Stat
+	default public ArrayList<StatVO> getbypayment() {
+		return null;
+	};
+
+	default public ArrayList<StatVO> getyearly() {
+		return null;
+	};
+
+	default public ArrayList<StatVO> getmonthly() {
+		return null;
+	};
+
+	default public ArrayList<StatVO> getdaily() {
+		return null;
+	}	
 }

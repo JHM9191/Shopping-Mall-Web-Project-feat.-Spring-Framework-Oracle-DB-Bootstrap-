@@ -34,8 +34,6 @@
 	href="//code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
 <script src="//code.jquery.com/jquery-1.12.4.js"></script>
 <script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <style>
 #a_nav {
 	height: 80px;
@@ -89,7 +87,7 @@
 #notification {
 	position: absolute;
 	top: 150px;
-	left: -100px;
+	left: -110px;
 	right: 0;
 	margin: auto;
 	background: red;
@@ -98,7 +96,7 @@
 	height: 60px;
 	line-height: 60px;
 	color: white;
-	text-align: right;
+	text-align: center;
 	font-size: 2.5em;
 }
 
@@ -141,19 +139,20 @@
 
 
 						<!-- 硫��대� ��������-->
-
 						<div class="collapse navbar-collapse main-menu-item"
 							id="navbarSupportedContent">
-							
 							<ul class="navbar-nav">
-								<li class="nav-item"><a href="main_mgr.sp">Admin Home</a></li>
-								<li class="nav-item"><a href="qna_mgr.sp">Q&A</a></li>
-								<li class="nav-item"><a href="statistics_mgr.sp">Statistics</a></li>
+								<li class="nav-item"><a class="nav-link" href="main_mgr.sp">Admin
+										Home</a></li>
+								<li class="nav-item"><a class="nav-link" href="qna_mgr.sp">Q&A</a></li>
+								<li class="nav-item"><a class="nav-link"
+									href="statistics_mgr.sp">Statistics</a></li>
 							</ul>
 						</div>
 						<div>
 							<ul class="navbar-nav">
-								<li class="nav-item"><b id="managerid">환영합니다 ${loginid}님</b></li>
+								<li class="nav-item"><b id="managerid">환영합니다
+										${loginid}님</b></li>
 								<li class="nav-item"><a href="logout.sp">Logout</a></li>
 							</ul>
 						</div>
@@ -162,8 +161,8 @@
 			</div>
 		</div>
 	</header>
-		
-								
+
+
 	<section>
 		<c:choose>
 			<c:when test="${center == null }">

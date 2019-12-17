@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -124,7 +125,9 @@ public class ManagerController {
 	}
 
 	@RequestMapping("/qna_addimpl_user.sp")
-	public String qna_addimpl_user(BoardVO board) {
+	public String qna_addimpl_user(BoardVO board, HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		board.setU_id((String)session.getAttribute("loginid"));
 		System.out.println(board);
 		String result = null;
 		try {
@@ -138,11 +141,11 @@ public class ManagerController {
 	}
 
 	@RequestMapping("/qna_updateimpl_user.sp")
-	public String qna_updateimpl_user(BoardVO board) {
+	public String qna_updateimpl_user(BoardVO board, HttpServletRequest request) {
 		System.out.println("board info received: " + board);
-
+		HttpSession session = request.getSession();
 		BoardVO uboard = new BoardVO(board.getB_id(), board.getB_title(), board.getB_writer(), board.getB_content(),
-				board.getB_reply());
+				board.getB_reply(), (String) session.getAttribute("loginid"));
 		System.out.println("board info to be sent to db: " + uboard);
 		String result = null;
 		try {

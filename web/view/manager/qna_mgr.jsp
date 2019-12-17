@@ -244,7 +244,7 @@
 			alert("inside: " + text);
 			sendForm.action = "qna_replyimpl_mgr.sp";
 			sendForm.submit();
-		} else if (text == '답글수정') {
+		} else if (text == '수정하기') {
 			sendForm.action = "qna_updatereplyimpl_mgr.sp";
 			sendForm.submit();
 		}

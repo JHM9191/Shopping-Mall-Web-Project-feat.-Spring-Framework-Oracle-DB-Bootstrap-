@@ -20,6 +20,10 @@ public class StatBiz implements Biz<String, StatVO> {
 	public ArrayList<StatVO> getbypayment() {
 		return dao.selectbypayment();
 	}
+	@Override
+	public ArrayList<StatVO> getpayment() {
+		return dao.selectpayment();
+	}
 
 	@Override
 	public ArrayList<StatVO> getyearly() {

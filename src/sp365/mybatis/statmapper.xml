@@ -5,19 +5,18 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 <mapper namespace="sp365.mapper.StatMapper">
 
 	<select id="selectbypayment" resultType="stat">
-		<![CDATA[
-		SELECT o_payment, SUM(o_total) FROM orders GROUP BY o_payment;]]> 
+		SELECT o_payment "condition", SUM(o_total) "totSale" FROM orders GROUP BY o_payment
 	</select>
 	
 	<select id="selectyearly" resultType="stat">
-		SELECT EXTRACT(year FROM o_regdate) "Yearly", SUM(o_total) "Total Sale" FROM orders GROUP BY EXTRACT(year FROM o_regdate) ORDER BY EXTRACT(year FROM o_regdate); 
+		SELECT EXTRACT(year FROM o_regdate) "condition", SUM(o_total) "totSale" FROM orders GROUP BY EXTRACT(year FROM o_regdate) ORDER BY EXTRACT(year FROM o_regdate)
 	</select>
 	
 	<select id="selectmonthly" resultType="stat">
-		SELECT (EXTRACT(year FROM o_regdate) || '/' || EXTRACT(month FROM o_regdate)) "Monthly", SUM(o_total) "Total Sale" FROM orders GROUP BY EXTRACT(year FROM o_regdate), EXTRACT(month FROM o_regdate) ORDER BY EXTRACT(year FROM o_regdate), EXTRACT(month FROM o_regdate); 
+		SELECT (EXTRACT(year FROM o_regdate) || '/' || EXTRACT(month FROM o_regdate)) "condition", SUM(o_total) "totSale" FROM orders GROUP BY EXTRACT(year FROM o_regdate), EXTRACT(month FROM o_regdate) ORDER BY EXTRACT(year FROM o_regdate), EXTRACT(month FROM o_regdate)
 	</select>
 	
 	<select id="selectdaily" resultType="stat">
-		SELECT EXTRACT(year FROM o_regdate) || '/' || EXTRACT(month FROM o_regdate) || '/' || EXTRACT(day FROM o_regdate) "Daily", SUM(o_total) "Total Sale" FROM orders GROUP BY EXTRACT(year FROM o_regdate), EXTRACT(month FROM o_regdate), EXTRACT(day FROM o_regdate) ORDER BY EXTRACT(year FROM o_regdate), EXTRACT(month FROM o_regdate), EXTRACT(day FROM o_regdate); 
+		SELECT EXTRACT(year FROM o_regdate) || '/' || EXTRACT(month FROM o_regdate) || '/' || EXTRACT(day FROM o_regdate) "condition", SUM(o_total) "totSale" FROM orders GROUP BY EXTRACT(year FROM o_regdate), EXTRACT(month FROM o_regdate), EXTRACT(day FROM o_regdate) ORDER BY EXTRACT(year FROM o_regdate), EXTRACT(month FROM o_regdate), EXTRACT(day FROM o_regdate) 
 	</select>
 </mapper>

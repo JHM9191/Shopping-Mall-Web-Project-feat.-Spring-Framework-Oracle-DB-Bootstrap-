@@ -19,6 +19,11 @@ public class StatDao implements Dao<String, StatVO> {
 	public ArrayList<StatVO> selectbypayment() {
 		return sm.selectbypayment();
 	}
+	
+	@Override
+	public ArrayList<StatVO> selectpayment() {
+		return sm.selectpayment();
+	}
 
 	@Override
 	public ArrayList<StatVO> selectyearly() {

@@ -6,6 +6,8 @@ import sp365.vo.StatVO;
 
 public interface StatMapper {
 	public ArrayList<StatVO> selectbypayment();
+	
+	public ArrayList<StatVO> selectpayment();
 
 	public ArrayList<StatVO> selectyearly();
 

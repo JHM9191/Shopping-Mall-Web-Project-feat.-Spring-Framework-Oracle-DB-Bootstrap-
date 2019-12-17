@@ -123,4 +123,7 @@ public interface Dao<K, V> {
 		return null;
 	};
 
+	default public ArrayList<StatVO> selectpayment() {
+		return null;
+	};
 }

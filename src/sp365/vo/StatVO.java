@@ -20,6 +20,7 @@ public class StatVO {
 
 	public void setCondition(String condition) {
 		this.condition = condition;
+		System.out.println("setCondition: " + this.condition);
 	}
 
 	public int getTotSale() {
@@ -28,6 +29,7 @@ public class StatVO {
 
 	public void setTotSale(int totSale) {
 		this.totSale = totSale;
+		System.out.println("setTotSale: " + this.totSale);
 	}
 
 	@Override

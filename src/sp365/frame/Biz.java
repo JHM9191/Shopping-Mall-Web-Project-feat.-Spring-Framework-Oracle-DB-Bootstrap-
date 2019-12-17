@@ -125,4 +125,8 @@ public interface Biz<K, V> {
 	default public ArrayList<StatVO> getdaily() {
 		return null;
 	}	
+	
+	default public ArrayList<StatVO> getpayment() {
+		return null;
+	};
 }

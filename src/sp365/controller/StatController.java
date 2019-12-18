@@ -35,29 +35,48 @@ public class StatController {
 //			System.out.println("yearly: " + yearly.toString());
 			System.out.println("monthly: " + monthly.toString());
 //			System.out.println("daily: " + daily.toString());
-			JSONArray ja = new JSONArray();
+
+			//
+			ArrayList<Object> totSale = new ArrayList<>();
+			ArrayList<Object> condition = new ArrayList<>();
 			for (StatVO s : monthly) {
-				JSONObject obj = new JSONObject();
-				obj.put("categories", s.getCondition());
-				obj.put("series", s.getTotSale());
-				ja.add(obj);
+				totSale.add(s.getTotSale());
+				condition.add(s.getCondition());
 			}
 
+			ArrayList<ArrayList<Object>> arrays = new ArrayList<>();
+			arrays.add(totSale);
+			arrays.add(condition);
+			System.out.println(arrays.toString());
+//
+			JSONObject obj = new JSONObject();
+			obj.put("totSale", totSale);
+			obj.put("condition", condition);
+			JSONArray ja = new JSONArray();
+			ja.add(obj);
+			
+			JSONArray jlist = new JSONArray();
+			jlist.add(totSale);
+			jlist.add(condition);
+
+//			System.out.println(condition);
 			response.setCharacterEncoding("UTF-8");
 			response.setContentType("text/json; charset=UTF-8");
-			out.write(ja.toJSONString());
+//			out.write(totSale.toString());
+//			out.write(ja.toJSONString());
+			out.write(ja.toJSONString(jlist));
 //			for (StatVO s : list) {
 //				System.out.println(s.toString());
 //			}
 
-			mv.addObject("StatVO", monthly);
+			mv.addObject("condition", condition.toString());
 			mv.addObject("center", "statistics_mgr");
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			out.close();
 		}
-		mv.setViewName("main_mgr");
+		mv.setViewName("manager/main_mgr");
 		return mv;
 	}
 

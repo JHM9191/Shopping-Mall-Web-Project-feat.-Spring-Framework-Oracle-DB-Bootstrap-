@@ -29,7 +29,7 @@
 }
 </style>
 <script>
-	function display(data) {
+	function display(data, dbdata) {
 		Highcharts
 				.chart(
 						'container_stat',
@@ -44,9 +44,10 @@
 								text : ''
 							},
 							xAxis : [ {
-								categories : [ 'Jan', 'Feb', 'Mar', 'Apr',
-										'May', 'Jun', 'Jul', 'Aug', 'Sep',
-										'Oct', 'Nov', 'Dec' ],
+								categories : /*[ 'Jan', 'Feb', 'Mar', 'Apr',
+																																													'May', 'Jun', 'Jul', 'Aug', 'Sep',
+																																													'Oct', 'Nov', 'Dec' ],*/
+								dbdata[1],
 								crosshair : true
 							} ],
 							yAxis : [
@@ -101,36 +102,39 @@
 		$.ajax({
 			url : 'statpayment.sp',
 			success : function(dbdata) {
-				alert(JSON.parse('${StatVO}'));
-
+				//alert(dbdata[0]);
+				//alert(JSON.parse('${StatVO}'));
 				//$(dbdata).each(function(idx, item) {
-					//alert('categories: ' + item.categories);
-					//alert('data: ' + item.data);
+				//alert('categories: ' + item.categories);
+				//alert('data: ' + item.data);
 				//});
 
-				var data = [
-						{
-							name : '총매출',
-							type : 'column',
-							yAxis : 1,
-							data : [ JSON.parse('${StatVO.series}') ],
-							tooltip : {
-								valueSuffix : ' 원'
-							},
-							color : Highcharts.getOptions().colors[6]
-						},
-						{
-							name : '수익률',
-							type : 'spline',
-							data : [ 7.0, 6.9, 9.5, 14.5, 18.2, 21.5, 25.2,
-									26.5, 23.3, 18.3, 13.9, 9.6 ],
-							tooltip : {
-								valueSuffix : '%'
-							},
-							color : Highcharts.getOptions().colors[1]
-						} ];
+				var data = [ {
+					name : '총매출',
+					type : 'column',
+					yAxis : 1,
+					data : dbdata[0],
+					tooltip : {
+						valueSuffix : ' 원'
+					},
+					color : Highcharts.getOptions().colors[6]
+				}
+				/*
+				,
+				{
+					name : '수익률',
+					type : 'spline',
+					data : [ 7.0, 6.9, 9.5, 14.5, 18.2, 21.5, 25.2,
+							26.5, 23.3, 18.3, 13.9, 9.6 ],
+					tooltip : {
+						valueSuffix : '%'
+					},
+					color : Highcharts.getOptions().colors[1]
+				}
+				 */
+				];
 
-				display(data);
+				display(data, dbdata);
 			},
 			error : function() {
 			}
@@ -159,11 +163,12 @@
 			</div>
 
 			<div class="nice-select" tabindex="0">
-				<span class="current">1년</span>
+				<span class="current">전체기간</span>
 				<ul class="list">
-					<li data-value="1" class="option selected">1년</li>
-					<li data-value="2" class="option">2년</li>
-					<li data-value="3" class="option">3년</li>
+					<li data-value="1" class="option selected">전체기간</li>
+					<li data-value="1" class="option">최근 1년</li>
+					<li data-value="2" class="option">최근 2년</li>
+					<li data-value="3" class="option">최근 3년</li>
 				</ul>
 			</div>
 			<div class="nice-select" tabindex="0">

@@ -20,6 +20,7 @@ public class StatBiz implements Biz<String, StatVO> {
 	public ArrayList<StatVO> getbypayment() {
 		return dao.selectbypayment();
 	}
+
 	@Override
 	public ArrayList<StatVO> getpayment() {
 		return dao.selectpayment();
@@ -38,6 +39,21 @@ public class StatBiz implements Biz<String, StatVO> {
 	@Override
 	public ArrayList<StatVO> getdaily() {
 		return dao.selectdaily();
+	}
+
+	@Override
+	public ArrayList<StatVO> getyearlyfor(int period) {
+		return dao.selectyearlyfor(period);
+	}
+
+	@Override
+	public ArrayList<StatVO> getmonthlyfor(int period) {
+		return dao.selectmonthlyfor(period);
+	}
+
+	@Override
+	public ArrayList<StatVO> getdailyfor(int period) {
+		return dao.selectdailyfor(period);
 	}
 
 }

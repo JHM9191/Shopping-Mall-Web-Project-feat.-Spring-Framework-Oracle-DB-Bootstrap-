@@ -118,5 +118,6 @@ public class ProductBiz implements Biz<String, ProductVO> {
 	public ArrayList<ProductVO> get_main_best() throws Exception {
 		return dao.select_main_best();
 	}
+	
 
 }

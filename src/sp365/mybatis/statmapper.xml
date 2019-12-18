@@ -5,18 +5,109 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 <mapper namespace="sp365.mapper.StatMapper">
 
 	<select id="selectbypayment" resultType="stat">
-		SELECT o_payment "condition", SUM(o_total) "totSale" FROM orders GROUP BY o_payment
+		SELECT o_payment
+		"condition", SUM(o_total) "totSale" FROM orders GROUP BY o_payment
 	</select>
-	
+
 	<select id="selectyearly" resultType="stat">
-		SELECT EXTRACT(year FROM o_regdate) "condition", SUM(o_total) "totSale" FROM orders GROUP BY EXTRACT(year FROM o_regdate) ORDER BY EXTRACT(year FROM o_regdate)
+		SELECT EXTRACT(year FROM
+		o_regdate) "condition", SUM(o_total) "totSale" FROM orders GROUP BY
+		EXTRACT(year FROM o_regdate) ORDER BY EXTRACT(year FROM o_regdate)
 	</select>
-	
+
 	<select id="selectmonthly" resultType="stat">
-		SELECT (EXTRACT(year FROM o_regdate) || '/' || EXTRACT(month FROM o_regdate)) "condition", SUM(o_total) "totSale" FROM orders GROUP BY EXTRACT(year FROM o_regdate), EXTRACT(month FROM o_regdate) ORDER BY EXTRACT(year FROM o_regdate), EXTRACT(month FROM o_regdate)
+		SELECT (EXTRACT(year FROM
+		o_regdate) || '/' || EXTRACT(month FROM o_regdate)) "condition",
+		SUM(o_total) "totSale" FROM orders GROUP BY EXTRACT(year FROM
+		o_regdate), EXTRACT(month FROM o_regdate) ORDER BY EXTRACT(year FROM
+		o_regdate), EXTRACT(month FROM o_regdate)
+	</select>
+
+	<select id="selectdaily" resultType="stat">
+		SELECT EXTRACT(year FROM
+		o_regdate) || '/' || EXTRACT(month FROM o_regdate) || '/' ||
+		EXTRACT(day FROM o_regdate) "condition", SUM(o_total) "totSale" FROM
+		orders GROUP BY EXTRACT(year FROM o_regdate), EXTRACT(month FROM
+		o_regdate), EXTRACT(day FROM o_regdate) ORDER BY EXTRACT(year FROM
+		o_regdate), EXTRACT(month FROM o_regdate), EXTRACT(day FROM o_regdate)
+	</select>
+
+	<select id="selectyearlyfor" resultType="stat">
+		<![CDATA[SELECT EXTRACT(year FROM o_regdate) "condition",
+		SUM(o_total) "totSale" FROM orders WHERE o_regdate >= (SYSDATE - (INTERVAL '${period}' YEAR)) GROUP BY EXTRACT(year FROM o_regdate) ORDER BY
+		EXTRACT(year FROM o_regdate)]]>
+	</select>
+
+	<select id="selectmonthlyfor" resultType="stat">
+		<![CDATA[SELECT (EXTRACT(year FROM
+		o_regdate) || '/' || EXTRACT(month FROM o_regdate)) "condition",
+		SUM(o_total) "totSale" FROM orders WHERE o_regdate >= (SYSDATE - (INTERVAL '${period}' YEAR)) GROUP BY EXTRACT(year FROM
+		o_regdate), EXTRACT(month FROM o_regdate) ORDER BY EXTRACT(year FROM
+		o_regdate), EXTRACT(month FROM o_regdate)]]>
+	</select>
+
+	<select id="selectdailyfor" resultType="stat">
+		<![CDATA[SELECT EXTRACT(year FROM
+		o_regdate) || '/' || EXTRACT(month FROM o_regdate) || '/' ||
+		EXTRACT(day FROM o_regdate) "condition", SUM(o_total) "totSale" FROM
+		orders WHERE o_regdate >= (SYSDATE - (INTERVAL '${period}' YEAR)) GROUP BY EXTRACT(year FROM o_regdate), EXTRACT(month FROM
+		o_regdate), EXTRACT(day FROM o_regdate) ORDER BY EXTRACT(year FROM
+		o_regdate), EXTRACT(month FROM o_regdate), EXTRACT(day FROM o_regdate)]]>
 	</select>
 	
-	<select id="selectdaily" resultType="stat">
-		SELECT EXTRACT(year FROM o_regdate) || '/' || EXTRACT(month FROM o_regdate) || '/' || EXTRACT(day FROM o_regdate) "condition", SUM(o_total) "totSale" FROM orders GROUP BY EXTRACT(year FROM o_regdate), EXTRACT(month FROM o_regdate), EXTRACT(day FROM o_regdate) ORDER BY EXTRACT(year FROM o_regdate), EXTRACT(month FROM o_regdate), EXTRACT(day FROM o_regdate) 
+	
+	
+	
+	<!-- New Arrivals -->
+	
+		<select id="selectnewyearly" resultType="stat">
+		SELECT EXTRACT(year FROM
+		o_regdate) "condition", SUM(o_total) "totSale" FROM orders GROUP BY
+		EXTRACT(year FROM o_regdate) ORDER BY EXTRACT(year FROM o_regdate)
 	</select>
+
+	<select id="selectnewmonthly" resultType="stat">
+		SELECT (EXTRACT(year FROM
+		o_regdate) || '/' || EXTRACT(month FROM o_regdate)) "condition",
+		SUM(o_total) "totSale" FROM orders GROUP BY EXTRACT(year FROM
+		o_regdate), EXTRACT(month FROM o_regdate) ORDER BY EXTRACT(year FROM
+		o_regdate), EXTRACT(month FROM o_regdate)
+	</select>
+
+	<select id="selectnewdaily" resultType="stat">
+		SELECT EXTRACT(year FROM
+		o_regdate) || '/' || EXTRACT(month FROM o_regdate) || '/' ||
+		EXTRACT(day FROM o_regdate) "condition", SUM(o_total) "totSale" FROM
+		orders GROUP BY EXTRACT(year FROM o_regdate), EXTRACT(month FROM
+		o_regdate), EXTRACT(day FROM o_regdate) ORDER BY EXTRACT(year FROM
+		o_regdate), EXTRACT(month FROM o_regdate), EXTRACT(day FROM o_regdate)
+	</select>
+
+	<select id="selectnewyearlyfor" resultType="stat">
+		<![CDATA[SELECT EXTRACT(year FROM o_regdate) "condition",
+		SUM(o_total) "totSale" FROM orders WHERE o_regdate >= (SYSDATE - (INTERVAL '${period}' YEAR)) GROUP BY EXTRACT(year FROM o_regdate) ORDER BY
+		EXTRACT(year FROM o_regdate)]]>
+	</select>
+
+	<select id="selectnewmonthlyfor" resultType="stat">
+		<![CDATA[SELECT (EXTRACT(year FROM
+		o_regdate) || '/' || EXTRACT(month FROM o_regdate)) "condition",
+		SUM(o_total) "totSale" FROM orders WHERE o_regdate >= (SYSDATE - (INTERVAL '${period}' YEAR)) GROUP BY EXTRACT(year FROM
+		o_regdate), EXTRACT(month FROM o_regdate) ORDER BY EXTRACT(year FROM
+		o_regdate), EXTRACT(month FROM o_regdate)]]>
+	</select>
+
+	<select id="selectnewdailyfor" resultType="stat">
+		<![CDATA[SELECT EXTRACT(year FROM
+		o_regdate) || '/' || EXTRACT(month FROM o_regdate) || '/' ||
+		EXTRACT(day FROM o_regdate) "condition", SUM(o_total) "totSale" FROM
+		orders WHERE o_regdate >= (SYSDATE - (INTERVAL '${period}' YEAR)) GROUP BY EXTRACT(year FROM o_regdate), EXTRACT(month FROM
+		o_regdate), EXTRACT(day FROM o_regdate) ORDER BY EXTRACT(year FROM
+		o_regdate), EXTRACT(month FROM o_regdate), EXTRACT(day FROM o_regdate)]]>
+	</select>
+	
+	
+	
+	
+	
 </mapper>

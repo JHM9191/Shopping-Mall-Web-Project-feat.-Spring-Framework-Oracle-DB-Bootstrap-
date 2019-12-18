@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-	pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="https://code.highcharts.com/highcharts.js"></script>
@@ -38,28 +38,25 @@
 								zoomType : 'xy'
 							},
 							title : {
-								text : '¿ùº° ÃÑ¸ÅÃâ ¹× ¼öÀÍ·ü'
+								text : 'ì›”ë³„ ì´ë§¤ì¶œ ë° ìˆ˜ìµë¥ '
 							},
 							subtitle : {
 								text : ''
 							},
 							xAxis : [ {
-								categories : /*[ 'Jan', 'Feb', 'Mar', 'Apr',
-																																													'May', 'Jun', 'Jul', 'Aug', 'Sep',
-																																													'Oct', 'Nov', 'Dec' ],*/
-								dbdata[1],
+								categories : dbdata[1],
 								crosshair : true
 							} ],
 							yAxis : [
 									{ // Primary yAxis
 										labels : {
-											format : '{value} ¿ø',
+											format : '{value} ì›',
 											style : {
 												color : Highcharts.getOptions().colors[0]
 											}
 										},
 										title : {
-											text : 'ÃÑ¸ÅÃâ',
+											text : 'ì´ë§¤ì¶œ',
 											style : {
 												color : Highcharts.getOptions().colors[0]
 											}
@@ -67,7 +64,7 @@
 									},
 									{ // Secondary yAxis
 										title : {
-											text : '¼öÀÍ·ü',
+											text : 'ìˆ˜ìµë¥ ',
 											style : {
 												color : Highcharts.getOptions().colors[0]
 											}
@@ -98,31 +95,26 @@
 						});
 	}
 
-	function getData() {
+	function getData(pt, period, cond) {
 		$.ajax({
-			url : 'statpayment.sp',
+			url : 'statpayment.sp?productType=' + pt + '&period=' + period
+					+ '&cond=' + cond,
 			success : function(dbdata) {
-				//alert(dbdata[0]);
-				//alert(JSON.parse('${StatVO}'));
-				//$(dbdata).each(function(idx, item) {
-				//alert('categories: ' + item.categories);
-				//alert('data: ' + item.data);
-				//});
-
 				var data = [ {
-					name : 'ÃÑ¸ÅÃâ',
+					name : 'ì´ë§¤ì¶œ',
 					type : 'column',
 					yAxis : 1,
 					data : dbdata[0],
 					tooltip : {
-						valueSuffix : ' ¿ø'
+						valueSuffix : ' ì›'
 					},
 					color : Highcharts.getOptions().colors[6]
 				}
+
 				/*
 				,
 				{
-					name : '¼öÀÍ·ü',
+					name : 'ìˆ˜ìµë¥ ',
 					type : 'spline',
 					data : [ 7.0, 6.9, 9.5, 14.5, 18.2, 21.5, 25.2,
 							26.5, 23.3, 18.3, 13.9, 9.6 ],
@@ -133,7 +125,7 @@
 				}
 				 */
 				];
-
+				//alert(dbdata[1]);
 				display(data, dbdata);
 			},
 			error : function() {
@@ -143,7 +135,7 @@
 	};
 
 	$(document).ready(function() {
-		getData();
+		getData('${productType}', '${period}', '${cond}');
 	});
 	function selected(text) {
 		alert(text);
@@ -154,30 +146,43 @@
 		<div class="row justify-content-center">
 
 			<div class="nice-select" tabindex="0">
-				<span class="current">ÀüÃ¼</span>
+				<span class="current">ì „ì²´</span>
 				<ul class="list">
-					<li data-value="All" class="option selected">ÀüÃ¼</li>
-					<li data-value="New" class="option">New Arrival</li>
-					<li data-value="Best" class="option">Best</li>
+					<li data-value="All" class="option selected"><a
+						href="statistics_mgr.sp?productType=All&period=${period }&cond=${cond}">ì „ì²´</a></li>
+					<li data-value="New" class="option"><a
+						href="statistics_mgr.sp?productType=New&period=${period }&cond=${cond}">New
+							Arrival</a></li>
+					<li data-value="Best" class="option"><a
+						href="statistics_mgr.sp?productType=Best&period=${period }&cond=${cond}">Best</a></li>
 				</ul>
 			</div>
 
 			<div class="nice-select" tabindex="0">
-				<span class="current">ÀüÃ¼±â°£</span>
+				<span class="current">ì „ì²´ê¸°ê°„</span>
 				<ul class="list">
-					<li data-value="1" class="option selected">ÀüÃ¼±â°£</li>
-					<li data-value="1" class="option">ÃÖ±Ù 1³â</li>
-					<li data-value="2" class="option">ÃÖ±Ù 2³â</li>
-					<li data-value="3" class="option">ÃÖ±Ù 3³â</li>
+					<li data-value="1" class="option"><a
+						href="statistics_mgr.sp?productType=${productType }&period=total&cond=${cond}">ì „ì²´ê¸°ê°„</a></li>
+					<li data-value="2" class="option"><a
+						href="statistics_mgr.sp?productType=${productType }&period=1&cond=${cond}">ìµœê·¼
+							1ë…„</a></li>
+					<li data-value="3" class="option"><a
+						href="statistics_mgr.sp?productType=${productType }&period=2&cond=${cond}">ìµœê·¼
+							2ë…„</a></li>
+					<li data-value="4" class="option"><a
+						href="statistics_mgr.sp?productType=${productType }&period=3&cond=${cond}">ìµœê·¼
+							3ë…„</a></li>
 				</ul>
 			</div>
 			<div class="nice-select" tabindex="0">
-				<span class="current">¿ùº°</span>
+				<span class="current">ì›”ë³„</span>
 				<ul class="list">
 					<li data-value="monthly" class="option selected"><a
-						href="statpayment.sp">¿ùº°</a></li>
-					<li data-value="yearly" class="option">³âº°</li>
-					<li data-value="daily" class="option">ÀÏº°</li>
+						href="statistics_mgr.sp?productType=${productType }&period=${period }&cond=monthly">ì›”ë³„</a></li>
+					<li data-value="yearly" class="option"><a
+						href="statistics_mgr.sp?productType=${productType }&period=${period }&cond=yearly">ë…„ë³„</a></li>
+					<li data-value="daily" class="option"><a
+						href="statistics_mgr.sp?productType=${productType }&period=${period }&cond=daily">ì¼ë³„</a></li>
 				</ul>
 			</div>
 		</div>

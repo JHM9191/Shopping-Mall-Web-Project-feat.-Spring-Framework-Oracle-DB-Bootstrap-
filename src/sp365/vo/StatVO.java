@@ -3,6 +3,7 @@ package sp365.vo;
 public class StatVO {
 	String condition;
 	int totSale;
+	int period;
 
 	public StatVO() {
 		super();
@@ -14,13 +15,19 @@ public class StatVO {
 		this.totSale = totSale;
 	}
 
+	public StatVO(String condition, int totSale, int period) {
+		super();
+		this.condition = condition;
+		this.totSale = totSale;
+		this.period = period;
+	}
+
 	public String getCondition() {
 		return condition;
 	}
 
 	public void setCondition(String condition) {
 		this.condition = condition;
-		System.out.println("setCondition: " + this.condition);
 	}
 
 	public int getTotSale() {
@@ -29,12 +36,19 @@ public class StatVO {
 
 	public void setTotSale(int totSale) {
 		this.totSale = totSale;
-		System.out.println("setTotSale: " + this.totSale);
+	}
+
+	public int getPeriod() {
+		return period;
+	}
+
+	public void setPeriod(int period) {
+		this.period = period;
 	}
 
 	@Override
 	public String toString() {
-		return "StatVO [condition=" + condition + ", totSale=" + totSale + "]";
+		return "StatVO [condition=" + condition + ", totSale=" + totSale + ", period=" + period + "]";
 	}
 
 }

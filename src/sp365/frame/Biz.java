@@ -108,12 +108,17 @@ public interface Biz<K, V> {
 	public default ArrayList<V> getmycart(K k) throws Exception {
 		return null;
 	}
-	
+
 ////Stat
 	default public ArrayList<StatVO> getbypayment() {
 		return null;
 	};
 
+	default public ArrayList<StatVO> getpayment() {
+		return null;
+	}
+
+	// All products
 	default public ArrayList<StatVO> getyearly() {
 		return null;
 	};
@@ -124,9 +129,42 @@ public interface Biz<K, V> {
 
 	default public ArrayList<StatVO> getdaily() {
 		return null;
-	}	
-	
-	default public ArrayList<StatVO> getpayment() {
+	}
+
+	default public ArrayList<StatVO> getyearlyfor(int period) {
+		return null;
+	}
+
+	default public ArrayList<StatVO> getmonthlyfor(int period) {
+		return null;
+	}
+
+	default public ArrayList<StatVO> getdailyfor(int period) {
+		return null;
+	};
+
+	// New Arrivals
+	default public ArrayList<StatVO> getnewyearly() {
+		return null;
+	};
+
+	default public ArrayList<StatVO> getnewmonthly() {
+		return null;
+	};
+
+	default public ArrayList<StatVO> getnewdaily() {
+		return null;
+	}
+
+	default public ArrayList<StatVO> getnewyearlyfor(int period) {
+		return null;
+	}
+
+	default public ArrayList<StatVO> getnewmonthlyfor(int period) {
+		return null;
+	}
+
+	default public ArrayList<StatVO> getnewdailyfor(int period) {
 		return null;
 	};
 }

@@ -39,9 +39,16 @@ public class ManagerController {
 	}
 
 	@RequestMapping("/statistics_mgr.sp")
-	public ModelAndView statistics_mgr(ModelAndView mv) {
+	public ModelAndView statistics_mgr(ModelAndView mv, HttpServletRequest request) {
+		String productType = request.getParameter("productType");
+		String period = request.getParameter("period");
+		String cond = request.getParameter("cond");
 		System.out.println("statistics_mgr");
+		System.out.println(productType + " " + period + " " + cond);
 		mv.addObject("center", "statistics_mgr");
+		mv.addObject("productType", productType);
+		mv.addObject("period", period);
+		mv.addObject("cond", cond);
 		System.out.println("addObject success");
 		mv.setViewName("manager/main_mgr");
 		return mv;
@@ -127,7 +134,7 @@ public class ManagerController {
 	@RequestMapping("/qna_addimpl_user.sp")
 	public String qna_addimpl_user(BoardVO board, HttpServletRequest request) {
 		HttpSession session = request.getSession();
-		board.setU_id((String)session.getAttribute("loginid"));
+		board.setU_id((String) session.getAttribute("loginid"));
 		System.out.println(board);
 		String result = null;
 		try {

@@ -25,6 +25,8 @@ public class StatDao implements Dao<String, StatVO> {
 		return sm.selectpayment();
 	}
 
+	
+	// All products
 	@Override
 	public ArrayList<StatVO> selectyearly() {
 		return sm.selectyearly();
@@ -38,5 +40,51 @@ public class StatDao implements Dao<String, StatVO> {
 	@Override
 	public ArrayList<StatVO> selectdaily() {
 		return sm.selectdaily();
+	}
+	
+	@Override
+	public ArrayList<StatVO> selectyearlyfor(int period) {
+		return sm.selectyearlyfor(period);
+	}
+	
+	@Override
+	public ArrayList<StatVO> selectmonthlyfor(int period) {
+		return sm.selectmonthlyfor(period);
+	}
+	
+	@Override
+	public ArrayList<StatVO> selectdailyfor(int period) {
+		return sm.selectdailyfor(period);
+	}
+	
+	// New Arrivals
+	@Override
+	public ArrayList<StatVO> selectnewyearly() {
+		return sm.selectnewyearly();
+	}
+
+	@Override
+	public ArrayList<StatVO> selectnewmonthly() {
+		return sm.selectnewmonthly();
+	}
+
+	@Override
+	public ArrayList<StatVO> selectnewdaily() {
+		return sm.selectnewdaily();
+	}
+	
+	@Override
+	public ArrayList<StatVO> selectnewyearlyfor(int period) {
+		return sm.selectnewyearlyfor(period);
+	}
+	
+	@Override
+	public ArrayList<StatVO> selectnewmonthlyfor(int period) {
+		return sm.selectnewmonthlyfor(period);
+	}
+	
+	@Override
+	public ArrayList<StatVO> selectnewdailyfor(int period) {
+		return sm.selectnewdailyfor(period);
 	}
 }

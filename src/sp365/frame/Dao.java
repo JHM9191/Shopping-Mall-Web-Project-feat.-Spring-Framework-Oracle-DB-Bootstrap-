@@ -107,10 +107,16 @@ public interface Dao<K, V> {
 	}
 
 //// Stat
+
+	default public ArrayList<StatVO> selectpayment() {
+		return null;
+	};
+
 	default public ArrayList<StatVO> selectbypayment() {
 		return null;
 	};
 
+	// All products
 	default public ArrayList<StatVO> selectyearly() {
 		return null;
 	};
@@ -123,7 +129,41 @@ public interface Dao<K, V> {
 		return null;
 	};
 
-	default public ArrayList<StatVO> selectpayment() {
+	default public ArrayList<StatVO> selectyearlyfor(int period) {
 		return null;
 	};
+
+	default public ArrayList<StatVO> selectmonthlyfor(int period) {
+		return null;
+	};
+
+	default public ArrayList<StatVO> selectdailyfor(int period) {
+		return null;
+	};
+
+	// New Arrivals
+	default public ArrayList<StatVO> selectnewyearly() {
+		return null;
+	};
+
+	default public ArrayList<StatVO> selectnewmonthly() {
+		return null;
+	};
+
+	default public ArrayList<StatVO> selectnewdaily() {
+		return null;
+	};
+
+	default public ArrayList<StatVO> selectnewyearlyfor(int period) {
+		return null;
+	};
+
+	default public ArrayList<StatVO> selectnewmonthlyfor(int period) {
+		return null;
+	};
+
+	default public ArrayList<StatVO> selectnewdailyfor(int period) {
+		return null;
+	};
+
 }

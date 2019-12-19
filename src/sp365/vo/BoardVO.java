@@ -23,6 +23,7 @@ public class BoardVO {
 		this.b_content = b_content;
 		this.b_reply = b_reply;
 		this.u_id = u_id;
+		System.out.println("hello");
 	}
 
 	public BoardVO(String b_id, String b_title, String b_writer, String b_content, Date b_regdate, String b_reply,

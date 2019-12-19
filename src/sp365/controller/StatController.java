@@ -37,7 +37,9 @@ public class StatController {
 
 		// 전체 상품
 		if (productType.equals("All")) {
+			mv.addObject("productType_name", "전체");
 			if (period.equals("total")) {
+				mv.addObject("period_name", "전체기간");
 				if (cond.equals("yearly")) {
 					System.out.println("getyearly");
 					statlist = sbiz.getyearly();
@@ -49,6 +51,7 @@ public class StatController {
 					System.out.println("getdaily");
 				}
 			} else {
+				mv.addObject("period_name", "최근" + period + "년");
 				int per = Integer.parseInt(period);
 				if (cond.equals("yearly")) {
 					statlist = sbiz.getyearlyfor(per);
@@ -62,7 +65,9 @@ public class StatController {
 				}
 			}
 		} else if (productType.equals("New")) {// New
+			mv.addObject("productType_name", "New Arrival");
 			if (period.equals("total")) {
+				mv.addObject("period_name", "전체기간");
 				if (cond.equals("yearly")) {
 					System.out.println("getnewyearly");
 					statlist = sbiz.getnewyearly();
@@ -74,6 +79,7 @@ public class StatController {
 					System.out.println("getnewdaily");
 				}
 			} else {
+				mv.addObject("period_name", "최근" + period + "년");
 				int per = Integer.parseInt(period);
 				if (cond.equals("yearly")) {
 					statlist = sbiz.getnewyearlyfor(per);
@@ -87,23 +93,47 @@ public class StatController {
 				}
 			}
 		} else if (productType.equals("Best")) {// Best
-
+			mv.addObject("productType_name", "Best");
+			if (period.equals("total")) {
+				mv.addObject("period_name", "전체기간");
+				if (cond.equals("yearly")) {
+					System.out.println("getbestyearly");
+					statlist = sbiz.getbestyearly();
+				} else if (cond.equals("monthly")) {
+					statlist = sbiz.getbestmonthly();
+					System.out.println("getbestmonthly");
+				} else if (cond.equals("daily")) {
+					statlist = sbiz.getbestdaily();
+					System.out.println("getbestdaily");
+				}
+			} else {
+				mv.addObject("period_name", "최근" + period + "년");
+				int per = Integer.parseInt(period);
+				if (cond.equals("yearly")) {
+					statlist = sbiz.getbestyearlyfor(per);
+					System.out.println("getbestyearlyfor");
+				} else if (cond.equals("monthly")) {
+					statlist = sbiz.getbestmonthlyfor(per);
+					System.out.println("getbestmonthlyfor");
+				} else if (cond.equals("daily")) {
+					statlist = sbiz.getbestdailyfor(per);
+					System.out.println("getbestdailyfor");
+				}
+			}
 		}
-
 		try {
 			out = response.getWriter();
-			ArrayList<Object> totSale = new ArrayList<>();
-			ArrayList<Object> condition = new ArrayList<>();
+
+			JSONArray statarray = new JSONArray();
 			for (StatVO s : statlist) {
-				totSale.add(s.getTotSale());
-				condition.add(s.getCondition());
+				ArrayList<Object> list = new ArrayList<Object>();
+				list.add(s.getCondition());
+				list.add(s.getTotSale());
+				statarray.add(list);
 			}
-			JSONArray jlist = new JSONArray();
-			jlist.add(totSale);
-			jlist.add(condition);
 			response.setCharacterEncoding("UTF-8");
 			response.setContentType("text/json; charset=UTF-8");
-			out.write(jlist.toJSONString());
+			out.write(statarray.toJSONString());
 			mv.addObject("center", "statistics_mgr");
 		} catch (Exception e) {
 			e.printStackTrace();

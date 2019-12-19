@@ -42,4 +42,15 @@ public interface StatMapper {
 	
 	
 	// Best Products
+	public ArrayList<StatVO> selectbestyearly();
+
+	public ArrayList<StatVO> selectbestmonthly();
+
+	public ArrayList<StatVO> selectbestdaily();
+
+	public ArrayList<StatVO> selectbestyearlyfor(@Param("period") int period);
+
+	public ArrayList<StatVO> selectbestmonthlyfor(@Param("period") int period);
+
+	public ArrayList<StatVO> selectbestdailyfor(@Param("period") int period);
 }

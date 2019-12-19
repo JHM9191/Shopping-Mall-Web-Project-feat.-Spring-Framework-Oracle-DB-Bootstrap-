@@ -21,8 +21,13 @@ public class CartDao implements Dao<String, CartVO> {
 	}
 
 	@Override
-	public int update(CartVO product) throws Exception {
-		return cm.update(product);
+	public int update(CartVO cart) throws Exception {
+		return cm.update(cart);
+	}
+	
+	@Override
+	public int updateorderid(CartVO cart) throws Exception {
+		return cm.updateorderid(cart);
 	}
 
 	@Override
@@ -31,8 +36,13 @@ public class CartDao implements Dao<String, CartVO> {
 	}
 
 	@Override
-	public ArrayList<CartVO> selectmycart(String u_id) throws Exception {
-		return cm.selectmycart(u_id);
+	public ArrayList<CartVO> selectbyorder(String o_id) throws Exception {
+		return cm.selectbyorder(o_id);
+	}
+	
+	@Override
+	public ArrayList<CartVO> selectmine(String u_id) throws Exception {
+		return cm.selectmine(u_id);
 	}
 
 	@Override

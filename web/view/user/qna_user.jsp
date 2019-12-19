@@ -180,7 +180,7 @@
 			} else {
 				$('div[id="b_content' + b_id + '"]').slideUp("fast");
 			}
-			same = same * (-1);
+			same = same*(-1);
 		} else {
 			$('div[id="b_content' + b_id + '"]').slideDown("fast");
 		}
@@ -304,7 +304,6 @@
 			});
 </script>
 
-<div id="section-top-border text-right mb-30"></div>
 <section class="row align-items-center justify-content-center">
 	<!-- <div class="row align-items-center container">-->
 
@@ -314,7 +313,7 @@
 			<h2>Q&A</h2>
 		</div>
 
-		<div id="b_header" class="table-head">
+		<div id="b_header" class="table-head" >
 			<span class="c1 txt_center">no.</span> <span class="c2 txt_center">제목</span>
 			<span class="c3 txt_center">고객ID</span> <span class="c4 txt_center">문의날짜</span><br>
 		</div>
@@ -363,10 +362,12 @@
 				<div class="typography">
 					<h2 id="h2_qna">질문을 등록하세요</h2>
 				</div>
-				<input type="text" placeholder="제목" name="b_title"
-					onfocus="this.placeholder = ''" required="required"
-					class="single-input-secondary"> <br> <span
-					id="textCount"></span>
+				<div id="shake_title">
+					<input type="text" placeholder="제목" name="b_title"
+						onfocus="this.placeholder = ''" required="required"
+						class="single-input-secondary">
+				</div>
+				<br> <span id="textCount"></span>
 				<textarea class="form-control w-100" rows="15" cols="35"
 					placeholder="내용을 입력하세요" name="b_content" required="required"></textarea>
 				<br> <a href="#" id="sendbtn" onclick="send();"

@@ -8,39 +8,20 @@
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<link rel="icon" href="img/favicon.png">
-<!-- Bootstrap CSS -->
-<link rel="stylesheet" href="css/bootstrap.min.css">
-<!-- animate CSS -->
-<link rel="stylesheet" href="css/animate.css">
-<!-- owl carousel CSS -->
-<!--<link rel="stylesheet" href="css/owl.carousel.min.css">  -->
-<link rel="stylesheet" href="css/lightslider.min.css">
-<!-- font awesome CSS -->
-<link rel="stylesheet" href="css/all.css">
-<link rel="stylesheet" href="css/nice-select.css">
-<!-- flaticon CSS -->
-<link rel="stylesheet" href="css/flaticon.css">
-<link rel="stylesheet" href="css/themify-icons.css">
-<!-- font awesome CSS -->
-<link rel="stylesheet" href="css/magnific-popup.css">
-<!-- style CSS -->
-<link rel="stylesheet" href="css/style.css">
+
 
 <script>
 	function isLogin(loginid) {
 		var detailform = $('form[name="detailform"]');
 		var confirmLogin;
-		alert("isLogin() 실행" + loginid + "입니다.");
-		if ( loginid == '') {
+		alert("isLogin() 실행");
+		if ( loginid == null) {
 			confirmLogin = confirm('로그인이 필요합니다. 로그인 페이지로 이동하시겠습니까?');
 			if (confirmLogin) {
 				alert('로그인 페이지로 이동합니다.');
-				// location.href = "login.sp";
 				detailform.action = "login.sp";
 			} else {
 				alert('메인 페이지로 이동합니다.');
-				// location.href = "main.sp";
 				detailform.action = "main.sp";
 			}
 		} 
@@ -50,10 +31,9 @@
 				alert('장바구니 페이지로 이동합니다.');
 				detailform.action = "cart.sp";
 				detailform.submit();
-				alert('submit();')
-			} else {
-				detailform.action = "cart.sp";
-			}
+//			} else {
+//				detailform.action = "cart.sp";
+//			}
 		}
 	};
 </script>
@@ -110,14 +90,12 @@
 						</div>
 						<div class="card_area">
 							<div class="product_count d-inline-block">
-								<span class="inumber-decrement"> <i class="ti-minus"></i></span>
+								<span class="number-decrement"> <i class="ti-minus"></i></span>
 								<!-- 수량 버튼 -->
-								<input class="input-number" type="number" value="1" min="0"
-									max="10" name="qty"> <span class="number-increment">
-									<i class="ti-plus"></i>
+								<input class="input-number" type="text" value="1" min="1"	max="10" name="qty"> 
+									<span class="number-increment"><i class="ti-plus"></i>
 								</span>
 							</div>
-							<!-- 아이디 로그인 안 되어 있으면 경고 띄우자! -->
 							<!-- add cart 버튼 -->
 							<div class="add_to_cart">
 								<input class="btn_3" type="submit" value="add to cart"
@@ -125,9 +103,9 @@
 								<a href="#" class="like_us"> <i class="ti-heart"></i></a>
 							</div>
 							<div class="social_icon">
-								<a href="#" class="fb"><i class="ti-facebook"></i></a> 
-								<a href="#" class="tw"><i class="ti-twitter-alt"></i></a> 
-								<a href="#" class="li"><i class="ti-linkedin"></i></a>
+								<a href="https://ko-kr.facebook.com/" class="fb"><i class="ti-facebook"></i></a> 
+								<a href="https://twitter.com/login?lang=ko" class="tw"><i class="ti-twitter-alt"></i></a> 
+								<a href="https://www.instagram.com/accounts/login/?hl=ko" class="li"><i class="ti-linkedin"></i></a>
 							</div>
 						</div>
 					</form>
@@ -138,30 +116,4 @@
 </div>
 <!--================End Single Product Area =================-->
 
-<!-- jquery plugins here-->
-<script src="js/jquery-1.12.1.min.js"></script>
-<!-- popper js -->
-<script src="js/popper.min.js"></script>
-<!-- bootstrap js -->
-<script src="js/bootstrap.min.js"></script>
-<!-- easing js -->
-<script src="js/jquery.magnific-popup.js"></script>
-<!-- swiper js -->
-<script src="js/lightslider.min.js"></script>
-<!-- swiper js -->
-<script src="js/mixitup.min.js"></script>
-<script src="js/lightslider.min.js"></script>
-<!-- particles js -->
-<script src="js/owl.carousel.min.js"></script>
-<script src="js/jquery.nice-select.min.js"></script>
-<!-- slick js -->
-<script src="js/slick.min.js"></script>
-<script src="js/jquery.counterup.min.js"></script>
-<script src="js/waypoints.min.js"></script>
-<script src="js/contact.js"></script>
-<script src="js/jquery.ajaxchimp.min.js"></script>
-<script src="js/jquery.form.js"></script>
-<script src="js/jquery.validate.min.js"></script>
-<script src="js/mail-script.js"></script>
-<!-- custom js -->
-<script src="js/custom.js"></script>
+

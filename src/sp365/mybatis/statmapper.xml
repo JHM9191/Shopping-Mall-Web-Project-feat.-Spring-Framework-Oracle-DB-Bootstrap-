@@ -54,60 +54,141 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 		o_regdate), EXTRACT(day FROM o_regdate) ORDER BY EXTRACT(year FROM
 		o_regdate), EXTRACT(month FROM o_regdate), EXTRACT(day FROM o_regdate)]]>
 	</select>
-	
-	
-	
-	
+
+
+
+
 	<!-- New Arrivals -->
-	
-		<select id="selectnewyearly" resultType="stat">
+
+	<select id="selectnewyearly" resultType="stat">
 		SELECT EXTRACT(year FROM
-		o_regdate) "condition", SUM(o_total) "totSale" FROM orders GROUP BY
-		EXTRACT(year FROM o_regdate) ORDER BY EXTRACT(year FROM o_regdate)
+		orders.o_regdate) "condition", SUM(cart.c_sum) "totSale" FROM cart,
+		product, orders WHERE
+		cart.p_id=product.p_id AND orders.o_id=cart.o_id
+		AND p_new='y' AND
+		cart.o_id != 'null'
+		GROUP BY
+		EXTRACT(year FROM
+		orders.o_regdate) ORDER BY
+		EXTRACT(year FROM orders.o_regdate)
 	</select>
 
 	<select id="selectnewmonthly" resultType="stat">
-		SELECT (EXTRACT(year FROM
-		o_regdate) || '/' || EXTRACT(month FROM o_regdate)) "condition",
-		SUM(o_total) "totSale" FROM orders GROUP BY EXTRACT(year FROM
-		o_regdate), EXTRACT(month FROM o_regdate) ORDER BY EXTRACT(year FROM
-		o_regdate), EXTRACT(month FROM o_regdate)
+		SELECT (EXTRACT(year FROM orders.o_regdate)||'/'|| EXTRACT(month FROM orders.o_regdate)) "condition", SUM(cart.c_sum) "totSale" 
+		FROM cart,product,orders 
+		WHERE cart.p_id=product.p_id AND orders.o_id=cart.o_id AND p_new='y' AND cart.o_id != 'null' 
+		GROUP BY EXTRACT(year FROM orders.o_regdate), EXTRACT(month FROM orders.o_regdate) 
+		ORDER BY EXTRACT(year FROM orders.o_regdate), EXTRACT(month FROM orders.o_regdate)
 	</select>
 
 	<select id="selectnewdaily" resultType="stat">
-		SELECT EXTRACT(year FROM
-		o_regdate) || '/' || EXTRACT(month FROM o_regdate) || '/' ||
-		EXTRACT(day FROM o_regdate) "condition", SUM(o_total) "totSale" FROM
-		orders GROUP BY EXTRACT(year FROM o_regdate), EXTRACT(month FROM
-		o_regdate), EXTRACT(day FROM o_regdate) ORDER BY EXTRACT(year FROM
-		o_regdate), EXTRACT(month FROM o_regdate), EXTRACT(day FROM o_regdate)
+		SELECT EXTRACT(year FROM orders.o_regdate) || '/' || EXTRACT(month FROM orders.o_regdate) || '/' || EXTRACT(day FROM orders.o_regdate) "condition", SUM(c_sum) "totSale" 
+		FROM cart,product,orders WHERE cart.p_id=product.p_id AND orders.o_id=cart.o_id AND p_new='y' AND
+		cart.o_id != 'null' GROUP BY EXTRACT(year FROM orders.o_regdate), EXTRACT(month FROM o_regdate), EXTRACT(day FROM orders.o_regdate) 
+		ORDER BY EXTRACT(year FROM orders.o_regdate), EXTRACT(month FROM orders.o_regdate), EXTRACT(day FROM orders.o_regdate)
 	</select>
 
 	<select id="selectnewyearlyfor" resultType="stat">
-		<![CDATA[SELECT EXTRACT(year FROM o_regdate) "condition",
-		SUM(o_total) "totSale" FROM orders WHERE o_regdate >= (SYSDATE - (INTERVAL '${period}' YEAR)) GROUP BY EXTRACT(year FROM o_regdate) ORDER BY
-		EXTRACT(year FROM o_regdate)]]>
+		<![CDATA[SELECT EXTRACT(year FROM orders.o_regdate) "condition", SUM(c_sum) "totSale" 
+		FROM cart,product,orders 
+		WHERE cart.p_id=product.p_id AND orders.o_id=cart.o_id AND p_new='y' AND cart.o_id != 'null' AND orders.o_regdate >= (SYSDATE - (INTERVAL '${period}' YEAR))
+		GROUP BY EXTRACT(year FROM orders.o_regdate) 
+		ORDER BY EXTRACT(year FROM orders.o_regdate)]]>
 	</select>
 
 	<select id="selectnewmonthlyfor" resultType="stat">
-		<![CDATA[SELECT (EXTRACT(year FROM
-		o_regdate) || '/' || EXTRACT(month FROM o_regdate)) "condition",
-		SUM(o_total) "totSale" FROM orders WHERE o_regdate >= (SYSDATE - (INTERVAL '${period}' YEAR)) GROUP BY EXTRACT(year FROM
-		o_regdate), EXTRACT(month FROM o_regdate) ORDER BY EXTRACT(year FROM
-		o_regdate), EXTRACT(month FROM o_regdate)]]>
+		<![CDATA[select (EXTRACT(year
+		FROM orders.o_regdate) || '/' || EXTRACT(month FROM orders.o_regdate))
+		"condition", SUM(c_sum) "totSale" FROM cart,product,orders WHERE
+		cart.p_id=product.p_id AND orders.o_id=cart.o_id AND p_new='y' AND
+		cart.o_id != 'null' AND orders.o_regdate >= (SYSDATE - (INTERVAL '${period}' YEAR)) GROUP BY EXTRACT(year FROM
+		orders.o_regdate),
+		EXTRACT(month FROM orders.o_regdate) ORDER BY EXTRACT(year FROM
+		orders.o_regdate),
+		EXTRACT(month FROM orders.o_regdate)]]>
 	</select>
 
 	<select id="selectnewdailyfor" resultType="stat">
-		<![CDATA[SELECT EXTRACT(year FROM
-		o_regdate) || '/' || EXTRACT(month FROM o_regdate) || '/' ||
-		EXTRACT(day FROM o_regdate) "condition", SUM(o_total) "totSale" FROM
-		orders WHERE o_regdate >= (SYSDATE - (INTERVAL '${period}' YEAR)) GROUP BY EXTRACT(year FROM o_regdate), EXTRACT(month FROM
-		o_regdate), EXTRACT(day FROM o_regdate) ORDER BY EXTRACT(year FROM
-		o_regdate), EXTRACT(month FROM o_regdate), EXTRACT(day FROM o_regdate)]]>
+		<![CDATA[SELECT EXTRACT(year
+		FROM
+		o_regdate) || '/' || EXTRACT(month FROM orders.o_regdate) || '/' ||
+		EXTRACT(day FROM orders.o_regdate) "condition", SUM(c_sum) "totSale" FROM
+		cart,product,orders WHERE
+		cart.p_id=product.p_id AND
+		orders.o_id=cart.o_id AND p_new='y' AND
+		cart.o_id != 'null' AND orders.o_regdate >= (SYSDATE - (INTERVAL '${period}' YEAR)) GROUP BY
+		EXTRACT(year FROM orders.o_regdate), EXTRACT(month FROM
+		orders.o_regdate),
+		EXTRACT(day FROM orders.o_regdate) ORDER BY EXTRACT(year FROM
+		orders.o_regdate),
+		EXTRACT(month FROM orders.o_regdate), EXTRACT(day FROM orders.o_regdate)]]>
 	</select>
-	
-	
-	
-	
-	
+
+	<!-- Best -->
+		<select id="selectbestyearly" resultType="stat">
+		SELECT EXTRACT(year FROM
+		orders.o_regdate) "condition", SUM(cart.c_sum) "totSale" FROM cart,
+		product, orders WHERE
+		cart.p_id=product.p_id AND orders.o_id=cart.o_id
+		AND p_best='y' AND
+		cart.o_id != 'null'
+		GROUP BY
+		EXTRACT(year FROM
+		orders.o_regdate) ORDER BY
+		EXTRACT(year FROM orders.o_regdate)
+	</select>
+
+	<select id="selectbestmonthly" resultType="stat">
+		SELECT (EXTRACT(year FROM orders.o_regdate)||'/'|| EXTRACT(month FROM orders.o_regdate)) "condition", SUM(cart.c_sum) "totSale" 
+		FROM cart,product,orders 
+		WHERE cart.p_id=product.p_id AND orders.o_id=cart.o_id AND p_best='y' AND cart.o_id != 'null' 
+		GROUP BY EXTRACT(year FROM orders.o_regdate), EXTRACT(month FROM orders.o_regdate) 
+		ORDER BY EXTRACT(year FROM orders.o_regdate), EXTRACT(month FROM orders.o_regdate)
+	</select>
+
+	<select id="selectbestdaily" resultType="stat">
+		SELECT EXTRACT(year FROM orders.o_regdate) || '/' || EXTRACT(month FROM orders.o_regdate) || '/' || EXTRACT(day FROM orders.o_regdate) "condition", SUM(c_sum) "totSale" 
+		FROM cart,product,orders WHERE cart.p_id=product.p_id AND orders.o_id=cart.o_id AND p_best='y' AND
+		cart.o_id != 'null' GROUP BY EXTRACT(year FROM orders.o_regdate), EXTRACT(month FROM o_regdate), EXTRACT(day FROM orders.o_regdate) 
+		ORDER BY EXTRACT(year FROM orders.o_regdate), EXTRACT(month FROM orders.o_regdate), EXTRACT(day FROM orders.o_regdate)
+	</select>
+
+	<select id="selectbestyearlyfor" resultType="stat">
+		<![CDATA[SELECT EXTRACT(year FROM orders.o_regdate) "condition", SUM(c_sum) "totSale" 
+		FROM cart,product,orders 
+		WHERE cart.p_id=product.p_id AND orders.o_id=cart.o_id AND p_best='y' AND cart.o_id != 'null' AND orders.o_regdate >= (SYSDATE - (INTERVAL '${period}' YEAR))
+		GROUP BY EXTRACT(year FROM orders.o_regdate) 
+		ORDER BY EXTRACT(year FROM orders.o_regdate)]]>
+	</select>
+
+	<select id="selectbestmonthlyfor" resultType="stat">
+		<![CDATA[select (EXTRACT(year
+		FROM orders.o_regdate) || '/' || EXTRACT(month FROM orders.o_regdate))
+		"condition", SUM(c_sum) "totSale" FROM cart,product,orders WHERE
+		cart.p_id=product.p_id AND orders.o_id=cart.o_id AND p_best='y' AND
+		cart.o_id != 'null' AND orders.o_regdate >= (SYSDATE - (INTERVAL '${period}' YEAR)) GROUP BY EXTRACT(year FROM
+		orders.o_regdate),
+		EXTRACT(month FROM orders.o_regdate) ORDER BY EXTRACT(year FROM
+		orders.o_regdate),
+		EXTRACT(month FROM orders.o_regdate)]]>
+	</select>
+
+	<select id="selectbestdailyfor" resultType="stat">
+		<![CDATA[SELECT EXTRACT(year
+		FROM
+		o_regdate) || '/' || EXTRACT(month FROM orders.o_regdate) || '/' ||
+		EXTRACT(day FROM orders.o_regdate) "condition", SUM(c_sum) "totSale" FROM
+		cart,product,orders WHERE
+		cart.p_id=product.p_id AND
+		orders.o_id=cart.o_id AND p_best='y' AND
+		cart.o_id != 'null' AND orders.o_regdate >= (SYSDATE - (INTERVAL '${period}' YEAR)) GROUP BY
+		EXTRACT(year FROM orders.o_regdate), EXTRACT(month FROM
+		orders.o_regdate),
+		EXTRACT(day FROM orders.o_regdate) ORDER BY EXTRACT(year FROM
+		orders.o_regdate),
+		EXTRACT(month FROM orders.o_regdate), EXTRACT(day FROM orders.o_regdate)]]>
+	</select>
+
+
+
 </mapper>

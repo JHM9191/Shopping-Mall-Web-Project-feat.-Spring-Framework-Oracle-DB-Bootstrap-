@@ -101,69 +101,117 @@ public interface Dao<K, V> {
 		return null;
 	};
 
-//// Cart
-	default public ArrayList<V> selectmycart(K k) throws Exception {
+////Cart
+	default public ArrayList<V> selectmine(K k) throws Exception {
 		return null;
+	}
+
+	default public ArrayList<V> selectbyorder(K k) throws Exception {
+		return null;
+	}
+
+	default public int updateorderid(V v) throws Exception {
+		return 0;
 	}
 
 //// Stat
 
-	default public ArrayList<StatVO> selectpayment() {
+	default public ArrayList<V> selectpayment() {
 		return null;
 	};
 
-	default public ArrayList<StatVO> selectbypayment() {
+	default public ArrayList<V> selectbypayment() {
 		return null;
 	};
 
 	// All products
-	default public ArrayList<StatVO> selectyearly() {
+	default public ArrayList<V> selectyearly() {
 		return null;
 	};
 
-	default public ArrayList<StatVO> selectmonthly() {
+	default public ArrayList<V> selectmonthly() {
 		return null;
 	};
 
-	default public ArrayList<StatVO> selectdaily() {
+	default public ArrayList<V> selectdaily() {
 		return null;
 	};
 
-	default public ArrayList<StatVO> selectyearlyfor(int period) {
+	default public ArrayList<V> selectyearlyfor(int period) {
 		return null;
 	};
 
-	default public ArrayList<StatVO> selectmonthlyfor(int period) {
+	default public ArrayList<V> selectmonthlyfor(int period) {
 		return null;
 	};
 
-	default public ArrayList<StatVO> selectdailyfor(int period) {
+	default public ArrayList<V> selectdailyfor(int period) {
 		return null;
 	};
 
 	// New Arrivals
-	default public ArrayList<StatVO> selectnewyearly() {
+	default public ArrayList<V> selectnewyearly() {
 		return null;
 	};
 
-	default public ArrayList<StatVO> selectnewmonthly() {
+	default public ArrayList<V> selectnewmonthly() {
 		return null;
 	};
 
-	default public ArrayList<StatVO> selectnewdaily() {
+	default public ArrayList<V> selectnewdaily() {
 		return null;
 	};
 
-	default public ArrayList<StatVO> selectnewyearlyfor(int period) {
+	default public ArrayList<V> selectnewyearlyfor(int period) {
 		return null;
 	};
 
-	default public ArrayList<StatVO> selectnewmonthlyfor(int period) {
+	default public ArrayList<V> selectnewmonthlyfor(int period) {
 		return null;
 	};
 
-	default public ArrayList<StatVO> selectnewdailyfor(int period) {
+	default public ArrayList<V> selectnewdailyfor(int period) {
 		return null;
 	};
+
+	// Best
+	default public ArrayList<V> selectbestyearly() {
+		return null;
+	};
+
+	default public ArrayList<V> selectbestmonthly() {
+		return null;
+	};
+
+	default public ArrayList<V> selectbestdaily() {
+		return null;
+	};
+
+	default public ArrayList<V> selectbestyearlyfor(int period) {
+		return null;
+	};
+
+	default public ArrayList<V> selectbestmonthlyfor(int period) {
+		return null;
+	};
+
+	default public ArrayList<V> selectbestdailyfor(int period) {
+		return null;
+	};
+
+////Search
+	default public ArrayList<V> search(int startRow, int endRow, String search) throws Exception {
+		return null;
+	}
+
+	default public int count_search(String search) throws Exception {
+		return 0;
+	}
+
+////UserBoard
+	default public ArrayList<V> mypageselect(String u_id) throws Exception {
+		return null;
+
+	}
 
 }

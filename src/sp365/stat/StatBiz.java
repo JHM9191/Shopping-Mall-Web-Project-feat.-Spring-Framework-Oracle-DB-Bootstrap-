@@ -56,4 +56,65 @@ public class StatBiz implements Biz<String, StatVO> {
 		return dao.selectdailyfor(period);
 	}
 
+	// New Arrival
+	@Override
+	public ArrayList<StatVO> getnewyearly() {
+		return dao.selectnewyearly();
+	}
+
+	@Override
+	public ArrayList<StatVO> getnewmonthly() {
+		return dao.selectnewmonthly();
+	}
+
+	@Override
+	public ArrayList<StatVO> getnewdaily() {
+		return dao.selectnewdaily();
+	}
+
+	@Override
+	public ArrayList<StatVO> getnewyearlyfor(int period) {
+		return dao.selectnewyearlyfor(period);
+	}
+
+	@Override
+	public ArrayList<StatVO> getnewmonthlyfor(int period) {
+		return dao.selectnewmonthlyfor(period);
+	}
+
+	@Override
+	public ArrayList<StatVO> getnewdailyfor(int period) {
+		return dao.selectnewdailyfor(period);
+	}
+
+	// Best
+	@Override
+	public ArrayList<StatVO> getbestyearly() {
+		return dao.selectbestyearly();
+	}
+
+	@Override
+	public ArrayList<StatVO> getbestmonthly() {
+		return dao.selectbestmonthly();
+	}
+
+	@Override
+	public ArrayList<StatVO> getbestdaily() {
+		return dao.selectbestdaily();
+	}
+
+	@Override
+	public ArrayList<StatVO> getbestyearlyfor(int period) {
+		return dao.selectbestyearlyfor(period);
+	}
+
+	@Override
+	public ArrayList<StatVO> getbestmonthlyfor(int period) {
+		return dao.selectbestmonthlyfor(period);
+	}
+
+	@Override
+	public ArrayList<StatVO> getbestdailyfor(int period) {
+		return dao.selectbestdailyfor(period);
+	}
 }

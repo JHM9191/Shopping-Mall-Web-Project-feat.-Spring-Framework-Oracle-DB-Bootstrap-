@@ -4,8 +4,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
-<title>Insert title here</title>
+<meta charset="UTF-8">
+<title>SP365 - Shopping Everyday</title>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
@@ -33,6 +33,8 @@
 <link rel="stylesheet" href="css/animate.css">
 <!-- owl carousel CSS -->
 <link rel="stylesheet" href="css/owl.carousel.min.css">
+<!-- nice select CSS -->
+<link rel="stylesheet" href="css/nice-select.css">
 <!-- font awesome CSS -->
 <link rel="stylesheet" href="css/all.css">
 <!-- flaticon CSS -->
@@ -42,20 +44,12 @@
 <link rel="stylesheet" href="css/magnific-popup.css">
 <!-- swiper CSS -->
 <link rel="stylesheet" href="css/slick.css">
+<link rel="stylesheet" href="css/price_rangs.css">
 <!-- style CSS -->
 <link rel="stylesheet" href="css/style.css">
-<script>
-	function menuClicked(menu) {
-		//alert(menu);
-		if (menu == 'All') {
-			location.href = "plist.sp?menu=All&cat=none&pagenum=1&contentnum=10";
-		} else if (menu == 'New') {
-			location.href = "plist.sp?menu=New&cat=none&pagenum=1&contentnum=10";
-		} else if (menu == 'Best') {
-			location.href = "plist.sp?menu=Best&cat=none&pagenum=1&contentnum=10";
-		}
-	};
-</script>
+<!-- cart CSS (우리가 만든 것) -->
+<link rel="stylesheet" href="css/main-cart.css">
+
 </head>
 
 <body>
@@ -66,8 +60,8 @@
 			<div class="row align-items-center justify-content-center">
 				<div class="col-lg-11">
 					<nav class="navbar navbar-expand-lg navbar-light">
-						<a class="navbar-brand" href="index.html"> <img
-							src="img/logo.png" alt="logo">
+						<a class="navbar-brand" href="index.html"> 
+						<img src="img/logo02.JPG" alt="logo" width=130px;>
 						</a>
 						<button class="navbar-toggler" type="button"
 							data-toggle="collapse" data-target="#navbarSupportedContent"
@@ -77,7 +71,7 @@
 						</button>
 
 
-						<!-- 硫��대� ��������-->
+						<!-- 메뉴 시작 -->
 
 						<div class="collapse navbar-collapse main-menu-item"
 							id="navbarSupportedContent">
@@ -91,9 +85,9 @@
 							</ul>
 						</div>
 
-						<!-- 濡�洹몄�� �깃났 ��/臾� 洹몃━怨� 留ㅻ���� ��/臾� �� �곕�� �щ�쇱��� ���� -->
+						<!-- 로그인 로그아웃 -->
 
-						<div>
+						<div class="hearer_icon d-flex">
 							<ul class="navbar-nav">
 
 								<c:choose>
@@ -105,17 +99,17 @@
 										<li class="nav-item"><a class="nav-link" href="signup.sp">register</a>
 										</li>
 
-										<li class="nav-item"><a class="nav-link" href="#">mypage</a>
-										</li>
 									</c:when>
 
 
 									<c:otherwise>
+									
+										<li class="nav-item"><a class="nav-link" href="#">${loginid }님 환영합니다!</a></li>
 
 										<li class="nav-item"><a class="nav-link" href="logout.sp">logout</a>
 										</li>
 
-										<li class="nav-item"><a class="nav-link" href="#">mypage</a></li>
+										<li class="nav-item"><a class="nav-link" href="umypage.sp">mypage</a></li>
 
 									</c:otherwise>
 								</c:choose>
@@ -126,24 +120,15 @@
 						</div>
 
 
-						<!--�λ�援щ�� 洹몃━怨� ��蹂닿린 ���댁� �������� -->
+						<!-- 장바구니 -->
 						<div class="hearer_icon d-flex">
 							<div>
-								<a href="cart.sp" role="button"> <i
-									class="ti-bag"></i>
-								</a>
-								<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-									<div class="single_product"></div>
-								</div>
+								<div id="msg_setting"></div><!-- ajax 통해서 장바구니 위에 숫자표시 -->
+								<a href="cart.sp" role="button" id="cartIcon"> <i class="ti-bag"></i></a> <!-- 장바구니 아이콘 -->
 							</div>
 						</div>
 
-
-
-
-
-
-						<!--search ��蹂닿린 ���댁� �대┃��  ��諛� �ㅽ�щ┰�� �������� search媛� ������ -->
+						<!-- search	돋보기 아이콘 -->
 						<a id="search_1" href="javascript:void(0)"><i
 							class="ti-search"></i></a>
 					</nav>
@@ -151,12 +136,12 @@
 			</div>
 		</div>
 
-		<!-- search ����-->
+		<!-- search 검색창-->
 		<div class="search_input" id="search_input_box">
 			<div class="container ">
-				<form class="d-flex justify-content-between search-inner">
+				<form action="plist.sp?pagenum=1&contentnum=9" method="post" class="d-flex justify-content-between search-inner">
 					<input type="text" class="form-control" id="search_input"
-						placeholder="Search Here">
+						placeholder="Search Here" name="search">
 					<button type="submit" class="btn"></button>
 					<span class="ti-close" id="close_search" title="Close Search"></span>
 				</form>
@@ -190,10 +175,10 @@
 					<div class="single_footer_part">
 						<h4>Category</h4>
 						<ul class="list-unstyled">
-							<li><a href="#">Male</a></li>
-							<li><a href="#">Female</a></li>
-							<li><a href="#">Shoes</a></li>
-							<li><a href="#">Fashion</a></li>
+							<li><a href="#">Top</a></li>
+							<li><a href="#">Bottom</a></li>
+							<li><a href="#">Outer</a></li>
+							<li><a href="#">Accessories</a></li>
 						</ul>
 					</div>
 				</div>
@@ -212,7 +197,7 @@
 					<div class="single_footer_part">
 						<h4>Address</h4>
 						<ul class="list-unstyled">
-							<li><a href="#">200, Green block, NewYork</a></li>
+							<li><a href="#">1305, 212, Teheran-ro, Gangnam-gu, Seoul, Republic of Korea</a></li>
 							<li><a href="#">+10 456 267 1678</a></li>
 							<li><span>contact89@winter.com</span></li>
 						</ul>
@@ -235,9 +220,9 @@
 							</form>
 						</div>
 						<div class="social_icon">
-							<a href="#"><i class="ti-facebook"></i></a> <a href="#"><i
-								class="ti-twitter-alt"></i></a> <a href="#"><i
-								class="ti-instagram"></i></a>
+							<a href="https://ko-kr.facebook.com/"><i class="ti-facebook"></i></a> 
+							<a href="https://twitter.com/login?lang=ko"><i class="ti-twitter-alt"></i></a> 
+							<a href="https://www.instagram.com/accounts/login/?hl=ko"><i class="ti-instagram"></i></a>
 						</div>
 					</div>
 				</div>
@@ -275,6 +260,7 @@
 	<script src="js/swiper.min.js"></script>
 	<!-- swiper js -->
 	<script src="js/mixitup.min.js"></script>
+	<script src="js/price_rangs.js"></script>
 	<!-- particles js -->
 	<script src="js/owl.carousel.min.js"></script>
 	<script src="js/jquery.nice-select.min.js"></script>
@@ -289,7 +275,8 @@
 	<script src="js/mail-script.js"></script>
 	<!-- custom js -->
 	<script src="js/custom.js"></script>
-
+	<!-- main js (우리가 만든 것) -->
+	<script src="js/main.js"></script>
 
 
 

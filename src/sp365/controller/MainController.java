@@ -13,6 +13,8 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -44,29 +46,6 @@ public class MainController {
 		return mv;
 	}
 
-	@RequestMapping("/uu.sp")
-	@ResponseBody
-	public void uu(HttpServletResponse response) throws IOException {
-		response.setContentType("text/json;charset=UTF-8");
-		PrintWriter out = response.getWriter();
-		ArrayList<UserVO> list = null;
-		try {
-			list = ubiz.get();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		JSONArray ja = new JSONArray();
-		for (UserVO u : list) {
-			JSONObject jo = new JSONObject();
-			jo.put("id", u.getU_id());
-			jo.put("pwd", u.getU_pwd());
-			jo.put("name", u.getU_name());
-			ja.add(jo);
-		}
-		out.print(ja.toJSONString());
-		out.close();
-	}
-
 	@RequestMapping("/login.sp")
 	public ModelAndView login(HttpServletRequest request) {
 		ModelAndView mv = new ModelAndView();
@@ -76,13 +55,12 @@ public class MainController {
 	}
 
 	@RequestMapping("/logout.sp")
-	public ModelAndView logout(HttpServletRequest request, ModelAndView mv) {
+	public String logout(HttpServletRequest request, ModelAndView mv) {
 		HttpSession session = request.getSession();
 		if (session != null) {
 			session.invalidate();
 		}
-		mv.setViewName("main");
-		return mv;
+		return "redirect:main.sp";
 	}
 
 	@RequestMapping("/signup.sp")
@@ -117,8 +95,7 @@ public class MainController {
 				if (dbuser.getU_pwd().equals(u_pwd)) {
 					HttpSession session = request.getSession();
 					session.setAttribute("loginid", u_id);
-					if (dbuser.getU_is_mgr() == 'y') { // 운영자이면 main_mgr로 이동
-//						mv.setViewName("/manager/main_mgr");
+					if (dbuser.getU_is_mgr().equals("y")) { // 운영자이면 main_mgr로 이동
 						mv.setViewName("redirect:main_mgr.sp");
 						return mv;
 					}
@@ -139,39 +116,25 @@ public class MainController {
 		return mv;
 	}
 
-//	@RequestMapping("/udelete.mc")
-//	public String delete(String id) {
-//		try {
-//			biz.remove(id);
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//		return "redirect:ulist.mc";
-//	}
-//	@RequestMapping("/uupdateimpl.mc")
-//	public String updateimpl(UserVO user) {
-//		try {
-//			biz.modify(user);
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//		String id = user.getU_id();
-//		return "redirect:main.sp?id="+id;
-//	}
-//	
-//	@RequestMapping("/uupdate.mc")
-//	public ModelAndView update(ModelAndView mv,
-//			String id) {
-//		UserVO user = null;
-//		try {
-//			user = biz.get(id);
-//			mv.addObject("uuser", user);
-//			//mv.addObject("center", "user/update");
-//			mv.setViewName("main");
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//		return mv;
-//	}
+	//아이디 중복 체크
+		@RequestMapping(value = "/idCheck.sp", method = RequestMethod.POST)
+			public @ResponseBody String AjaxView(  
+				        @RequestParam("u_id") String u_id, String idcheck){
+				String str = "";
+				try {
+					idcheck = ubiz.get(u_id).getU_id();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				System.out.println(idcheck);
+				if(idcheck == null){ //이미 존재하는 계정
+					str = "YES";	
+				}else{	//사용 가능한 계정
+					str = "NO";	
+				}
+				return str;
+			}
+
+
 
 }

@@ -104,67 +104,119 @@ public interface Biz<K, V> {
 		return null;
 	};
 
-//// Cart
+////Cart
 	public default ArrayList<V> getmycart(K k) throws Exception {
 		return null;
 	}
 
+	public default ArrayList<V> getbyorder(K k) throws Exception {
+		return null;
+	}
+
+	default public int setorderid(V v) throws Exception {
+		return 0;
+	}
+
+////Order
+	default public ArrayList<V> getmyorder(K k) throws Exception {
+		return null;
+	}
+
 ////Stat
-	default public ArrayList<StatVO> getbypayment() {
+	default public ArrayList<V> getbypayment() {
 		return null;
 	};
 
-	default public ArrayList<StatVO> getpayment() {
+	default public ArrayList<V> getpayment() {
+		return null;
+	};
+
+////Search
+	default ArrayList<V> getsearch(int startRow, int endRow, String search) throws Exception {
+		return null;
+	}
+
+	default public int count_search(String search) throws Exception {
+		return 0;
+	}
+
+////UserBoard
+	default public ArrayList<V> mypageget(String u_id) throws Exception {
 		return null;
 	}
 
 	// All products
-	default public ArrayList<StatVO> getyearly() {
+	default public ArrayList<V> getyearly() {
 		return null;
 	};
 
-	default public ArrayList<StatVO> getmonthly() {
+	default public ArrayList<V> getmonthly() {
 		return null;
 	};
 
-	default public ArrayList<StatVO> getdaily() {
+	default public ArrayList<V> getdaily() {
 		return null;
 	}
 
-	default public ArrayList<StatVO> getyearlyfor(int period) {
+	default public ArrayList<V> getyearlyfor(int period) {
 		return null;
 	}
 
-	default public ArrayList<StatVO> getmonthlyfor(int period) {
+	default public ArrayList<V> getmonthlyfor(int period) {
 		return null;
 	}
 
-	default public ArrayList<StatVO> getdailyfor(int period) {
+	default public ArrayList<V> getdailyfor(int period) {
 		return null;
 	};
 
 	// New Arrivals
-	default public ArrayList<StatVO> getnewyearly() {
+	default public ArrayList<V> getnewyearly() {
 		return null;
 	};
 
-	default public ArrayList<StatVO> getnewmonthly() {
+	default public ArrayList<V> getnewmonthly() {
 		return null;
 	};
 
-	default public ArrayList<StatVO> getnewdaily() {
+	default public ArrayList<V> getnewdaily() {
 		return null;
 	}
 
-	default public ArrayList<StatVO> getnewyearlyfor(int period) {
+	default public ArrayList<V> getnewyearlyfor(int period) {
 		return null;
 	}
 
-	default public ArrayList<StatVO> getnewmonthlyfor(int period) {
+	default public ArrayList<V> getnewmonthlyfor(int period) {
 		return null;
 	}
 
-	default public ArrayList<StatVO> getnewdailyfor(int period) {
+	default public ArrayList<V> getnewdailyfor(int period) {
+		return null;
+	};
+
+	// Best
+	default public ArrayList<V> getbestyearly() {
+		return null;
+	};
+
+	default public ArrayList<V> getbestmonthly() {
+		return null;
+	};
+
+	default public ArrayList<V> getbestdaily() {
+		return null;
+	}
+
+	default public ArrayList<V> getbestyearlyfor(int period) {
+		return null;
+	}
+
+	default public ArrayList<V> getbestmonthlyfor(int period) {
+		return null;
+	}
+
+	default public ArrayList<V> getbestdailyfor(int period) {
 		return null;
 	};
 }

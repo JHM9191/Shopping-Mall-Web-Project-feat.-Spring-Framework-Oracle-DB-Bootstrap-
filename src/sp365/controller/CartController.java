@@ -10,6 +10,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import sp365.frame.Biz;
@@ -59,7 +60,7 @@ public class CartController {
 				newCart.setP_id(p_id);
 				newCart.setU_id(u_id);
 				newCart.setO_id("null"); // 구매 전이기 때문에 Order Id에 null이 들어가는 것임. 
-				newCart.setC_price(price * qty);
+				newCart.setC_sum(price * qty);
 
 				// 전송!
 				cbiz.register(newCart);
@@ -78,45 +79,50 @@ public class CartController {
 	}
 
 	// 나중에 메인에서 cart 가는 설정
-	// cart.sp 설정시 cart.sp?u_id=loginid 설정 해 줘야 함!
 	@RequestMapping("/cart.sp")
 	public ModelAndView cart(ModelAndView mv, HttpServletRequest request, HttpServletResponse response) {
+		
 		System.out.println("this is /cart.sp");
-//		String u_id = request.getParameter("u_id");
-		// Session에 있는 loginid 가져오는 방식으로 수정함.
+		
 		HttpSession session = request.getSession();
 		String u_id = (String) session.getAttribute("loginid");
 
-
-		// 내 u_id에 일치하고 o_id가 'null'인 애들을 카트 리스트에 받아옴
-		ArrayList<CartVO> cartlist = null;
-		try {
-			cartlist = cbiz.getmycart(u_id);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		int subtotal = 0;
-		// 카트에 담아져 있는 아이템 정보들을 담아옴 + subtotal 계산
-		ArrayList<ProductVO> pdlist = new ArrayList<ProductVO>();
-		for (CartVO c : cartlist) {
-			subtotal += c.getC_price();
-			String product_id = c.getP_id();
+		if (u_id == null) { // login 안되어 있을 경우. 
+			session.invalidate();
+			mv.setViewName("user/login");
+			return mv;
+			
+		} else {
+			// 내 u_id에 일치하고 o_id가 'null'인 애들을 카트 리스트에 받아옴
+			ArrayList<CartVO> cartlist = null;
 			try {
-				pdlist.add(pbiz.get(product_id));
+				cartlist = cbiz.getmycart(u_id);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
+	
+			int subtotal = 0;
+			// 카트에 담아져 있는 아이템 정보들을 담아옴 + subtotal 계산
+			ArrayList<ProductVO> pdlist = new ArrayList<ProductVO>();
+			for (CartVO c : cartlist) {
+				subtotal += c.getC_sum();
+				String product_id = c.getP_id();
+				try {
+					pdlist.add(pbiz.get(product_id));
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+	
+			System.out.println(pdlist);
+			System.out.println(cartlist);
+	
+			mv.addObject("subtotal", subtotal);
+			mv.addObject("pdlist", pdlist);
+			mv.addObject("cartlist", cartlist);
+			mv.addObject("center", "cart/cart");
+			mv.setViewName("main");
 		}
-
-		System.out.println(pdlist);
-		System.out.println(cartlist);
-
-		mv.addObject("subtotal", subtotal);
-		mv.addObject("pdlist", pdlist);
-		mv.addObject("cartlist", cartlist);
-		mv.addObject("center", "cart/cart");
-		mv.setViewName("main");
 		System.out.println("cart.sp success");
 
 		return mv;
@@ -124,10 +130,11 @@ public class CartController {
 
 	@RequestMapping("/deletecitem.sp")
 	public String deleteCartItem(ModelAndView mv, HttpServletRequest request, HttpServletResponse response) {
+		
 		String c_id = request.getParameter("c_id");
+		
 		HttpSession session = request.getSession();
 		String u_id = (String) session.getAttribute("loginid");
-
 
 		try {
 			cbiz.remove(c_id);
@@ -139,7 +146,7 @@ public class CartController {
 	}
 
 	@RequestMapping("/updatecitem.sp")
-	public String updateCartItem(ModelAndView mv, HttpServletRequest request, @RequestParam int id[],
+	public String updateCartItem(ModelAndView mv, HttpServletRequest request, @RequestParam String id[],
 			@RequestParam int qty[], @RequestParam int price[]) {
 		HttpSession session = request.getSession();
 		String u_id = (String) session.getAttribute("loginid");
@@ -149,7 +156,7 @@ public class CartController {
 			CartVO vo = new CartVO();
 			vo.setC_id(id[i]);
 			vo.setC_qty(qty[i]);
-			vo.setC_price(qty[i] * price[i]);
+			vo.setC_sum(qty[i] * price[i]);
 			System.out.println(vo);
 			try {
 				cbiz.modify(vo);
@@ -161,4 +168,25 @@ public class CartController {
 		return "redirect:cart.sp?u_id=" + u_id;
 	}
 
+	
+	@RequestMapping("/getcartqty.sp")
+	@ResponseBody
+	public int getCartQty(HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		String u_id = (String) session.getAttribute("loginid");
+		
+		if (u_id == null) { // login 안되어 있을 경우. 
+			session.invalidate();
+			return 0;
+		}
+		
+		ArrayList<CartVO> mycart = null;
+		try {
+			mycart = cbiz.getmycart(u_id);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		int cartQty = mycart.size();
+		return cartQty;
+	}
 }

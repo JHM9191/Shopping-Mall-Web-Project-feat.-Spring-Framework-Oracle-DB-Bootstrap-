@@ -28,16 +28,27 @@ public class CartBiz implements Biz<String, CartVO> {
 	public int modify(CartVO cart) throws Exception {
 		return dao.update(cart);
 	}
+	
+	@Transactional
+	@Override
+	public int setorderid(CartVO cart) throws Exception {
+		return dao.updateorderid(cart);
+	}
 
 	@Transactional
 	@Override
 	public int remove(String c_id) throws Exception {
 		return dao.delete(c_id);
 	}
+	
+	@Override
+	public ArrayList<CartVO> getbyorder(String o_id) throws Exception {
+		return dao.selectbyorder(o_id);
+	}
 
 	@Override
 	public ArrayList<CartVO> getmycart(String u_id) throws Exception {
-		return dao.selectmycart(u_id);
+		return dao.selectmine(u_id);
 	}
 
 	@Override

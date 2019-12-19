@@ -30,6 +30,7 @@
 </style>
 <script>
 	function display(data, dbdata) {
+		/*
 		Highcharts
 				.chart(
 						'container_stat',
@@ -93,6 +94,44 @@
 							},
 							series : data
 						});
+		 */
+		Highcharts
+				.chart(
+						'container_stat',
+						{
+							chart : {
+								type : 'column'
+							},
+							title : {
+								text : 'World\'s largest cities per 2017'
+							},
+							subtitle : {
+								text : 'Source: <a href="http://en.wikipedia.org/wiki/List_of_cities_proper_by_population">Wikipedia</a>'
+							},
+							xAxis : {
+								type : 'category',
+								labels : {
+									rotation : -45,
+									style : {
+										fontSize : '13px',
+										fontFamily : 'Verdana, sans-serif'
+									}
+								}
+							},
+							yAxis : {
+								min : 0,
+								title : {
+									text : 'Population (millions)'
+								}
+							},
+							legend : {
+								enabled : false
+							},
+							tooltip : {
+								pointFormat : 'Population in 2017: <b>{point.y:.1f} millions</b>'
+							},
+							series : data
+						});
 	}
 
 	function getData(pt, period, cond) {
@@ -100,32 +139,23 @@
 			url : 'statpayment.sp?productType=' + pt + '&period=' + period
 					+ '&cond=' + cond,
 			success : function(dbdata) {
+				alert(dbdata);
 				var data = [ {
-					name : '총매출',
-					type : 'column',
-					yAxis : 1,
-					data : dbdata[0],
-					tooltip : {
-						valueSuffix : ' 원'
-					},
-					color : Highcharts.getOptions().colors[6]
-				}
-
-				/*
-				,
-				{
-					name : '수익률',
-					type : 'spline',
-					data : [ 7.0, 6.9, 9.5, 14.5, 18.2, 21.5, 25.2,
-							26.5, 23.3, 18.3, 13.9, 9.6 ],
-					tooltip : {
-						valueSuffix : '%'
-					},
-					color : Highcharts.getOptions().colors[1]
-				}
-				 */
-				];
-				//alert(dbdata[1]);
+					name : 'Population',
+					data : dbdata,
+					dataLabels : {
+						enabled : true,
+						rotation : -90,
+						color : '#FFFFFF',
+						align : 'right',
+						format : '{point.y:.1f}', // one decimal
+						y : 10, // 10 pixels down from the top
+						style : {
+							fontSize : '13px',
+							fontFamily : 'Verdana, sans-serif'
+						}
+					}
+				} ];
 				display(data, dbdata);
 			},
 			error : function() {
@@ -146,9 +176,9 @@
 		<div class="row justify-content-center">
 
 			<div class="nice-select" tabindex="0">
-				<span class="current">전체</span>
+				<span class="current">${productType_name }</span>
 				<ul class="list">
-					<li data-value="All" class="option selected"><a
+					<li data-value="All" class="option"><a
 						href="statistics_mgr.sp?productType=All&period=${period }&cond=${cond}">전체</a></li>
 					<li data-value="New" class="option"><a
 						href="statistics_mgr.sp?productType=New&period=${period }&cond=${cond}">New
@@ -159,7 +189,7 @@
 			</div>
 
 			<div class="nice-select" tabindex="0">
-				<span class="current">전체기간</span>
+				<span class="current">${period_name }</span>
 				<ul class="list">
 					<li data-value="1" class="option"><a
 						href="statistics_mgr.sp?productType=${productType }&period=total&cond=${cond}">전체기간</a></li>
@@ -175,7 +205,7 @@
 				</ul>
 			</div>
 			<div class="nice-select" tabindex="0">
-				<span class="current">월별</span>
+				<span class="current">${cond_name }</span>
 				<ul class="list">
 					<li data-value="monthly" class="option selected"><a
 						href="statistics_mgr.sp?productType=${productType }&period=${period }&cond=monthly">월별</a></li>

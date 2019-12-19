@@ -13,11 +13,10 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 			u_pwd=#{u_pwd},
 			u_name=#{u_name},
 			u_tel=#{u_tel},
-			u_is_mgr=#{u_is_mgr},
 			u_gender=#{u_gender},
 			u_age=#{u_age},
 			u_email=#{u_email},
-			u_address=#{u_address},
+			u_address=#{u_address}
 		WHERE u_id=#{u_id}
 	</update>
 

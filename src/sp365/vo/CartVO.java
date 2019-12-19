@@ -3,10 +3,10 @@ package sp365.vo;
 import java.util.Date;
 
 public class CartVO {
-	private int c_id;
+	private String c_id;
 	private int c_qty;
 	private String c_size;
-	private int c_price;
+	private int c_sum;
 	private Date c_regdate;
 	private String o_id;
 	private String p_id;
@@ -17,15 +17,13 @@ public class CartVO {
 		super();
 	}
 
-
-
-	public CartVO(int c_id, int c_qty, String c_size, int c_price, Date c_regdate, String o_id, String p_id,
+	public CartVO(String c_id, int c_qty, String c_size, int c_sum, Date c_regdate, String o_id, String p_id,
 			String u_id) {
 		super();
 		this.c_id = c_id;
 		this.c_qty = c_qty;
 		this.c_size = c_size;
-		this.c_price = c_price;
+		this.c_sum = c_sum;
 		this.c_regdate = c_regdate;
 		this.o_id = o_id;
 		this.p_id = p_id;
@@ -35,12 +33,12 @@ public class CartVO {
 
 
 
-	public int getC_id() {
+	public String getC_id() {
 		return c_id;
 	}
 
 
-	public void setC_id(int c_id) {
+	public void setC_id(String c_id) {
 		this.c_id = c_id;
 	}
 
@@ -65,14 +63,14 @@ public class CartVO {
 	}
 
 
-	public int getC_price() {
-		return c_price;
+	public int getC_sum() {
+		return c_sum;
 	}
 
 
 
-	public void setC_price(int c_price) {
-		this.c_price = c_price;
+	public void setC_sum(int c_sum) {
+		this.c_sum = c_sum;
 	}
 
 
@@ -120,7 +118,7 @@ public class CartVO {
 
 	@Override
 	public String toString() {
-		return "CartVO [c_id=" + c_id + ", c_qty=" + c_qty + ", c_size=" + c_size + ", c_price=" + c_price
+		return "CartVO [c_id=" + c_id + ", c_qty=" + c_qty + ", c_size=" + c_size + ", c_sum=" + c_sum
 				+ ", c_regdate=" + c_regdate + ", o_id=" + o_id + ", p_id=" + p_id + ", u_id=" + u_id + "]";
 	}
 

@@ -87,4 +87,35 @@ public class StatDao implements Dao<String, StatVO> {
 	public ArrayList<StatVO> selectnewdailyfor(int period) {
 		return sm.selectnewdailyfor(period);
 	}
+	
+	// Best
+	@Override
+	public ArrayList<StatVO> selectbestyearly() {
+		return sm.selectbestyearly();
+	}
+
+	@Override
+	public ArrayList<StatVO> selectbestmonthly() {
+		return sm.selectbestmonthly();
+	}
+
+	@Override
+	public ArrayList<StatVO> selectbestdaily() {
+		return sm.selectbestdaily();
+	}
+	
+	@Override
+	public ArrayList<StatVO> selectbestyearlyfor(int period) {
+		return sm.selectbestyearlyfor(period);
+	}
+	
+	@Override
+	public ArrayList<StatVO> selectbestmonthlyfor(int period) {
+		return sm.selectbestmonthlyfor(period);
+	}
+	
+	@Override
+	public ArrayList<StatVO> selectbestdailyfor(int period) {
+		return sm.selectbestdailyfor(period);
+	}
 }

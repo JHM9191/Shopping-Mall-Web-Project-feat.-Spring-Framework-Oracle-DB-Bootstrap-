@@ -10,8 +10,12 @@ public interface CartMapper {
 	public int delete(String c_id) throws Exception;
 
 	public int update(CartVO cart) throws Exception;
+	
+	public int updateorderid(CartVO cart) throws Exception;
 
-	public ArrayList<CartVO> selectmycart(String u_id) throws Exception;
+	public ArrayList<CartVO> selectbyorder(String o_id) throws Exception;
+
+	public ArrayList<CartVO> selectmine(String u_id) throws Exception;
 
 	public ArrayList<CartVO> selectall() throws Exception;
 }

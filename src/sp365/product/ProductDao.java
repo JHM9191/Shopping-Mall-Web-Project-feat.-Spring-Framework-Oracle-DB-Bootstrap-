@@ -9,6 +9,8 @@ import org.springframework.stereotype.Repository;
 
 import sp365.frame.Dao;
 import sp365.mapper.ProductMapper;
+import sp365.mapper.SearchMapper;
+import sp365.vo.InputVO;
 import sp365.vo.ProductVO;
 
 @Repository("pdao")
@@ -16,6 +18,11 @@ public class ProductDao implements Dao<String, ProductVO> {
 
 	@Autowired
 	ProductMapper pm;
+
+	@Autowired
+	SearchMapper sm;
+	
+	
 
 	@Override
 	public void insert(ProductVO product) throws Exception {
@@ -119,6 +126,17 @@ public class ProductDao implements Dao<String, ProductVO> {
 	public ArrayList<ProductVO> select_main_best() throws Exception {
 		return pm.select_main_best();
 	}
-
+	
+	// Search
+	@Override
+	public ArrayList<ProductVO> search(int startRow, int endRow, String input) throws Exception{
+		return sm.search(startRow,endRow,input);
+	}
+	
+	@Override
+	public int count_search(String search) throws Exception{
+		System.out.println("count_search: " + sm.count_search(search));
+		return sm.count_search(search);
+	}
 	
 }

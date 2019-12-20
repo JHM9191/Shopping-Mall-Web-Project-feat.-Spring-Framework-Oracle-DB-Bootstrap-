@@ -298,7 +298,7 @@
 							<div class="l_w_title">
 								<h3>My Page</h3>
 							</div>
-							<div class="widgets_inner">
+							<div class="widgets_inner" style="padding:10px 10px;">
 								<ul class="list">
 									<li><a class="category" href="umypage.sp">회원 정보</a></li>
 									<li><a class="category" href="odetail.sp">나의 주문 내역</a></li>

@@ -9,8 +9,8 @@
 <link rel="stylesheet" href="css/cart-controlQty.css">
 </head>
 
-<section class="cat_product_area section_padding border_top">
-	<div class="container">
+<section class="cat_product_area section_padding border_top" style="background-color:white;">
+	<div class="container" style="max-width: 1040px;" >
 		<div class="row">
 			<div class="col-lg-2" >
 				<div class="left_sidebar_area">
@@ -18,7 +18,7 @@
 						<div class="l_w_title">
 							<h3>My Page</h3>
 						</div>
-						<div class="widgets_inner">
+						<div class="widgets_inner" style="padding:10px 10px;">
 							<ul class="list">
 								<li><a class="category" onclick="catClicked('top');"
 									href="umypage.sp">회원 정보</a></li>

@@ -45,4 +45,9 @@ public class BoardBiz implements Biz<String, BoardVO> {
 		return dao.selectall();
 	}
 
+	@Override
+	public ArrayList<BoardVO> mypageget(String u_id) throws Exception {
+	
+		return dao.mypageselect(u_id);
+	}
 }

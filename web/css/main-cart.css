@@ -1,0 +1,21 @@
+@charset "UTF-8";
+
+#notification {
+   position: absolute;
+   top: 29px;
+   right: 51px;
+   margin: auto;
+   background: #007bff;
+   border-radius: 40px;
+   width: 12px;
+   height: 12px;
+   line-height: 12px;
+   color: white;
+   text-align: right;
+   font-size: 0.8em;
+   z-index : 2;
+}
+
+#cartIcon {
+	z-index:1;
+}

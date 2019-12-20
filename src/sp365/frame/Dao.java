@@ -6,6 +6,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 import sp365.vo.CartVO;
+import sp365.vo.InputVO;
 import sp365.vo.ProductVO;
 import sp365.vo.StatVO;
 
@@ -101,20 +102,20 @@ public interface Dao<K, V> {
 		return null;
 	};
 
-////Cart
+//// Cart
 	default public ArrayList<V> selectmine(K k) throws Exception {
 		return null;
 	}
-
+	
 	default public ArrayList<V> selectbyorder(K k) throws Exception {
 		return null;
 	}
-
+	
 	default public int updateorderid(V v) throws Exception {
 		return 0;
 	}
 
-//// Stat
+////Stat
 
 	default public ArrayList<V> selectpayment() {
 		return null;
@@ -198,20 +199,19 @@ public interface Dao<K, V> {
 	default public ArrayList<V> selectbestdailyfor(int period) {
 		return null;
 	};
-
-////Search
+	
+//// Search
 	default public ArrayList<V> search(int startRow, int endRow, String search) throws Exception {
 		return null;
 	}
 
-	default public int count_search(String search) throws Exception {
+	default public int count_search(String search) throws Exception{
 		return 0;
 	}
 
-////UserBoard
-	default public ArrayList<V> mypageselect(String u_id) throws Exception {
+//// UserBoard
+	default public ArrayList<V> mypageselect(String u_id) throws Exception{
 		return null;
-
+		
 	}
-
 }

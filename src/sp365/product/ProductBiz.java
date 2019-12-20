@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import sp365.frame.Biz;
 import sp365.frame.Dao;
+import sp365.vo.InputVO;
 import sp365.vo.ProductVO;
 
 @Service("pbiz")
@@ -51,7 +52,7 @@ public class ProductBiz implements Biz<String, ProductVO> {
 	public ArrayList<ProductVO> get_all(int startRow, int endRow) throws Exception {
 		return dao.select_all(startRow, endRow);
 	}
-	
+
 	@Override
 	public int count_all() throws Exception {
 		return dao.count_all();
@@ -61,7 +62,7 @@ public class ProductBiz implements Biz<String, ProductVO> {
 	public ArrayList<ProductVO> get_by_cat(int startRow, int endRow, String p_category) throws Exception {
 		return dao.select_by_cat(startRow, endRow, p_category);
 	}
-	
+
 	@Override
 	public int count_by_cat(String p_category) throws Exception {
 		return dao.count_by_cat(p_category);
@@ -71,7 +72,7 @@ public class ProductBiz implements Biz<String, ProductVO> {
 	public ArrayList<ProductVO> get_new(int startRow, int endRow) throws Exception {
 		return dao.select_new(startRow, endRow);
 	}
-	
+
 	@Override
 	public int count_new() throws Exception {
 		return dao.count_new();
@@ -81,7 +82,7 @@ public class ProductBiz implements Biz<String, ProductVO> {
 	public ArrayList<ProductVO> get_new_by_cat(int startRow, int endRow, String p_category) throws Exception {
 		return dao.select_new_by_cat(startRow, endRow, p_category);
 	}
-	
+
 	@Override
 	public int count_new_by_cat(String p_category) throws Exception {
 		return dao.count_new_by_cat(p_category);
@@ -91,7 +92,7 @@ public class ProductBiz implements Biz<String, ProductVO> {
 	public ArrayList<ProductVO> get_best(int startRow, int endRow) throws Exception {
 		return dao.select_best(startRow, endRow);
 	}
-	
+
 	@Override
 	public int count_best() throws Exception {
 		return dao.count_best();
@@ -101,7 +102,7 @@ public class ProductBiz implements Biz<String, ProductVO> {
 	public ArrayList<ProductVO> get_best_by_cat(int startRow, int endRow, String p_category) throws Exception {
 		return dao.select_best_by_cat(startRow, endRow, p_category);
 	}
-	
+
 	@Override
 	public int count_best_by_cat(String p_category) throws Exception {
 		return dao.count_best_by_cat(p_category);
@@ -118,6 +119,14 @@ public class ProductBiz implements Biz<String, ProductVO> {
 	public ArrayList<ProductVO> get_main_best() throws Exception {
 		return dao.select_main_best();
 	}
-	
 
+	// Search
+	@Override
+	public ArrayList<ProductVO> getsearch(int startRow, int endRow, String input) throws Exception {
+		return dao.search(startRow, endRow, input);
+	}
+
+	public int count_search(String search) throws Exception {
+		return dao.count_search(search);
+	}
 }

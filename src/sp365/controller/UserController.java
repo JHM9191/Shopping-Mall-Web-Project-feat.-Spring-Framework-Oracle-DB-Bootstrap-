@@ -40,34 +40,7 @@ public class UserController {
 	Biz<String, BoardVO> bbiz;
 	
 	@RequestMapping("/uupdateimpl.sp")
-	public ModelAndView updateimpl(ModelAndView mv, HttpServletRequest request) {
-		String id = request.getParameter("u_id");
-		String pwd = request.getParameter("u_pwd");
-		String name = request.getParameter("u_name");
-		String tel = request.getParameter("u_tel");
-		String gender = request.getParameter("u_gender");
-		System.out.println(request.getParameter("u_age"));
-		int age = Integer.parseInt(request.getParameter("u_age"));
-		String email = request.getParameter("u_email");
-		String address = request.getParameter("u_address");
-		
-		System.out.println(id + " " + pwd + " " + name + " " + age);
-		UserVO user = null;
-		try {
-			user = ubiz.get(id);
-		} catch (Exception e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		user.setU_pwd(pwd);
-		user.setU_name(name);
-		user.setU_tel(tel);
-		user.setU_gender(gender);
-		user.setU_age(age);
-		user.setU_email(email);
-		user.setU_address(address);
-		
-		System.out.println(user.toString());
+	public ModelAndView updateimpl(ModelAndView mv, HttpServletRequest request, UserVO user) {
 		
 		try {
 			ubiz.modify(user);

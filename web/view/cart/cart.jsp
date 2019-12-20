@@ -171,7 +171,7 @@
           </form> <!-- 카트 업데이트 form 끝 -->
           <!--  **********구매 페이지 넘어감 *************** -->
           <div class="checkout_btn_inner float-right">
-            <a class="btn_1" href="#">Continue Shopping</a>
+            <a class="btn_1" href="main.sp">Continue Shopping</a>
             <a class="btn_1 checkout_btn_1" href="checkout.sp?subtotal=${subtotal}">Proceed to checkout</a>
           </div>
         </div>

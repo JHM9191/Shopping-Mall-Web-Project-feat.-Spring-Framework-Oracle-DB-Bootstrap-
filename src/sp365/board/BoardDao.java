@@ -40,4 +40,8 @@ public class BoardDao implements Dao<String, BoardVO> {
 		return bm.selectall();
 	}
 
+	@Override
+	public ArrayList<BoardVO> mypageselect(String u_id) throws Exception {
+		return bm.mypageselect(u_id);
+	}
 }

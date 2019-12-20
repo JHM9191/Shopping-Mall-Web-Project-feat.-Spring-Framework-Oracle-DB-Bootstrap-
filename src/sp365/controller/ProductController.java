@@ -12,6 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import sp365.frame.Biz;
 import sp365.page.PageMaker;
+import sp365.vo.InputVO;
 import sp365.vo.ProductVO;
 import sp365.vo.UserVO;
 
@@ -24,51 +25,81 @@ public class ProductController {
 	@Resource(name = "ubiz")
 	Biz<String, UserVO> ubiz;
 
-
-
-
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	//페이지 리스트 구현 (pagination)
 	@RequestMapping("/plist.sp")
 	public ModelAndView plist(ModelAndView mv, HttpServletRequest request, PageMaker pagemaker) {
 		int pagenum = Integer.parseInt(request.getParameter("pagenum"));
 		int contentnum = Integer.parseInt(request.getParameter("contentnum"));
+		String search = request.getParameter("search");
 		String menu = request.getParameter("menu");
 		String cat = request.getParameter("cat");
 		System.out.println(menu + " " + cat);
+		System.out.println(search);
 		ArrayList<ProductVO> plist = null;
+
 		try {
-			if (cat.equals("none")) {
-				if (menu.equals("All")) {
-					System.out.println("All");
-					pagemaker.pagination(pagenum, contentnum, pbiz.count_all());
-					plist = pbiz.get_all(pagemaker.getStartRow(), pagemaker.getEndRow());
-				} else if (menu.equals("New")) {
-					System.out.println("New");
-					pagemaker.pagination(pagenum, contentnum, pbiz.count_new());
-					plist = pbiz.get_new(pagemaker.getStartRow(), pagemaker.getEndRow());
-				} else if (menu.equals("Best")) {
-					System.out.println("Best");
-					pagemaker.pagination(pagenum, contentnum, pbiz.count_best());
-					plist = pbiz.get_best(pagemaker.getStartRow(), pagemaker.getEndRow());
-				}
+
+			int totCount = pbiz.count_all();
+			String navi = "전체 상품";
+
+			if (search != null) {
+				InputVO input = new InputVO(search);
+				pagemaker.pagination(pagenum, contentnum, pbiz.count_search(search));
+				plist = pbiz.getsearch(pagemaker.getStartRow(), pagemaker.getEndRow(), search);
+				totCount = pbiz.count_search(search);
+				mv.addObject("search", search);
+				System.out.println(plist);
+				navi = search + "(으)로 검색된 상품";
 			} else {
-				if (menu.equals("All")) {
-					System.out.println("All>Category");
-					pagemaker.pagination(pagenum, contentnum, pbiz.count_by_cat(cat));
-					plist = pbiz.get_by_cat(pagemaker.getStartRow(), pagemaker.getEndRow(), cat);
-				} else if (menu.equals("New")) {
-					System.out.println("All>Category");
-					pagemaker.pagination(pagenum, contentnum, pbiz.count_new_by_cat(cat));
-					plist = pbiz.get_new_by_cat(pagemaker.getStartRow(), pagemaker.getEndRow(), cat);
-				} else if (menu.equals("Best")) {
-					System.out.println("All>Category");
-					pagemaker.pagination(pagenum, contentnum, pbiz.count_best_by_cat(cat));
-					plist = pbiz.get_best_by_cat(pagemaker.getStartRow(), pagemaker.getEndRow(), cat);
+				if (cat.equals("none")) {
+					if (menu.equals("All")) {
+						System.out.println("All");
+						pagemaker.pagination(pagenum, contentnum, pbiz.count_all());
+						plist = pbiz.get_all(pagemaker.getStartRow(), pagemaker.getEndRow());
+						totCount = pbiz.count_all();
+					} else if (menu.equals("New")) {
+						System.out.println("New");
+						pagemaker.pagination(pagenum, contentnum, pbiz.count_new());
+						plist = pbiz.get_new(pagemaker.getStartRow(), pagemaker.getEndRow());
+						totCount = pbiz.count_new();
+						navi = "New Arrival";
+					} else if (menu.equals("Best")) {
+						System.out.println("Best");
+						pagemaker.pagination(pagenum, contentnum, pbiz.count_best());
+						plist = pbiz.get_best(pagemaker.getStartRow(), pagemaker.getEndRow());
+						totCount = pbiz.count_best();
+						navi = "★☆인기 상품☆★";
+					}
+				} else {
+					if (menu.equals("All")) {
+						System.out.println("All>Category");
+						pagemaker.pagination(pagenum, contentnum, pbiz.count_by_cat(cat));
+						plist = pbiz.get_by_cat(pagemaker.getStartRow(), pagemaker.getEndRow(), cat);
+						totCount = pbiz.count_by_cat(cat);
+						navi = "전체 상품 > " + cat;
+					} else if (menu.equals("New")) {
+						System.out.println("New>Category");
+						pagemaker.pagination(pagenum, contentnum, pbiz.count_new_by_cat(cat));
+						plist = pbiz.get_new_by_cat(pagemaker.getStartRow(), pagemaker.getEndRow(), cat);
+						totCount = pbiz.count_new_by_cat(cat);
+						navi = "New Arrival > " + cat;
+					} else if (menu.equals("Best")) {
+						System.out.println("Best>Category");
+						pagemaker.pagination(pagenum, contentnum, pbiz.count_best_by_cat(cat));
+						plist = pbiz.get_best_by_cat(pagemaker.getStartRow(), pagemaker.getEndRow(), cat);
+						totCount = pbiz.count_best_by_cat(cat);
+						navi = "★☆인기 상품☆★ > " + cat;
+					}
 				}
 			}
+
 			for (ProductVO p : plist) {
 				System.out.println("plist: " + p.toString());
 			}
+
+			mv.addObject("navi", navi);
+			mv.addObject("totCount", totCount);
 			mv.addObject("menu", menu);
 			mv.addObject("cat", cat);
 			mv.addObject("pagenum", pagenum);
@@ -77,6 +108,7 @@ public class ProductController {
 			mv.addObject("plist", plist);
 			mv.addObject("center", "product/list");
 			System.out.println("setViewName");
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -85,13 +117,9 @@ public class ProductController {
 	}
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	//상품 상세페이지 구현
 	@RequestMapping("/pdetail.sp")
 	public ModelAndView pdetail(ModelAndView mv, HttpServletRequest request) {
-		System.out.println("pdetail");
-
-//		/** 임의로 loginid 만듦 **/
-//		HttpSession session = request.getSession();
-//		session.setAttribute("loginid", "id01");
 
 		String id = request.getParameter("p_id");
 		ProductVO product = null;
@@ -104,14 +132,6 @@ public class ProductController {
 			} else {
 				mv.addObject("pd_stockstatus", "Out of Stock");
 			}
-//			mv.addObject("pd_id", product.getP_id()); // cart로 id 넘겨주기 위함
-//			mv.addObject("pd_name", product.getP_name());
-//			mv.addObject("pd_category", product.getP_category());
-
-			// 할인 가격으로 띄우는 기능 추가해야함
-//			mv.addObject("pd_price", product.getP_price());
-//			mv.addObject("pd_dday", product.getP_delivery_day());
-
 			mv.addObject("pd", product);
 
 			// main에 있는 ${center}에 product/single-product.jsp 담아주기.
@@ -123,10 +143,5 @@ public class ProductController {
 			e.printStackTrace();
 		}
 		return mv;
-	}
-
-	@RequestMapping("login")
-	public void login() {
-
 	}
 }

@@ -14,4 +14,6 @@ public interface BoardMapper {
 	public BoardVO select(String b_id) throws Exception;
 
 	public ArrayList<BoardVO> selectall() throws Exception;
+	
+	public ArrayList<BoardVO> mypageselect(String u_id)throws Exception;
 }

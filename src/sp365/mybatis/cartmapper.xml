@@ -4,21 +4,31 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="sp365.mapper.CartMapper">
 	<insert id="insert" parameterType="cart">
-		INSERT INTO CART VALUES (SEQ_CART.NEXTVAL,#{c_qty},#{c_size}, #{c_price}, SYSDATE,'null',#{p_id},#{u_id})
+		INSERT INTO CART VALUES (SEQ_CART.NEXTVAL,#{c_qty},#{c_size}, #{c_sum}, SYSDATE,'null',#{p_id},#{u_id})
 	</insert>
 
 	<update id="update" parameterType="cart">
 		UPDATE CART SET 
 			c_qty=#{c_qty},
-			c_price=#{c_price}
+			c_sum=#{c_sum}
 		WHERE c_id=#{c_id}
 	</update>
-
+	
+	<update id="updateorderid" parameterType="cart">
+		UPDATE CART SET 
+			o_id=#{o_id}
+		WHERE u_id=#{u_id} AND o_id='null'
+	</update>
+	
 	<delete id="delete" parameterType="String">
 		DELETE FROM CART WHERE c_id=#{c_id}
 	</delete>
 
-	<select id="selectmycart" parameterType="String" resultType="cart">
+	<select id="selectbyorder" parameterType="String" resultType="cart">
+		SELECT * FROM CART WHERE o_id=#{o_id}
+	</select>
+	
+	<select id="selectmine" parameterType="String" resultType="cart">
 		SELECT * FROM CART WHERE u_id=#{u_id} AND o_id='null'
 	</select>
 	

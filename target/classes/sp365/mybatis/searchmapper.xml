@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="sp365.mapper.SearchMapper">
+	<!-- <select id="select_all" resultType="product"> SELECT * FROM (SELECT 
+		a.*, ROWNUM rnum FROM (SELECT * FROM PRODUCT ORDER BY p_id) a WHERE ROWNUM 
+		<![CDATA[ < ]]>= ${endRow}) WHERE rnum >= ${startRow} </select> -->
+
+	<select id="search" resultType="product">
+		SELECT * FROM (SELECT a.*, ROWNUM rnum
+		FROM (SELECT * FROM PRODUCT
+		ORDER BY p_id) a WHERE (P_CATEGORY LIKE
+		'%'||#{search}||'%' OR P_NAME LIKE
+		'%'||#{search}||'%') AND ROWNUM <![CDATA[ < ]]>=
+		${endRow}) WHERE rnum >= ${startRow}
+	</select>
+
+
+	<!-- <select id="search" parameterType="input" resultType="product"> SELECT 
+		* FROM PRODUCT WHERE P_CATEGORY LIKE '%'||#{search}||'%' OR P_NAME LIKE '%'||#{search}||'%' 
+		</select> -->
+	<select id="count_search" parameterType="String" resultType="int">
+		SELECT COUNT(*) FROM
+		PRODUCT WHERE P_CATEGORY LIKE '%'||#{search}||'%'
+		OR P_NAME LIKE
+		'%'||#{search}||'%'
+	</select>
+
+</mapper>
+
+
+
+
+
+

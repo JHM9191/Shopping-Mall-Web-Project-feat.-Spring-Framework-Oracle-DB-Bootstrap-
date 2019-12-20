@@ -25,6 +25,7 @@ public class CartController {
 	@Resource(name = "pbiz")
 	Biz<String, ProductVO> pbiz;
 
+	//상품 카트에 넣기
 	@RequestMapping("/addcart.sp")
 	public String addcart(ModelAndView mv, HttpServletRequest request, HttpServletResponse response) {
 		String result = null;

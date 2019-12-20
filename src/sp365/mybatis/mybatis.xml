@@ -5,20 +5,20 @@ PUBLIC "-//mybatis.org/DTD Config 3.0//EN"
 <configuration>
 	<typeAliases>
 		<typeAlias type="sp365.vo.ProductVO" alias="product" />
+		<typeAlias type="sp365.vo.OrderVO" alias="order" />
 		<typeAlias type="sp365.vo.UserVO" alias="user" />
 		<typeAlias type="sp365.vo.CartVO" alias="cart" />
-		<typeAlias type="sp365.vo.OrderVO" alias="order" />
 		<typeAlias type="sp365.vo.BoardVO" alias="board" />
 		<typeAlias type="sp365.vo.StatVO" alias="stat" />
 		<typeAlias type="sp365.vo.InputVO" alias="input" />
 	</typeAliases>
 
 	<mappers>
-		<!-- mapper resource="sp365/mybatis/boardmapper.xml" / -->
-		<mapper resource="sp365/mybatis/usermapper.xml" />
+		<!-- mapper resource="sp365/mybatis/boardmapper.xml" /-->
+		<mapper resource="sp365/mybatis/usermapper.xml"/>
+		<mapper resource="sp365/mybatis/ordermapper.xml"/>
 		<mapper resource="sp365/mybatis/productmapper.xml" />
 		<mapper resource="sp365/mybatis/cartmapper.xml" />
-		<mapper resource="sp365/mybatis/ordermapper.xml" />
 		<mapper resource="sp365/mybatis/boardmapper.xml" />
 		<mapper resource="sp365/mybatis/statmapper.xml" />
 		<mapper resource="sp365/mybatis/searchmapper.xml" />

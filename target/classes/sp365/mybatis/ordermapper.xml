@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="sp365.mapper.OrderMapper">
+	<insert id="insert" parameterType="order">
+		INSERT INTO ORDERS VALUES (CEIL(DBMS_RANDOM.value(1,10)*100000000)||seq_orders.NEXTVAL, #{o_name},#{o_tel},#{o_email},#{o_address},SYSDATE,#{o_total},#{o_payment},#{u_id})
+	</insert>
+
+	<update id="update" parameterType="order">
+		UPDATE ORDERS SET 
+			o_name=#{o_name}, 
+			o_tel=#{o_tel}, 
+			o_email=#{o_email},
+			o_address=#{o_address},
+			o_regdate=#{o_regdate},
+			o_total=#{o_total},
+			o_payment=#{o_payment},
+			u_id=#{u_id}
+		WHERE o_id=#{o_id}
+	</update>
+
+	<delete id="delete" parameterType="String">
+		DELETE FROM ORDERS WHERE o_id=#{o_id}
+	</delete>
+	
+	<select id="select" parameterType="String" resultType="order">
+		SELECT * FROM ORDERS WHERE o_id=#{o_id}
+	</select>
+	
+	<select id="selectmine" parameterType="String" resultType="order">
+		SELECT * FROM ORDERS WHERE u_id=#{u_id} ORDER BY O_REGDATE DESC
+	</select>
+	
+	<select id="selectall" resultType="order">
+		SELECT * FROM ORDERS ORDER BY u_id
+	</select>
+	
+
+	
+</mapper>

@@ -128,7 +128,7 @@
 				<div class="col-lg-11">
 					<nav class="navbar navbar-expand-lg navbar-light">
 						<a class="navbar-brand" href="main_mgr.sp"> <img
-							src="img/logo.png" alt="logo">
+							src="img/logo02.JPG" alt="logo"  width=130px;>
 						</a>
 						<button class="navbar-toggler" type="button"
 							data-toggle="collapse" data-target="#navbarSupportedContent"

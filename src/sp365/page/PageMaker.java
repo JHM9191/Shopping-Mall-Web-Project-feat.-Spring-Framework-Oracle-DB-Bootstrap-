@@ -6,7 +6,7 @@ public class PageMaker {
 	private int pagenum; // 현재 페이지 번호
 	private int startRow;
 	private int endRow;
-	private int contentnum = 20; // 한 페이지에 몇개 표시할지
+	private int contentnum = 9; // 한 페이지에 몇개 표시할지
 	private int startPage = 1; // 현재 페이지 블록의 시작 페이지
 	private int endPage = 10; // 현재 페이지 블록의 마지막 페이지
 	private boolean prev = false; // 이전 페이지로 가는 화살표
@@ -16,8 +16,13 @@ public class PageMaker {
 
 	public void prevnext(int pagenum) {
 		if (pagenum > 0 && pagenum < 11) {
-			setPrev(false);
-			setNext(true);
+			if (getEndPage() < 11) {	//다음으로 넘어갈 필요 없는 경우
+				setPrev(false);
+				setNext(false);
+			} else {
+				setPrev(false);
+				setNext(true);
+			}
 		} else if (getLastblock() == getCurrentblock()) {
 			setPrev(true);
 			setNext(false);
@@ -101,7 +106,9 @@ public class PageMaker {
 	public void setEndPage(int getlastblock, int getcurrentblock) {
 		if (getlastblock == getcurrentblock) {
 			this.endPage = calcpage(getTotalcount(), getContentnum());
-		} else {
+		}else if(getTotalcount() == 0){
+			this.endPage = 0;
+		}else{
 			this.endPage = getStartPage() + 9;
 		}
 		System.out.println("setEndPage()" + this.endPage);
@@ -148,7 +155,7 @@ public class PageMaker {
 		}
 		System.out.println("setLastblock" + this.lastblock);
 	}
-	
+
 	/////////////////
 	public void pagination(int pagenum, int contentnum, int totalCount) throws Exception {
 		System.out.println("pagination()");
@@ -163,10 +170,7 @@ public class PageMaker {
 		setStartRow(pagenum);
 		setEndRow(pagenum);
 	}
-	
-	
-	
-	
+
 	/////////////////
 
 }

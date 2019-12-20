@@ -6,7 +6,9 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.transaction.annotation.Transactional;
 
+import sp365.vo.BoardVO;
 import sp365.vo.CartVO;
+import sp365.vo.InputVO;
 import sp365.vo.ProductVO;
 import sp365.vo.StatVO;
 
@@ -104,119 +106,110 @@ public interface Biz<K, V> {
 		return null;
 	};
 
-////Cart
+//// Cart
 	public default ArrayList<V> getmycart(K k) throws Exception {
 		return null;
 	}
-
+	
 	public default ArrayList<V> getbyorder(K k) throws Exception {
 		return null;
 	}
-
+	
 	default public int setorderid(V v) throws Exception {
 		return 0;
 	}
-
+	
 ////Order
 	default public ArrayList<V> getmyorder(K k) throws Exception {
 		return null;
 	}
+	
+	// All products
+		default public ArrayList<V> getyearly() {
+			return null;
+		};
 
-////Stat
-	default public ArrayList<V> getbypayment() {
-		return null;
-	};
+		default public ArrayList<V> getmonthly() {
+			return null;
+		};
 
-	default public ArrayList<V> getpayment() {
-		return null;
-	};
+		default public ArrayList<V> getdaily() {
+			return null;
+		}
 
-////Search
-	default ArrayList<V> getsearch(int startRow, int endRow, String search) throws Exception {
+		default public ArrayList<V> getyearlyfor(int period) {
+			return null;
+		}
+
+		default public ArrayList<V> getmonthlyfor(int period) {
+			return null;
+		}
+
+		default public ArrayList<V> getdailyfor(int period) {
+			return null;
+		};
+
+		// New Arrivals
+		default public ArrayList<V> getnewyearly() {
+			return null;
+		};
+
+		default public ArrayList<V> getnewmonthly() {
+			return null;
+		};
+
+		default public ArrayList<V> getnewdaily() {
+			return null;
+		}
+
+		default public ArrayList<V> getnewyearlyfor(int period) {
+			return null;
+		}
+
+		default public ArrayList<V> getnewmonthlyfor(int period) {
+			return null;
+		}
+
+		default public ArrayList<V> getnewdailyfor(int period) {
+			return null;
+		};
+
+		// Best
+		default public ArrayList<V> getbestyearly() {
+			return null;
+		};
+
+		default public ArrayList<V> getbestmonthly() {
+			return null;
+		};
+
+		default public ArrayList<V> getbestdaily() {
+			return null;
+		}
+
+		default public ArrayList<V> getbestyearlyfor(int period) {
+			return null;
+		}
+
+		default public ArrayList<V> getbestmonthlyfor(int period) {
+			return null;
+		}
+
+		default public ArrayList<V> getbestdailyfor(int period) {
+			return null;
+		};
+
+//// Search
+	default ArrayList<ProductVO> getsearch(int startRow, int endRow, String search) throws Exception{
 		return null;
 	}
-
-	default public int count_search(String search) throws Exception {
+	
+	default public int count_search(String search) throws Exception{
 		return 0;
 	}
-
-////UserBoard
-	default public ArrayList<V> mypageget(String u_id) throws Exception {
+	
+//// UserBoard
+	default public ArrayList<BoardVO> mypageget(String u_id) throws Exception {
 		return null;
 	}
-
-	// All products
-	default public ArrayList<V> getyearly() {
-		return null;
-	};
-
-	default public ArrayList<V> getmonthly() {
-		return null;
-	};
-
-	default public ArrayList<V> getdaily() {
-		return null;
-	}
-
-	default public ArrayList<V> getyearlyfor(int period) {
-		return null;
-	}
-
-	default public ArrayList<V> getmonthlyfor(int period) {
-		return null;
-	}
-
-	default public ArrayList<V> getdailyfor(int period) {
-		return null;
-	};
-
-	// New Arrivals
-	default public ArrayList<V> getnewyearly() {
-		return null;
-	};
-
-	default public ArrayList<V> getnewmonthly() {
-		return null;
-	};
-
-	default public ArrayList<V> getnewdaily() {
-		return null;
-	}
-
-	default public ArrayList<V> getnewyearlyfor(int period) {
-		return null;
-	}
-
-	default public ArrayList<V> getnewmonthlyfor(int period) {
-		return null;
-	}
-
-	default public ArrayList<V> getnewdailyfor(int period) {
-		return null;
-	};
-
-	// Best
-	default public ArrayList<V> getbestyearly() {
-		return null;
-	};
-
-	default public ArrayList<V> getbestmonthly() {
-		return null;
-	};
-
-	default public ArrayList<V> getbestdaily() {
-		return null;
-	}
-
-	default public ArrayList<V> getbestyearlyfor(int period) {
-		return null;
-	}
-
-	default public ArrayList<V> getbestmonthlyfor(int period) {
-		return null;
-	}
-
-	default public ArrayList<V> getbestdailyfor(int period) {
-		return null;
-	};
 }

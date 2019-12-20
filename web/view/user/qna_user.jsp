@@ -240,7 +240,6 @@
 		var sendForm = $('form[name="b_send"]');
 		var text = $('#sendbtn').text();
 		if (text == '보내기') {
-			alert("inside: " + text);
 			sendForm.action = "qna_addimpl_user.sp";
 			sendForm.submit();
 		} else if (text == '수정하기') {

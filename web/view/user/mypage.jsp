@@ -22,7 +22,7 @@
 							<div class="l_w_title">
 								<h3>My Page</h3>
 							</div>
-							<div class="widgets_inner">
+							<div class="widgets_inner" style="padding:10px 10px;">
 								<ul class="list">
 									<li><a class="category" onclick="catClicked('top');"
 										href="#">회원 정보</a></li>

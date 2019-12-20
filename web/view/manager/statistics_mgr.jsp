@@ -103,10 +103,10 @@
 								type : 'column'
 							},
 							title : {
-								text : 'World\'s largest cities per 2017'
+								text : ''
 							},
 							subtitle : {
-								text : 'Source: <a href="http://en.wikipedia.org/wiki/List_of_cities_proper_by_population">Wikipedia</a>'
+								text : ''
 							},
 							xAxis : {
 								type : 'category',
@@ -121,14 +121,14 @@
 							yAxis : {
 								min : 0,
 								title : {
-									text : 'Population (millions)'
+									text : '총매출(원)'
 								}
 							},
 							legend : {
 								enabled : false
 							},
 							tooltip : {
-								pointFormat : 'Population in 2017: <b>{point.y:.1f} millions</b>'
+								pointFormat : ''
 							},
 							series : data
 						});
@@ -139,7 +139,7 @@
 			url : 'statpayment.sp?productType=' + pt + '&period=' + period
 					+ '&cond=' + cond,
 			success : function(dbdata) {
-				alert(dbdata);
+				//alert(dbdata);
 				var data = [ {
 					name : 'Population',
 					data : dbdata,

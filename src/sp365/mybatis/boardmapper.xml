@@ -22,4 +22,9 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 	<select id="selectall" resultType="board">
 		SELECT * FROM BOARD ORDER BY b_regdate DESC, b_id DESC
 	</select>
+	
+	<select id="mypageselect" parameterType="String" resultType="board">
+		SELECT * FROM BOARD WHERE u_id=#{u_id}
+	</select>
+	
 </mapper>

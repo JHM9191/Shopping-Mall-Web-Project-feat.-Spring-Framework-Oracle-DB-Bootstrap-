@@ -58,7 +58,13 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 	
 	<!-- All -->
 	<select id="select_all" resultType="product">
-		SELECT * FROM (SELECT a.*, ROWNUM rnum FROM (SELECT * FROM PRODUCT ORDER BY p_id) a WHERE ROWNUM <![CDATA[ < ]]>= ${endRow}) WHERE rnum >= ${startRow}
+		SELECT * FROM 
+		(
+			SELECT a.*, ROWNUM rnum FROM 
+			(
+				SELECT * FROM PRODUCT ORDER BY p_id
+			) a WHERE ROWNUM <![CDATA[ < ]]>= ${endRow}
+		) WHERE rnum >= ${startRow}
 	</select>
 
 	
